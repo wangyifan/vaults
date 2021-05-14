@@ -29,7 +29,8 @@ contract VaultX is Pausable, AccessControlEnumerable {
         _;
     }
 
-    address public wrappedToken;
+    // variables
+    address public wrappedNativeToken;
     mapping(address => address) public tokenMapping;
     mapping(address => address) public tokenMappingReversed;
     mapping(address => mapping(address => bool)) public tokenMappingPaused;
@@ -55,8 +56,8 @@ contract VaultX is Pausable, AccessControlEnumerable {
         uint256 tokenBalanceAfter
     );
 
-    constructor(address _wrappedToken) {
-        wrappedToken = _wrappedToken;
+    constructor(address _wrappedNativeToken) {
+        wrappedNativeToken = _wrappedNativeToken;
 
         // setup roles
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
@@ -128,21 +129,21 @@ contract VaultX is Pausable, AccessControlEnumerable {
 
     // deposit native crypto, e.g. ETH, MOAC
     function depositNative() payable public whenNotPaused returns (bool){
-        address sourceToken = wrappedToken;
-        address mappedToken = tokenMapping[wrappedToken];
+        address sourceToken = wrappedNativeToken;
+        address mappedToken = tokenMapping[wrappedNativeToken];
         require(mappedToken != address(0), "token mapping not found");
         require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
-        IWToken(wrappedToken).deposit{value: msg.value}();
-        assert(IWToken(wrappedToken).transfer(address(this), msg.value));
+        IWToken(wrappedNativeToken).deposit{value: msg.value}();
+        assert(IWToken(wrappedNativeToken).transfer(address(this), msg.value));
         tokenMappingDepositNonce[sourceToken][mappedToken] += 1;
         emit TokenDeposit(
-            wrappedToken,
+            wrappedNativeToken,
             mappedToken,
             _msgSender(),
             msg.value,
             tokenMappingDepositNonce[sourceToken][mappedToken],
-            IERC20(wrappedToken).balanceOf(address(this))
+            IERC20(wrappedNativeToken).balanceOf(address(this))
         );
         return true;
     }
