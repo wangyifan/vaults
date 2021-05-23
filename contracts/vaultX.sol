@@ -199,8 +199,9 @@ contract VaultX is Pausable, AccessControlEnumerable {
         while(tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark]) {
             // release storage space
             delete tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark];
-            tokenMappingWatermark[sourceToken][mappedToken] += 1;
+            withdrawWatermark += 1;
         }
+        tokenMappingWatermark[sourceToken][mappedToken] = withdrawWatermark;
     }
 
     function SkipWithdrawdone(

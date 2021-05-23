@@ -71,12 +71,23 @@ module.exports = {
     // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
-    // }
+      // }
+    vaultxdev: {
+        host: "172.21.0.11",   // Localhost (default: none)
+        port: 8545,            // Standard Ethereum port (default: none)
+        network_id: 95125      // Any network (default: none)
+    },
+    vaultydev: {
+        host: "172.22.0.11",   // Localhost (default: none)
+        port: 8545,            // Standard Ethereum port (default: none)
+        network_id: 95125      // Any network (default: none)
+    }
   },
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
-    // timeout: 100000
+      timeout: 30000,
+      slow: 3000
   },
 
   // Configure your compilers
@@ -105,5 +116,8 @@ module.exports = {
   },
 
   // Plugins
-  plugins: ["truffle-contract-size"]
+  plugins: [
+      "truffle-contract-size",
+      "@chainsafe/truffle-plugin-abigen"
+  ]
 };

@@ -21,6 +21,9 @@ contract VaultYERC20 is Pausable, Ownable, ReentrancyGuard, ERC20Burnable {
         require(!paused(), "ERC20Pausable: token transfer while paused");
     }
 
-    function initialize() public nonReentrant {
+    function chargeFee(address to, uint256 amount) public onlyOwner {
+    }
+
+    function initialize() public {
     }
 }

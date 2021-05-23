@@ -1,7 +1,7 @@
 {
   "name": "xdefi",
   "version": "1.0.0",
-  "description": "For moac swap chain",
+  "description": "For moac xchain",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -16,10 +16,11 @@
     "@openzeppelin/test-helpers": "0.5.11",
     "mocha": "8.3.2",
     "truffle": "5.3.4",
-    "truffle-contract-size": "^2.0.1"
+    "truffle-contract-size": "2.0.1",
+    "@chainsafe/truffle-plugin-abigen": "0.0.2"
   },
   "scripts": {
-    "test": "npx truffle test"
+      "test": "npx truffle test"
   },
   "repository": {
     "type": "git",
