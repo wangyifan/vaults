@@ -177,6 +177,19 @@ contract VaultY is Pausable, AccessControlEnumerable {
       return IPriceOracle(priceOracle).convertNativeToken(fiatCurrency, fiatFeeAmount);
     }
 
+    // function batchMint
+    function batchMint(bytes calldata input) public onlyValidator whenNotPaused {
+        require(input.length%160==0);
+        for(uint index = 0; index < input.length; index+=160){
+            address sourceToken = abi.decode(input[index:32], (address));
+            address mappedToken = abi.decode(input[32:64], (address));
+            address to = abi.decode(input[64:96], (address));
+            uint256 amount = abi.decode(input[96:128], (uint256));
+            uint256 mintNonce = abi.decode(input[128:160], (uint256));
+            mint(sourceToken, mappedToken, to, amount, mintNonce);
+        }
+    }
+
     // only validator can mint
     function mint(
         address sourceToken,

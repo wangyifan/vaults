@@ -14,6 +14,13 @@ contract VaultX is Pausable, AccessControlEnumerable {
     using SafeMath for uint256;
     using Address for address;
 
+    struct tokenPair {
+      address sourceToken;
+      uint256 mappedTokenChainid;
+      address mappedToken;
+      string symbol;
+    }
+
     // role definition
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
@@ -31,16 +38,21 @@ contract VaultX is Pausable, AccessControlEnumerable {
 
     // variables
     address public wrappedNativeToken;
+    mapping(address => uint256) public mappedTokenChainid;
+    mapping(address => string) public mappedTokenSymbol;
     mapping(address => address) public tokenMapping;
     mapping(address => address) public tokenMappingReversed;
     mapping(address => mapping(address => bool)) public tokenMappingPaused;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) public tokenMappingDepositNonce;
     mapping(address => mapping(address => mapping(uint256 => bool))) public tokenMappingWithdrawdone;
+    tokenPair[] public tokenPairs;
 
     // events
     event TokenDeposit(
+        uint256 sourceChainid,
         address indexed sourceToken,
+        uint256 mappedChainid,
         address indexed mappedToken,
         address from,
         uint256 amount,
@@ -48,7 +60,9 @@ contract VaultX is Pausable, AccessControlEnumerable {
         uint256 tokenBalanceAfter
     );
     event TokenWithdraw(
+        uint256 sourceChainid,
         address indexed sourceToken,
+        uint256 mappedChainid,
         address indexed mappedToken,
         address to,
         uint256 amount,
@@ -93,17 +107,38 @@ contract VaultX is Pausable, AccessControlEnumerable {
 
     function setupTokenMapping(
         address sourceToken,
-        address mappedToken
+        uint256 mappedChainid,
+        address mappedToken,
+        string memory mappedTokenSymbol_
     ) public onlyAdmin returns (bool) {
         require(sourceToken.isContract(), "source token is not a contract");
         require(mappedToken != address(0), "mapped token is null address");
-        require(tokenMapping[sourceToken] == address(0), "token mapping exists already");
 
         tokenMapping[sourceToken] = mappedToken;
         tokenMappingReversed[mappedToken] = sourceToken;
+        mappedTokenChainid[mappedToken] = mappedChainid;
+        mappedTokenSymbol[mappedToken] = mappedTokenSymbol_;
+
+        addTokenMappingPair(
+            sourceToken,
+            mappedChainid,
+            mappedToken,
+            mappedTokenSymbol_
+        );
+
         // pause the token at first
         pauseTokenMapping(sourceToken, mappedToken);
         return true;
+    }
+
+    function addTokenMappingPair(
+        address sourceToken,
+        uint256 mappedChainid,
+        address mappedToken,
+        string memory mappedTokenSymbol_
+    ) private {
+        tokenPair memory pair = tokenPair(sourceToken, mappedChainid, mappedToken, mappedTokenSymbol_);
+        tokenPairs.push(pair);
     }
 
     function addValidator(address validator) public onlyAdmin returns (bool) {
@@ -130,7 +165,7 @@ contract VaultX is Pausable, AccessControlEnumerable {
     // deposit native crypto, e.g. ETH, MOAC
     function depositNative() payable public whenNotPaused returns (bool){
         address sourceToken = wrappedNativeToken;
-        address mappedToken = tokenMapping[wrappedNativeToken];
+        address mappedToken = tokenMapping[sourceToken];
         require(mappedToken != address(0), "token mapping not found");
         require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
@@ -138,7 +173,9 @@ contract VaultX is Pausable, AccessControlEnumerable {
         assert(IWToken(wrappedNativeToken).transfer(address(this), msg.value));
         tokenMappingDepositNonce[sourceToken][mappedToken] += 1;
         emit TokenDeposit(
+            block.chainid,
             wrappedNativeToken,
+            mappedTokenChainid[mappedToken],
             mappedToken,
             _msgSender(),
             msg.value,
@@ -158,7 +195,9 @@ contract VaultX is Pausable, AccessControlEnumerable {
         IERC20(sourceToken).transferFrom(_msgSender(), address(this), amount);
         tokenMappingDepositNonce[sourceToken][mappedToken] += 1;
         emit TokenDeposit(
+            block.chainid,
             sourceToken,
+            mappedTokenChainid[mappedToken],
             mappedToken,
             _msgSender(),
             amount,
@@ -188,7 +227,9 @@ contract VaultX is Pausable, AccessControlEnumerable {
         tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawNonce] = true;
         IERC20(sourceToken).transfer(to, amount);
         emit TokenWithdraw(
+            block.chainid,
             sourceToken,
+            mappedTokenChainid[mappedToken],
             mappedToken,
             to,
             amount,
@@ -210,5 +251,15 @@ contract VaultX is Pausable, AccessControlEnumerable {
         uint256 withdrawNonce
     ) public onlyAdmin {
         tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawNonce] = true;
+    }
+
+    function clearStorage(address sourceToken, address mappedToken) public onlyAdmin {
+        uint256 withdrawWatermark = tokenMappingWatermark[sourceToken][mappedToken];
+        while(tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark]) {
+            // release storage space
+            delete tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark];
+            withdrawWatermark += 1;
+        }
+        tokenMappingWatermark[sourceToken][mappedToken] = withdrawWatermark;
     }
 }

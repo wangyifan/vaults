@@ -78,9 +78,9 @@ module.exports = {
         network_id: 95125      // Any network (default: none)
     },
     vaultydev: {
-        host: "172.22.0.11",   // Localhost (default: none)
+        host: "172.21.0.21",   // Localhost (default: none)
         port: 8545,            // Standard Ethereum port (default: none)
-        network_id: 95125      // Any network (default: none)
+        network_id: 95126      // Any network (default: none)
     }
   },
 
@@ -97,7 +97,7 @@ module.exports = {
           // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
           settings: {          // See the solidity docs for advice about optimization and evmVersion
               optimizer: {
-                  enabled: false,
+                  enabled: true,
                   runs: 1000
               }
               //  evmVersion: "byzantium"

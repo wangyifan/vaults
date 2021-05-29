@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-contract Vss{
+contract VssBase {
     struct RevealedShare {
         bytes PubShare;
         bytes PubSig;
@@ -68,7 +68,7 @@ contract Vss{
 
     enum VssMembership {noreg, active, inactive} // noreg: node never seen before
 
-    function VssBase(int threshold) public {
+    constructor(int threshold) {
         require(threshold >= 2);
         vssThreshold = threshold;
         owner = msg.sender;
