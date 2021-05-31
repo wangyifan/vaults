@@ -9,7 +9,10 @@ const { BN, ether, expectEvent, expectRevert } = require('@openzeppelin/test-hel
 const VaultX = artifacts.require('VaultX'); // vault contract
 const WToken = artifacts.require('WTOKEN'); // wrapped native token as erc20
 const TestCoin = artifacts.require('TestCoin'); // any other erc20 token
-const vaultYChainid = 111;
+const mappedChainid = 111;
+const sourceTokenSymbol = "abc";
+const mappedTokenSymbol = "xyz";
+
 
 // Start test block
 contract('VaultX', function ([ owner, user ]) {
@@ -21,18 +24,20 @@ contract('VaultX', function ([ owner, user ]) {
 
         // #1 token mapping
         this.vaultx.setupTokenMapping(
+            mappedChainid,
             this.wtoken.address,
-            vaultYChainid,
             this.mappedToken.address,
-            "xyz"
+            sourceTokenSymbol,
+            mappedTokenSymbol
         );
         this.vaultx.unpauseTokenMapping(this.wtoken.address, this.mappedToken.address);
         // #2 token mapping
         this.vaultx.setupTokenMapping(
+            mappedChainid,
             this.sourceToken.address,
-            vaultYChainid,
             this.mappedToken.address,
-            "xyz"
+            sourceTokenSymbol,
+            mappedTokenSymbol
         );
         this.vaultx.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
     });

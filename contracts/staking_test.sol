@@ -16,14 +16,34 @@ contract StakingTest is Staking {
     }
 
     function updateEpochSize(uint256 epochSize_) external {
-        return _updateEpochSize(epochSize_);
+        _updateEpochSize(epochSize_);
+    }
+
+    function getEpochSize() external view returns(uint256) {
+        return _currentEpochSize;
     }
 
     function getStakes(address from) external view returns(uint256[] memory){
         return _getStakes(from);
     }
 
-    function epochStake(uint256 epoch) internal returns(uint256) {
+    function epochStake(uint256 epoch) external returns(uint256) {
         return _epochStake(epoch);
+    }
+
+    function updateOnReadEpochSize() external {
+        _updateOnReadEpochSize();
+    }
+
+    function getNextEpochPivot() external view returns(uint256) {
+        return _nextEpochPivot;
+    }
+
+    function getNextEpochSize() external view returns(uint256) {
+        return _nextEpochSize;
+    }
+
+    function getBlockNumber() external view returns(uint256) {
+        return block.number;
     }
 }

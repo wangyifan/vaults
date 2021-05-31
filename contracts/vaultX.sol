@@ -2,38 +2,24 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./IWToken.sol";
+import "./staking.sol";
+import "./roleAccess.sol";
+import "./tokenPausable.sol";
 
 // Deploy VaultX in the origin blockchain and pair it with
 // the VaultY in the mapped blockchain
-contract VaultX is Pausable, AccessControlEnumerable {
+contract VaultX is RoleAccess, TokenPausable, Staking {
     using SafeMath for uint256;
     using Address for address;
 
     struct tokenPair {
-      address sourceToken;
-      address mappedToken;
-      uint256 mappedTokenChainid;
-      string symbol;
-    }
-
-    // role definition
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 public constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
-
-    // modifier
-    modifier onlyAdmin {
-        require(hasRole(ADMIN_ROLE, _msgSender()), "Caller is not a admin");
-        _;
-    }
-
-    modifier onlyValidator {
-        require(hasRole(VALIDATOR_ROLE, _msgSender()), "Caller is not a validator");
-        _;
+        address sourceToken;
+        address mappedToken;
+        uint256 mappedTokenChainid;
+        string symbol;
     }
 
     // variables
@@ -42,7 +28,6 @@ contract VaultX is Pausable, AccessControlEnumerable {
     mapping(address => string) public mappedTokenSymbol;
     mapping(address => address) public tokenMapping;
     mapping(address => address) public tokenMappingReversed;
-    mapping(address => mapping(address => bool)) public tokenMappingPaused;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) public tokenMappingDepositNonce;
     mapping(address => mapping(address => mapping(uint256 => bool))) public tokenMappingWithdrawdone;
@@ -70,7 +55,7 @@ contract VaultX is Pausable, AccessControlEnumerable {
         uint256 tokenBalanceAfter
     );
 
-    constructor(address _wrappedNativeToken) {
+    constructor(address _wrappedNativeToken) Staking(10) {
         wrappedNativeToken = _wrappedNativeToken;
 
         // setup roles
@@ -83,32 +68,11 @@ contract VaultX is Pausable, AccessControlEnumerable {
     fallback() external {revert();}
     receive() external payable {revert();}
 
-    function pauseAll() public onlyAdmin {
-        _pause();
-    }
-
-    function unpauseAll() public onlyAdmin {
-        _unpause();
-    }
-
-    function pauseTokenMapping(
-        address sourceToken,
-        address mappedToken
-    ) public onlyAdmin {
-        tokenMappingPaused[sourceToken][mappedToken] = true;
-    }
-
-    function unpauseTokenMapping(
-        address sourceToken,
-        address mappedToken
-    ) public onlyAdmin {
-        tokenMappingPaused[sourceToken][mappedToken] = false;
-    }
-
     function setupTokenMapping(
-        address sourceToken,
         uint256 mappedChainid,
+        address sourceToken,
         address mappedToken,
+        string memory sourceTokenSymbol_,
         string memory mappedTokenSymbol_
     ) public onlyAdmin returns (bool) {
         require(sourceToken.isContract(), "source token is not a contract");
@@ -119,47 +83,12 @@ contract VaultX is Pausable, AccessControlEnumerable {
         mappedTokenChainid[mappedToken] = mappedChainid;
         mappedTokenSymbol[mappedToken] = mappedTokenSymbol_;
 
-        addTokenMappingPair(
-            sourceToken,
-            mappedChainid,
-            mappedToken,
-            mappedTokenSymbol_
-        );
+        tokenPair memory pair = tokenPair(sourceToken, mappedToken, mappedChainid, mappedTokenSymbol_);
+        tokenPairs.push(pair);
 
         // pause the token at first
         pauseTokenMapping(sourceToken, mappedToken);
         return true;
-    }
-
-    function addTokenMappingPair(
-        address sourceToken,
-        uint256 mappedChainid,
-        address mappedToken,
-        string memory mappedTokenSymbol_
-    ) private {
-        tokenPair memory pair = tokenPair(sourceToken, mappedToken, mappedChainid, mappedTokenSymbol_);
-        tokenPairs.push(pair);
-    }
-
-    function addValidator(address validator) public onlyAdmin returns (bool) {
-        grantRole(VALIDATOR_ROLE, validator);
-        return true;
-    }
-
-    function removeValidator(address validator) public onlyAdmin returns (bool) {
-        if (hasRole(VALIDATOR_ROLE, validator)) {
-            revokeRole(VALIDATOR_ROLE, validator);
-        }
-        return true;
-    }
-
-    function getValidators() public view returns (address[] memory) {
-        uint256 count = getRoleMemberCount(VALIDATOR_ROLE);
-        address[]  memory validators_ = new address[](count);
-        for (uint index = 0; index < count; index++) {
-            validators_[index] = getRoleMember(VALIDATOR_ROLE, index);
-        }
-        return validators_;
     }
 
     // deposit native crypto, e.g. ETH, MOAC

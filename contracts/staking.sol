@@ -41,27 +41,25 @@ contract Staking {
 
     function _updateEpochSize(uint256 epochSize_) internal {
         _nextEpochSize = epochSize_;
-        uint256 epochSize = _getEpochSize();
-        _nextEpochPivot = block.number / epochSize * epochSize + epochSize;
+        _nextEpochPivot = block.number / _currentEpochSize * _currentEpochSize + _currentEpochSize;
     }
 
-    function _getEpochSize() internal returns(uint256) {
-      if (_nextEpochPivot != 0 && block.number >= _nextEpochPivot ) {
-          _currentEpochSize = _nextEpochSize;
-          _nextEpochSize = 0;
-          _nextEpochPivot = 0;
-      }
-
-      return _currentEpochSize;
+    function _updateOnReadEpochSize() internal {
+      // if next epoch pivot is set and current block number has passed it
+      //if (_nextEpochPivot != 0 && block.number >= _nextEpochPivot ) {
+      _currentEpochSize = _nextEpochSize;
+      _nextEpochSize = 0;
+      _nextEpochPivot = 0;
+      //}
     }
 
     function _addStaking(address from, uint256 amount) internal returns(uint256){
-        uint256 epoch = block.number / _getEpochSize();
+        _updateOnReadEpochSize();
+        uint256 epoch = block.number / _currentEpochSize;
         Stake memory stake = Stake(amount, StakeStatus.ADDED);
         _stakes[_stakeId] = stake;
         _stakers[from].push(_stakeId);
         _stakeId += 1;
-
         // time delay to next epoch
         _stakeAdded[epoch+1] += stake.amount;
 
@@ -72,9 +70,10 @@ contract Staking {
     }
 
     function _removeStaking(address from, uint256 stakeId_) internal returns(bool){
-        uint256 epoch = block.number / _getEpochSize();
-        // time delay to next epoch
+        _updateOnReadEpochSize();
+        uint256 epoch = block.number / _currentEpochSize;
         Stake memory stake = _stakes[stakeId_];
+        // time delay to next epoch
         require(stake.amount != 0, "stake can not be found");
         _stakeRemoved[epoch+1] += stake.amount;
         stake.status = StakeStatus.REMOVED;
