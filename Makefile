@@ -3,6 +3,9 @@
 test:
 	npx truffle test
 
+ganache:
+	npx ganache-cli
+
 compile:
 	npx truffle compile
 

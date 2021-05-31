@@ -45,11 +45,10 @@ contract('VaultX', function ([ owner, user ]) {
         this.vaultx.unpauseAll({from: owner});
         expect(await this.vaultx.paused()).to.equal(false);
 
-        /*
         const result = await expectRevert(
             this.vaultx.pauseAll({from: user}),
             "Caller is not a admin"
-        );*/
+        );
         expect(await this.vaultx.paused()).to.equal(false);
     });
 
@@ -97,12 +96,11 @@ contract('VaultX', function ([ owner, user ]) {
         this.vaultx.pauseAll({from: owner});
         expect(await this.vaultx.paused()).to.equal(true);
 
-        /*
         // deposit reverts if paused
         const result = await expectRevert(
             this.vaultx.depositNative({from: user, value: etherValue}),
             "Pausable: paused."
-        );*/
+        );
 
         // balance should not change
         balance = await this.wtoken.balanceOf(this.vaultx.address);
@@ -196,7 +194,6 @@ contract('VaultX', function ([ owner, user ]) {
         this.vaultx.pauseAll({from: owner});
         expect(await this.vaultx.paused()).to.equal(true);
 
-        /*
         // deposit reverts if paused
         const result = await expectRevert(
             this.vaultx.depositToken(
@@ -205,7 +202,7 @@ contract('VaultX', function ([ owner, user ]) {
                 {from: user}
             ),
             "Pausable: paused."
-        );*/
+        );
 
         // balance should not change
         balance = await this.sourceToken.balanceOf(this.vaultx.address);

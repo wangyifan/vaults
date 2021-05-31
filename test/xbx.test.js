@@ -40,7 +40,7 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(addresses.includes(xOwner)).to.equal(true);
         expect(addresses.includes(this.minter.address)).to.equal(true);
 
-        /*
+
         // minter and user can not grant
         result = await expectRevert(
             this.xtoken.grantMinter(this.minter.address, {from: this.minter.address}),
@@ -63,7 +63,7 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         result = await expectRevert(
             this.xtoken.revokeMinter(this.minter.address, {from: user}),
             "Caller is not a admin"
-        );*/
+        );
 
         // revoke minter
         result = await this.xtoken.revokeMinter(this.minter.address, {from: xOwner});
@@ -83,7 +83,6 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         balance = await this.xtoken.balanceOf(user);
         expect(balance.toString()).to.equal("2000000");
 
-        /*
         // user can not set cap
         result = await expectRevert(
             this.xtoken.setCap(2000000, {from: user}),
@@ -95,7 +94,7 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
             this.xtoken.mint(user, 2000000, {from: xOwner}),
             "ERC20 Capped: cap exceeded"
         );
-        */
+
         balance = await this.xtoken.balanceOf(user);
         expect(balance.toString()).to.equal("2000000");
 
@@ -111,7 +110,6 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         totalsupply = await this.xtoken.totalSupply();
         expect(totalsupply.toString()).to.equal("3000000");
 
-        /*
         // set cap to 0 will fail
         result = await expectRevert(
             this.xtoken.setCap(0, {from: xOwner}),
@@ -122,16 +120,15 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         result = await expectRevert(
             this.xtoken.setCap(2999999, {from: xOwner}),
             "ERC20: new cap should be larger than total supply"
-        );*/
+        );
     });
 
     it('minter can mint after role grant', async function () {
         // should revert without mint role granted
-        /*
         result = await expectRevert(
             this.minter.mint(user, 1000000, {from: minterOwner}),
             "Caller is not a minter"
-        );*/
+        );
 
         // grant minter
         result = await this.xtoken.grantMinter(this.minter.address, {from: xOwner});
@@ -157,11 +154,10 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(addresses.includes(this.minter.address)).to.equal(false);
 
         // should revert without mint role granted
-        /*
         result = await expectRevert(
             this.minter.mint(user, 1000000, {from: minterOwner}),
             "Caller is not a minter"
-        );*/
+        );
 
         // check total supply and balance
         balance = await this.xtoken.balanceOf(user);
@@ -189,17 +185,15 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         balance = await this.xtoken.balanceOf(user2);
         expect(balance.toString()).to.equal("0");
 
-        /*
         // non-admin can not pause
         result = await expectRevert(
             this.xtoken.pause({from: user}),
             "Caller is not a admin"
-        );*/
+        );
 
         // admin can pause
         result = await this.xtoken.pause({from: xOwner});
 
-        /*
         // mint should revert
         result = await expectRevert(
             this.xtoken.mint(user, 100000, {from: xOwner}),
@@ -210,7 +204,7 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         result = await expectRevert(
             this.xtoken.unpause({from: user}),
             "Caller is not a admin"
-        );*/
+        );
 
         // admin can unpause
         result = await this.xtoken.unpause({from: xOwner});
@@ -234,12 +228,11 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         totalsupply = await this.xtoken.totalSupply();
         expect(totalsupply.toString()).to.equal("100000");
 
-        /*
         // user2 has no balance, should revert
         result = await expectRevert(
             this.xtoken.transfer(user, 10000, {from: user2}),
             "ERC20: transfer amount exceeds balance"
-        );*/
+        );
 
         // transfer 10000 from user to user2
         result = await this.xtoken.transfer(user2, 10000, {from: user});
@@ -248,12 +241,11 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         balance = await this.xtoken.balanceOf(user2);
         expect(balance.toString()).to.equal("10000");
 
-        /*
         // revert before approve
         result = await expectRevert(
             this.xtoken.transferFrom(user, user2, 10000, {from: user2}),
             "ERC20: transfer amount exceeds allowance"
-        );*/
+        );
 
         // approve 10000 from user to user2
         result = await this.xtoken.approve(user2, 10000, {from: user});
@@ -272,23 +264,21 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         // pause
         result = await this.xtoken.pause({from: xOwner});
 
-        /*
         // transfer fail after pause
         result = await expectRevert(
             this.xtoken.transfer(user2, 10000, {from: user}),
             "ERC20 Pausable: token transfer while paused"
-        );*/
+        );
 
         // approve still works but transferfrom should rever
         result = await this.xtoken.approve(user2, 10000, {from: user});
         allow = await this.xtoken.allowance(user, user2);
         expect(allow.toString()).to.equal("10000");
 
-        /*
         result = await expectRevert(
             this.xtoken.transferFrom(user, user2, 10000, {from: user2}),
             "ERC20 Pausable: token transfer while paused"
-        );*/
+        );
 
         // unpause
         result = await this.xtoken.unpause({from: xOwner});
@@ -305,11 +295,10 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
     });
 
     it('check reject ether transfer', async function () {
-        /*
         result = await expectRevert(
             this.xtoken.sendTransaction({from: user, value: 1000}),
             "revert"
-        );*/
+        );
     });
 
     it('check mint by contract', async function () {
@@ -317,12 +306,11 @@ contract('XToken', function ([ xOwner, minterOwner, user, user2 ]) {
         balance = await this.xtoken.balanceOf(user);
         expect(balance.toString()).to.equal("0");
 
-        /*
         // mint will revert for minter contract
         result = await expectRevert(
             this.minter.mint(user, 10000, {from: minterOwner}),
             "Caller is not a minter"
-        );*/
+        );
 
         // user remain 0 balance
         balance = await this.xtoken.balanceOf(user);

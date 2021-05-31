@@ -16,8 +16,8 @@ contract VaultX is Pausable, AccessControlEnumerable {
 
     struct tokenPair {
       address sourceToken;
-      uint256 mappedTokenChainid;
       address mappedToken;
+      uint256 mappedTokenChainid;
       string symbol;
     }
 
@@ -137,7 +137,7 @@ contract VaultX is Pausable, AccessControlEnumerable {
         address mappedToken,
         string memory mappedTokenSymbol_
     ) private {
-        tokenPair memory pair = tokenPair(sourceToken, mappedChainid, mappedToken, mappedTokenSymbol_);
+        tokenPair memory pair = tokenPair(sourceToken, mappedToken, mappedChainid, mappedTokenSymbol_);
         tokenPairs.push(pair);
     }
 
