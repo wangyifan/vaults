@@ -9,27 +9,27 @@ contract TokenFee is RoleAccess {
     using Address for address;
 
     // events
-    event TipRateChanged(address indexed sender, uint256 newTipRate);
+    event TipRateChanged(address indexed sender, address sourceToken, address mappedToken, uint256 newTipRate);
     event TipAccountChanged(address indexed sender, address newTipAccount);
     event FeeAccountChanged(address indexed sender, address newFeeAccount);
     event FiatCurrencyChanged(address indexed sender, string newFiatCurrency);
     event FiatFeeAmountChanged(address indexed sender, uint256 newFiatFeeAmount);
     event PriceOracleChanged(address indexed sender, address newPriceOracle);
-    event StagingAccountChanged(address indexed sender, address newStagingAccount);
 
-    // variables
-    address internal stagingAccount; // temporarily hold receiver's token before withdraw
+    // tip
     address internal tipAccount;
-    address internal feeAccount;
-    address internal priceOracle;
-    uint256 internal tipRate; // 5 means 5/10,000
+    mapping(address => mapping(address => uint256)) internal tipRatePerMapping; // 5 means 5/10,000
+
+    // fee
     string internal fiatCurrency; // fiat currency
     uint256 internal fiatFeeAmount; // 5 means 5 cents
+    address internal feeAccount;
+    address internal priceOracle;
 
-    function setTipRate(uint256 newTipRate) external onlyAdmin {
+    function setTipRate(address sourceToken, address mappedToken, uint256 newTipRate) public onlyAdmin {
         require(newTipRate <= 10000);
-        tipRate = newTipRate;
-        emit TipRateChanged(msg.sender, tipRate);
+        tipRatePerMapping[sourceToken][mappedToken] = newTipRate;
+        emit TipRateChanged(msg.sender, sourceToken, mappedToken, newTipRate);
     }
 
     function setTipAccount(address newTipAccount) external onlyAdmin {
@@ -61,17 +61,20 @@ contract TokenFee is RoleAccess {
         emit PriceOracleChanged(msg.sender, priceOracle);
     }
 
-    function setStagingAccount(address newStagingAccount) external onlyAdmin {
-        require(newStagingAccount != address(0));
-        stagingAccount = newStagingAccount;
-        emit StagingAccountChanged(msg.sender, stagingAccount);
+    function shouldTip() internal view returns(bool) {
+        return (tipAccount != address(0));
     }
 
-        // calculate tip
-    function getTip(uint256 amount) internal view returns(uint256) {
+    function shouldFee() internal view returns(bool) {
+        return (feeAccount != address(0));
+    }
+
+    // calculate tip
+    function getTip(address sourceToken, address mappedToken, uint256 amount) public view returns(uint256) {
         if (tipAccount == address(0)) {
             return 0;
         }
+        uint256 tipRate = tipRatePerMapping[sourceToken][mappedToken];
         return amount*tipRate/10000;
     }
 

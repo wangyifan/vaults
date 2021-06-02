@@ -101,8 +101,5 @@ contract('StakingTest', function ([ owner, staker1, staker2 ]) {
 
         blockNumber1 = await time.latestBlock();
         blockNumber2 = await this.stakingtest.getBlockNumber();
-
-        console.log("blocknumber 1:", blockNumber1.toString(10));
-        console.log("blocknumber 2:", blockNumber2.toString(10));
     });
 });

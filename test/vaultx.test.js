@@ -1,4 +1,4 @@
-// test/xvault.test.js
+// test/vaultx.test.js
 // Load dependencies
 const { expect } = require('chai');
 
@@ -7,37 +7,41 @@ const { BN, ether, expectEvent, expectRevert } = require('@openzeppelin/test-hel
 
 // Load compiled artifacts
 const VaultX = artifacts.require('VaultX'); // vault contract
-const WToken = artifacts.require('WTOKEN'); // wrapped native token as erc20
-const TestCoin = artifacts.require('TestCoin'); // any other erc20 token
-const mappedChainid = 111;
+const TestCoin = artifacts.require('XCoin'); // any other erc20 token
+const sourceChainid = 110;
+const mappedChainid = 110;
 const sourceTokenSymbol = "abc";
 const mappedTokenSymbol = "xyz";
-
+const NATIVETOKEN = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3(
+    "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF@" + sourceChainid.toString()
+).substring(26));
+const gasPrice = 20000000000;
 
 // Start test block
-contract('VaultX', function ([ owner, user ]) {
+contract('VaultX', function ([ owner, user, user2, user3 ]) {
     beforeEach(async function () {
-        this.wtoken = await WToken.new({from: owner});
-        this.vaultx = await VaultX.new(this.wtoken.address, {from: owner});
-        this.sourceToken = await TestCoin.new({from: owner});
-        this.mappedToken = await TestCoin.new({from: owner});
+        this.vaultx = await VaultX.new(NATIVETOKEN, {from: owner});
+        this.sourceToken = await TestCoin.new("Source Token", sourceTokenSymbol, 1000000, {from: owner});
+        this.mappedToken = await TestCoin.new("Mapped Token", mappedTokenSymbol, 1000000, {from: owner});
 
         // #1 token mapping
         this.vaultx.setupTokenMapping(
             mappedChainid,
-            this.wtoken.address,
+            NATIVETOKEN,
             this.mappedToken.address,
             sourceTokenSymbol,
-            mappedTokenSymbol
+            mappedTokenSymbol,
+            10
         );
-        this.vaultx.unpauseTokenMapping(this.wtoken.address, this.mappedToken.address);
+        this.vaultx.unpauseTokenMapping(NATIVETOKEN, this.mappedToken.address);
         // #2 token mapping
         this.vaultx.setupTokenMapping(
             mappedChainid,
             this.sourceToken.address,
             this.mappedToken.address,
             sourceTokenSymbol,
-            mappedTokenSymbol
+            mappedTokenSymbol,
+            10
         );
         this.vaultx.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
     });
@@ -60,7 +64,7 @@ contract('VaultX', function ([ owner, user ]) {
     it('Check if native token deposit works and its events', async function () {
         const etherValue = ether("1.23");
         // deposit nonce should be initialized to 0
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.wtoken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(NATIVETOKEN, this.mappedToken.address);
         expect(nonce.toNumber()).to.equal(0);
 
         // after depositing native token, it will be locked under the
@@ -72,20 +76,22 @@ contract('VaultX', function ([ owner, user ]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
-                sourceToken: this.wtoken.address,
+                sourceChainid: sourceChainid.toString(),
+                sourceToken: NATIVETOKEN,
+                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: etherValue.toString(),
-                depositNonce: "1",
-                tokenBalanceAfter: etherValue.toString()
+                tip: ether("0.00123"),
+                depositNonce: "0"
             }
         );
 
-        balance = await this.wtoken.balanceOf(this.vaultx.address);
+        balance = await web3.eth.getBalance(this.vaultx.address);
         expect(balance.toString()).to.equal(etherValue.toString());
 
         // deposit nonce should increase by 1
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.wtoken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(NATIVETOKEN, this.mappedToken.address);
         expect(nonce.toNumber()).to.equal(1);
     });
 
@@ -93,7 +99,7 @@ contract('VaultX', function ([ owner, user ]) {
         const etherValue = ether("1.23");
 
         // deposit nonce should be initialized to 0, and paused flag to false
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.wtoken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(NATIVETOKEN, this.mappedToken.address);
         expect(nonce.toNumber()).to.equal(0);
         expect(await this.vaultx.paused()).to.equal(false);
 
@@ -108,11 +114,11 @@ contract('VaultX', function ([ owner, user ]) {
         );
 
         // balance should not change
-        balance = await this.wtoken.balanceOf(this.vaultx.address);
+        balance = await web3.eth.getBalance(this.vaultx.address);
         expect(balance.toString()).to.equal("0");
 
         // deposit nonce should not change
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.wtoken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(NATIVETOKEN, this.mappedToken.address);
         expect(nonce.toNumber()).to.equal(0);
 
         // unpause
@@ -122,17 +128,17 @@ contract('VaultX', function ([ owner, user ]) {
         const receipt = await this.vaultx.depositNative({from: user, value: etherValue});
 
         // balance should increase
-        balance = await this.wtoken.balanceOf(this.vaultx.address);
+        balance = await web3.eth.getBalance(this.vaultx.address);
         expect(balance.toString()).to.equal(etherValue.toString());
 
         // deposit nonce should increase by 1
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.wtoken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(NATIVETOKEN, this.mappedToken.address);
         expect(nonce.toNumber()).to.equal(1);
     });
 
     it('Check if erc20 token deposit works and its events', async function () {
         // mint test erc20 coin
-        amount = 123;
+        amount = 123000;
         await this.sourceToken.mint(user, amount);
         await this.sourceToken.approve(this.vaultx.address, amount, {from: user});
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -159,12 +165,14 @@ contract('VaultX', function ([ owner, user ]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
+                sourceChainid: sourceChainid.toString(),
                 sourceToken: this.sourceToken.address,
+                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: amount.toString(),
-                depositNonce: "1",
-                tokenBalanceAfter: amount.toString()
+                tip: "123",
+                depositNonce: "0"
             }
         );
 
@@ -172,7 +180,9 @@ contract('VaultX', function ([ owner, user ]) {
         expect(balance.toString()).to.equal(amount.toString());
 
         // deposit nonce should increase by 1
-        nonce = await this.vaultx.tokenMappingDepositNonce(this.sourceToken.address, this.mappedToken.address);
+        nonce = await this.vaultx.tokenMappingDepositNonce(
+            this.sourceToken.address, this.mappedToken.address
+        );
         expect(nonce.toNumber()).to.equal(1);
     });
 
@@ -242,24 +252,55 @@ contract('VaultX', function ([ owner, user ]) {
 
     it('Check if withdraw works normally', async function () {
         // assume the vault has some erc20 token locked
-        const amountLocked = 300;
+        const amountLocked = 30000;
         await this.sourceToken.mint(this.vaultx.address, amountLocked);
 
         // call withdraw
-        const amount = 100;
+        const amount = 10000;
+        const tipY = 10;
+        var totalTip = 0;
+        var tipX = 0;
+        var totalTipX = 0;
+        var totalTipY = 0;
         withdrawNonce = 0;
         for(i=0;i<3;i++){
             receipt = await this.vaultx.withdraw(
-                this.sourceToken.address, this.mappedToken.address, user, amount, withdrawNonce
+                this.sourceToken.address,
+                this.mappedToken.address,
+                user, amount, tipY, withdrawNonce
             );
             withdrawNonce += 1;
+            totalTipY += tipY;
+            tipX = (await this.vaultx.getTip(
+                this.sourceToken.address,
+                this.mappedToken.address,
+                amount)).toNumber();
+            totalTipX += tipX;
         }
+        totalTip = totalTipX + totalTipY;
 
-        // check balance
-        balance = await this.sourceToken.balanceOf(this.vaultx.address);
-        expect(balance.toString()).to.equal("0");
-        balance = await this.sourceToken.balanceOf(user);
+        // check balance before cashout
+        var balance = await this.sourceToken.balanceOf(this.vaultx.address);
         expect(balance.toString()).to.equal(amountLocked.toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal("0");
+
+        // check staging balance
+        balance = await this.vaultx.cashoutBalance(this.sourceToken.address,user);
+        expect(balance.toString()).to.equal((amountLocked - totalTip).toString());
+        balance = await this.vaultx.cashoutBalance(this.sourceToken.address,owner);
+        expect(balance.toString()).to.equal(totalTipX.toString());
+
+        //cashout
+        await this.vaultx.cashout(this.sourceToken.address, owner, totalTipX);
+        await this.vaultx.cashout(this.sourceToken.address, user, amountLocked - totalTip, {from: user});
+
+        // check balance after cashout
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        // what's left in the initial minted account should equal to tipy
+        expect(balance.toString()).to.equal(totalTipY.toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((amountLocked-totalTip).toString());
 
         // check withdrawWatermark
         watermark = await this.vaultx.tokenMappingWatermark(
@@ -271,14 +312,21 @@ contract('VaultX', function ([ owner, user ]) {
 
     it('Check if withdraw works when there is gap in nonce', async function () {
         // assume the vault has some erc20 token locked
-        const amountLocked = 1000;
+        const amountLocked = 10000;
         await this.sourceToken.mint(this.vaultx.address, amountLocked);
 
         // call withdraw
-        const amount = 100;
+        const amount = 1000;
+        const tip = 1;
         for(i=0;i<3;i++){
             receipt = await this.vaultx.withdraw(
-                this.sourceToken.address, this.mappedToken.address, user, amount, i, {from: owner}
+                this.sourceToken.address,
+                this.mappedToken.address,
+                user,
+                amount,
+                tip,
+                i,
+                {from: owner}
             );
         }
         watermark = await this.vaultx.tokenMappingWatermark(
@@ -289,7 +337,13 @@ contract('VaultX', function ([ owner, user ]) {
         //  skip 3, 4
         for(i=5;i<8;i++){
             receipt = await this.vaultx.withdraw(
-                this.sourceToken.address, this.mappedToken.address, user, amount, i, {from: owner}
+                this.sourceToken.address,
+                this.mappedToken.address,
+                user,
+                amount,
+                tip,
+                i,
+                {from: owner}
             );
         }
         // 0,1,2 has been deleted to false
@@ -299,9 +353,21 @@ contract('VaultX', function ([ owner, user ]) {
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
-        expect(balance.toString()).to.equal("400");
+        expect(balance.toString()).to.equal("10000");
         balance = await this.sourceToken.balanceOf(user);
-        expect(balance.toString()).to.equal("600");
+        expect(balance.toString()).to.equal("0");
+
+        //cashout
+        await this.vaultx.cashout(this.sourceToken.address, owner, 6);
+        await this.vaultx.cashout(this.sourceToken.address, user, 6000 - 12, {from: user});
+
+        // check balance
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((4000+6).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((6000-12).toString());
+        balance = await this.sourceToken.balanceOf(owner);
+        expect(balance.toString()).to.equal("6");
 
         // check other variables
         watermark = await this.vaultx.tokenMappingWatermark(
@@ -310,27 +376,207 @@ contract('VaultX', function ([ owner, user ]) {
         expect(watermark.toString()).to.equal("3");
 
         // call ignore and one more withdraw #8
-        await this.vaultx.SkipWithdrawdone(
+        await this.vaultx.skipWithdrawdone(
             this.sourceToken.address, this.mappedToken.address, 3, {from: owner}
         );
-        await this.vaultx.SkipWithdrawdone(
+        await this.vaultx.skipWithdrawdone(
             this.sourceToken.address, this.mappedToken.address, 4, {from: owner}
         );
 
         receipt = await this.vaultx.withdraw(
-            this.sourceToken.address, this.mappedToken.address, user, amount, 8, {from: owner}
+            this.sourceToken.address,
+            this.mappedToken.address,
+            user,
+            amount,
+            tip,
+            8,
+            {from: owner}
         );
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
-        expect(balance.toString()).to.equal("300");
+        expect(balance.toString()).to.equal((4000+6).toString());
         balance = await this.sourceToken.balanceOf(user);
-        expect(balance.toString()).to.equal("700");
+        expect(balance.toString()).to.equal((6000-12).toString());
+
+        // cash out
+        await this.vaultx.cashout(this.sourceToken.address, owner, 1);
+        await this.vaultx.cashout(this.sourceToken.address, user, 998, {from: user});
+
+        // check balance
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((3000+7).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((7000-14).toString());
 
         // check other variables
         watermark = await this.vaultx.tokenMappingWatermark(
             this.sourceToken.address, this.mappedToken.address
         );
         expect(watermark.toString()).to.equal("9");
+    });
+
+    it('Check full test: deposit native and withdraw', async function () {
+        // this test will deposit moac twice: 2 and 3 respectively
+        // then withdaw once: 4
+        const etherValue2 = ether("2");
+        const etherValue3 = ether("3");
+        const etherValue4 = ether("4");
+        const etherValue5 = ether("5");
+
+        // check balance
+        var balance = await web3.eth.getBalance(this.vaultx.address);
+        expect(balance.toString()).to.equal("0");
+        var balanceUser = await web3.eth.getBalance(user);
+        balanceUser = new BN(balanceUser, 10);
+
+        // deposit native token 2
+        var receipt = await this.vaultx.depositNative(
+            {from: user, value: etherValue2}
+        );
+
+        // check balance
+        balance = await web3.eth.getBalance(this.vaultx.address);
+        expect(balance.toString()).to.equal(etherValue2.toString());
+        balance = await web3.eth.getBalance(user);
+        var gasCost = gasPrice * receipt['receipt']['gasUsed'];
+        expect(balance.toString()).to.equal((Number(balanceUser) - etherValue2 - gasCost).toString());
+
+        expectEvent(
+            receipt, 'TokenDeposit',
+            {
+                sourceChainid: sourceChainid.toString(),
+                sourceToken: NATIVETOKEN,
+                mappedChainid: mappedChainid.toString(),
+                mappedToken: this.mappedToken.address,
+                from: user,
+                amount: etherValue2.toString(),
+                tip: ether("0.002"),
+                depositNonce: "0"
+            }
+        );
+
+        // deposit native token 3
+        receipt = await this.vaultx.depositNative(
+            {from: user, value: etherValue3}
+        );
+
+        expectEvent(
+            receipt, 'TokenDeposit',
+            {
+                sourceChainid: sourceChainid.toString(),
+                sourceToken: NATIVETOKEN,
+                mappedChainid: mappedChainid.toString(),
+                mappedToken: this.mappedToken.address,
+                from: user,
+                amount: etherValue3.toString(),
+                tip: ether("0.003"),
+                depositNonce: "1"
+            }
+        );
+
+        balance = await web3.eth.getBalance(this.vaultx.address);
+        expect(balance.toString()).to.equal(etherValue5.toString());
+
+        // cashout
+        var tipX = ether("0.005");
+        var balanceBefore = await web3.eth.getBalance(user2);
+        await this.vaultx.cashout(NATIVETOKEN, user2, tipX, {from: owner});
+        var balanceAfter = await web3.eth.getBalance(user2);
+        expect(Number(balanceAfter) - Number(balanceBefore)).to.equal(tipX.toNumber());
+
+        vaultBalanceBefore = await web3.eth.getBalance(this.vaultx.address);
+        // withdraw
+        var amount = etherValue4;
+        var tipY = ether("0.004");
+        tipX = ether("0.004");
+        receipt = await this.vaultx.withdraw(
+            NATIVETOKEN,
+            this.mappedToken.address,
+            owner,
+            amount,
+            tipY,
+            0
+        );
+
+        // cash out tip
+        await this.vaultx.cashout(NATIVETOKEN, user2, tipX, {from: owner});
+
+        // check balance
+        balanceBefore = await web3.eth.getBalance(user2);
+        var expectBalance = etherValue4.sub(tipX).sub(tipY);
+        receipt = await this.vaultx.cashout(NATIVETOKEN, user2, expectBalance, {from: owner});
+        balanceAfter = await web3.eth.getBalance(user2);
+        expect((Number(balanceAfter) - Number(balanceBefore)).toString()).to.equal(expectBalance.toString());
+        vaultBalanceAfter = await web3.eth.getBalance(this.vaultx.address);
+        expect((vaultBalanceBefore - vaultBalanceAfter).toString()).to.equal(
+            etherValue4.sub(tipY).toString());
+        // 5-0.005-0.004-(4-0.008) = 0.999
+        expect(vaultBalanceAfter.toString()).to.equal(ether("0.999").toString());
+    });
+
+    it('Check full test: deposit erc20 and withdraw', async function () {
+        // this test will deposit token twice: 2000 and 3000 respectively
+        // then withdaw once: 4000
+        var amount = 10000;
+        await this.sourceToken.mint(user, amount);
+        await this.sourceToken.approve(this.vaultx.address, 5000, {from: user});
+        var allowance = await this.sourceToken.allowance(user, this.vaultx.address);
+        expect(allowance.toString()).to.equal("5000");
+        var receipt2000 = await this.vaultx.depositToken(this.sourceToken.address, 2000, {from: user});
+        allowance = await this.sourceToken.allowance(user, this.vaultx.address);
+        expect(allowance.toString()).to.equal("3000");
+        var receipt3000 = await this.vaultx.depositToken(this.sourceToken.address, 3000, {from: user});
+
+        // check balance
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((5000).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((5000).toString());
+
+        // cashout
+        var tipX = 5;
+        await this.vaultx.cashout(this.sourceToken.address, owner, tipX);
+
+        // check balance
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((5000 - tipX).toString());
+        balance = await this.sourceToken.balanceOf(owner);
+        expect(balance.toString()).to.equal((tipX).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((10000 - 2000 - 3000).toString());
+
+        // withdraw
+        amount = 4000;
+        var tipY = 4;
+        receipt = await this.vaultx.withdraw(
+            this.sourceToken.address,
+            this.mappedToken.address,
+            user,
+            amount,
+            tipY,
+            0
+        );
+
+        // check balance, should not change
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((5000 - tipX).toString());
+        balance = await this.sourceToken.balanceOf(owner);
+        expect(balance.toString()).to.equal((tipX).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((10000 - 2000 - 3000).toString());
+
+        // cashout
+        tipX = 4;
+        await this.vaultx.cashout(this.sourceToken.address, owner, tipX, {from: owner});
+        await this.vaultx.cashout(this.sourceToken.address, user, amount - tipX - tipY, {from: user});
+
+        // check balance
+        balance = await this.sourceToken.balanceOf(this.vaultx.address);
+        expect(balance.toString()).to.equal((4995 - amount + tipY).toString());
+        balance = await this.sourceToken.balanceOf(owner);
+        expect(balance.toString()).to.equal((5+4).toString());
+        balance = await this.sourceToken.balanceOf(user);
+        expect(balance.toString()).to.equal((5000+amount-8).toString());
     });
 });

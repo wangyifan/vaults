@@ -4,7 +4,7 @@ test:
 	npx truffle test
 
 ganache:
-	npx ganache-cli
+	npx ganache-cli --chainId 110
 
 compile:
 	npx truffle compile

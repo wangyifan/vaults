@@ -10,10 +10,10 @@ pragma solidity >=0.8.0 <0.9.0;
 // Import OpenZeppelin contacts locally with truffle
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 
-contract XToken is Pausable, AccessControlEnumerable, ERC20 {
+contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
     using SafeMath for uint256;
 
     // role definition
