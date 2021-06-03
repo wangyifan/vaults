@@ -41,7 +41,6 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => address) internal tokenMappingReversed;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) public tokenMappingDepositNonce;
-    mapping(address => mapping(address => mapping(uint256 => bool))) public tokenMappingWithdrawdone;
     mapping(address => mapping(address => uint256)) internal tokenStagingBalances;
     tokenPair[] internal tokenPairs;
 
@@ -219,14 +218,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         require(tokenMappingPaused[sourceToken][mappedToken] == false);
         require(to != address(0), "withdraw to the zero address");
         require(amount > 0, "withdraw only to positive amount ");
-        require(withdrawNonce >= tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
-        require(
-            tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawNonce]==false,
-            "only withdraw once"
-        );
-
-        // no re-entry
-        tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawNonce] = true;
+        require(withdrawNonce == tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
 
         // 1. charge tip
         uint256 tipX = 0;
@@ -240,7 +232,11 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         // 2. unlock token back to user
         uint256 netAmount = amount - tipX - tipY;
         require(netAmount > 0, "withdraw net amount negative");
-        tokenStagingBalances[sourceToken][to] += netAmount;
+        if (sourceToken == NATIVETOKEN) {
+            payable(to).transfer(netAmount);
+        } else {
+            IERC20(sourceToken).transfer(to, netAmount);
+        }
 
         // 3. emit event
         emit TokenWithdraw(
@@ -254,21 +250,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         );
 
         // 4. delete storage space if possible
-        uint256 withdrawWatermark = tokenMappingWatermark[sourceToken][mappedToken];
-        while(tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark]) {
-            // release storage space
-            delete tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark];
-            withdrawWatermark += 1;
-        }
-        tokenMappingWatermark[sourceToken][mappedToken] = withdrawWatermark;
-    }
-
-    function skipWithdrawdone(
-        address sourceToken,
-        address mappedToken,
-        uint256 withdrawNonce
-    ) external onlyAdmin {
-        tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawNonce] = true;
+        tokenMappingWatermark[sourceToken][mappedToken] = withdrawNonce + 1;
     }
 
     // cashout mint the staged asset
@@ -290,15 +272,5 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
     function cashoutBalance(address token, address owner) external view returns(uint256){
         return tokenStagingBalances[token][owner];
-    }
-
-    function clearStorage(address sourceToken, address mappedToken) external onlyAdmin {
-        uint256 withdrawWatermark = tokenMappingWatermark[sourceToken][mappedToken];
-        while(tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark]) {
-            // release storage space
-            delete tokenMappingWithdrawdone[sourceToken][mappedToken][withdrawWatermark];
-            withdrawWatermark += 1;
-        }
-        tokenMappingWatermark[sourceToken][mappedToken] = withdrawWatermark;
     }
 }

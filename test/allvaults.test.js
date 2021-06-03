@@ -17,7 +17,13 @@ const mappedTokenNativeSymbol = "xyzN";
 const NATIVETOKEN = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3(
     "0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF@" + sourceChainid.toString()
 ).substring(26));
-const gasPrice = 20000000000;
+const gwei = 1000000000;
+const gasPrice = 20 * gwei;
+
+function calculateCost(receipt) {
+    var gasCost = gasPrice * receipt['receipt']['gasUsed'];
+    return [receipt['receipt']['gasUsed'], gasCost/1000000000000000000.0];
+}
 
 // Start test block
 contract('VaultX & VaultY', function ([ owner, user ]) {
@@ -90,6 +96,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
         var receipt = await this.vaultx.depositNative(
             {from: user, value: etherValue}
         );
+        console.log("depositNative(): ", calculateCost(receipt));
         tip = (await this.vaultx.getTip(
             NATIVETOKEN,
             this.mappedTokenNative.address,
@@ -116,7 +123,8 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
 
         // owner cashout to user
         var balanceBefore = await web3.eth.getBalance(user);
-        await this.vaultx.cashout(NATIVETOKEN, user, tip, {from: owner});
+        receipt = await this.vaultx.cashout(NATIVETOKEN, user, tip, {from: owner});
+        console.log("cashout(): ", calculateCost(receipt));
         var balanceAfter = await web3.eth.getBalance(user);
         // user balance increase
         expect((balanceAfter - balanceBefore).toString()).to.equal(tip.toString());
@@ -129,7 +137,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
         //////////////////////////////////////////
         //////////////   MINT  ///////////////////
         //////////////////////////////////////////
-        await this.vaulty.mint(
+        receipt = await this.vaulty.mint(
             tokenDepositEvent.sourceToken,
             tokenDepositEvent.mappedToken,
             user,
@@ -138,6 +146,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
             tokenDepositEvent.depositNonce,
             {from: owner}
         );
+        console.log("mint(): ", calculateCost(receipt));
         // check cashout balance
         var amount = new BN(tokenDepositEvent.amount, 10);
         var tipX = new BN(tokenDepositEvent.tip, 10);
@@ -145,19 +154,17 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
             NATIVETOKEN,
             this.mappedTokenNative.address,
             amount));
-        var balance = await this.vaulty.cashoutBalance(this.mappedTokenNative.address, user);
-        expect(balance.toString()).to.equal(amount.sub(tipX).sub(tipY).toString());
-        balance = await this.vaulty.cashoutBalance(this.mappedTokenNative.address, owner);
+        var balance = await this.vaulty.cashoutBalance(this.mappedTokenNative.address, owner);
         expect(balance.toString()).to.equal(tipY.toString());
         // check balance
         balance = await this.mappedTokenNative.balanceOf(user);
-        expect(balance.toString()).to.equal("0");
+        expect(balance.toString()).to.equal(amount.sub(tipX).sub(tipY).toString());
         balance = await this.mappedTokenNative.balanceOf(owner);
         expect(balance.toString()).to.equal("0");
 
         // cashout
-        await this.vaulty.cashout(this.mappedTokenNative.address, owner, tipY);
-        await this.vaulty.cashout(this.mappedTokenNative.address, user, amount.sub(tipX).sub(tipY), {from: user});
+        receipt = await this.vaulty.cashout(this.mappedTokenNative.address, owner, tipY);
+        console.log("cashout(): ", calculateCost(receipt));
 
         // check cashout balance
         balance = await this.vaulty.cashoutBalance(this.mappedTokenNative.address, user);
@@ -193,7 +200,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
             amount,
             {from: user}
         );
-
+        console.log("burn(): ", calculateCost(receipt));
         tokenBurnEvent = {
             sourceChainid: sourceChainid.toString(),
             sourceToken: NATIVETOKEN,
@@ -227,6 +234,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
         //////////////////////////////////////////
         /////////////   WITHDRAW  ////////////////
         //////////////////////////////////////////
+        balanceBefore = await web3.eth.getBalance(user);
         receipt = await this.vaultx.withdraw(
             tokenBurnEvent.sourceToken,
             tokenBurnEvent.mappedToken,
@@ -235,7 +243,7 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
             tokenBurnEvent.tip,
             tokenBurnEvent.burnNonce
         );
-
+        console.log("withdraw(): ", calculateCost(receipt));
         // cashout balance
         tipY = new BN(tokenBurnEvent.tip, 10);
         tipX = (await this.vaultx.getTip(
@@ -243,12 +251,13 @@ contract('VaultX & VaultY', function ([ owner, user ]) {
             tokenBurnEvent.mappedToken,
             ether("3")
             ));
-        balance = await this.vaultx.cashoutBalance(NATIVETOKEN, user);
-        expect(balance.toString()).to.equal(ether("3").sub(tipY).sub(tipX).toString());
-        await this.vaultx.cashout(NATIVETOKEN, user, balance, {from: user});
+
+        balanceAfter = await web3.eth.getBalance(user);
+        expect((balanceAfter - balanceBefore).toString()).to.equal(ether("3").sub(tipY).sub(tipX).toString());
         balance = await this.vaultx.cashoutBalance(NATIVETOKEN, owner);
         expect(balance.toString()).to.equal(tipX.toString());
-        await this.vaultx.cashout(NATIVETOKEN, owner, balance, {from: owner});
+        receipt = await this.vaultx.cashout(NATIVETOKEN, owner, balance, {from: owner});
+        console.log("cashout(): ", calculateCost(receipt));
 
         // check totalsupply
         totalSupply = await this.mappedTokenNative.totalSupply();

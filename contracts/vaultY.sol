@@ -39,7 +39,6 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => address) internal tokenMappingReversed;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) internal tokenMappingBurnNonce;
-    mapping(address => mapping(address => mapping(uint256 => bool))) public tokenMappingMintdone;
     mapping(address => mapping(address => uint256)) internal tokenStagingBalances;
     tokenPair[] public tokenPairs;
 
@@ -156,11 +155,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     ) public onlyValidator whenNotPaused {
         require(to != address(0), "mint to the zero address");
         require(tokenMappingPaused[sourceToken][mappedToken] == false,"token mapping paused");
-        require(mintNonce >= tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
-        require(tokenMappingMintdone[sourceToken][mappedToken][mintNonce]==false, "only mint once");
-
-        // no re-entry
-        tokenMappingMintdone[sourceToken][mappedToken][mintNonce] = true;
+        require(mintNonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
         // 1. charge tip
         uint256 tipY = 0;
@@ -171,12 +166,12 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             }
         }
 
-        // 2. credt the receiver for token
-        // actual mint will take place in withdraw()
+        // 2. mint the token
         uint256 netAmount = amount - tipY - tipX;
         require(netAmount > 0, "Negative net amount");
-        tokenStagingBalances[mappedToken][to] += netAmount;
+        XCoin(mappedToken).mint(to, netAmount);
 
+        // 3. emit event
         emit TokenMint(
             sourceTokenChainids[sourceToken],
             sourceToken,
@@ -187,13 +182,9 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             tipY,
             mintNonce
         );
-        uint256 mintWatermark = tokenMappingWatermark[sourceToken][mappedToken];
-        while(tokenMappingMintdone[sourceToken][mappedToken][mintWatermark]) {
-            // release storage space
-            delete tokenMappingMintdone[sourceToken][mappedToken][mintWatermark];
-            mintWatermark += 1;
-        }
-        tokenMappingWatermark[sourceToken][mappedToken] = mintWatermark;
+
+        // 4. increase nonce
+        tokenMappingWatermark[sourceToken][mappedToken] = mintNonce + 1;
     }
 
     // anyone can exit the mapped token back to its origin chain
@@ -237,10 +228,6 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // increase nonce
         tokenMappingBurnNonce[sourceToken][mappedToken] += 1;
-    }
-
-    function skipMintdone(address sourceToken, address mappedToken, uint256 mintNonce) external onlyAdmin {
-        tokenMappingMintdone[sourceToken][mappedToken][mintNonce] = true;
     }
 
     // cashout mint the staged asset

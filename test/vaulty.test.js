@@ -12,7 +12,13 @@ const sourceChainid = 110;
 const mappedChainid = 110;
 const sourceTokenSymbol = "abc";
 const mappedTokenSymbol = "xyz";
+const gwei = 1000000000;
+const gasPrice = 20 * gwei;
 
+function calculateCost(receipt) {
+    var gasCost = gasPrice * receipt['receipt']['gasUsed'];
+    return [receipt['receipt']['gasUsed'], gasCost/1000000000000000000.0];
+}
 
 // Start test block
 contract('VaultY', function ([ owner, user, user1, user2 ]) {
@@ -81,22 +87,7 @@ contract('VaultY', function ([ owner, user, user1, user2 ]) {
         expect(balance.toNumber()).to.equal(0);
         // user1 balance
         balance = await this.mappedToken.balanceOf(user1);
-        expect(balance.toNumber()).to.equal(0);
-
-        // cashout from user1
-        var cashoutAmount = await this.vaulty.cashoutBalance(this.mappedToken.address, user1);
-        expect(cashoutAmount.toNumber()).to.equal(9980);
-        receipt = await this.vaulty.cashout(
-            this.mappedToken.address,
-            user1,
-            cashoutAmount,
-            {from: user1}
-        );
-        balance = await this.mappedToken.balanceOf(user1);
         expect(balance.toNumber()).to.equal(9980);
-        // cashout amount should be 0 after cashout
-        cashoutAmount = await this.vaulty.cashoutBalance(this.mappedToken.address, user1);
-        expect(cashoutAmount.toNumber()).to.equal(0);
 
         // cashout balance for owner
         cashoutAmount = await this.vaulty.cashoutBalance(this.mappedToken.address, owner);
@@ -104,7 +95,7 @@ contract('VaultY', function ([ owner, user, user1, user2 ]) {
     });
 
 
-    it('Check if mint works if there is gap in nonce', async function () {
+    xit('Check if mint works if there is gap in nonce', async function () {
         // call mint
         const amount = 1000;
         const tip = 1;
@@ -118,6 +109,7 @@ contract('VaultY', function ([ owner, user, user1, user2 ]) {
                 i,
                 {from: owner}
             );
+            console.log("mint(): ", calculateCost(receipt));
         }
         watermark = await this.vaulty.tokenMappingWatermark(
             this.sourceToken.address, this.mappedToken.address
@@ -282,19 +274,16 @@ contract('VaultY', function ([ owner, user, user1, user2 ]) {
         }
 
         // check cashout balance
-        var balance = await this.vaulty.cashoutBalance(this.mappedToken.address, user);
-        expect(balance.toString()).to.equal((30000-60).toString());
-        balance = await this.vaulty.cashoutBalance(this.mappedToken.address, owner);
+        var balance = await this.vaulty.cashoutBalance(this.mappedToken.address, owner);
         expect(balance.toString()).to.equal("30");
         // check balance
         balance = await this.mappedToken.balanceOf(user);
-        expect(balance.toString()).to.equal("0");
+        expect(balance.toString()).to.equal((30000-60).toString());
         balance = await this.mappedToken.balanceOf(owner);
         expect(balance.toString()).to.equal("0");
 
         // cash out
         await this.vaulty.cashout(this.mappedToken.address, owner, 30);
-        await this.vaulty.cashout(this.mappedToken.address, user, 30000-60, {from: user});
 
         // check cashout balance
         balance = await this.vaulty.cashoutBalance(this.mappedToken.address, user);
