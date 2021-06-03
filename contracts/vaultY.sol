@@ -247,7 +247,11 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         return tokenStagingBalances[token][owner];
     }
 
-    function rescueAsset(address mappedToken, address to, uint256 amount) external onlyAdmin {
+    function skipMintWatermark(address sourceToken, address mappedToken, uint256 skip) external {
+        tokenMappingWatermark[sourceToken][mappedToken] += skip;
+    }
+
+    function rescueAsset(address mappedToken, address to, uint256 amount) external onlyAdmin{
         XCoin(mappedToken).transfer(to, amount);
         emit rescue(mappedToken, _msgSender(), to, amount);
     }

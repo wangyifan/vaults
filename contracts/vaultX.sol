@@ -273,4 +273,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     function cashoutBalance(address token, address owner) external view returns(uint256){
         return tokenStagingBalances[token][owner];
     }
+
+    function skipWithdrawWatermark(address sourceToken, address mappedToken, uint256 skip) external {
+      tokenMappingWatermark[sourceToken][mappedToken] += skip;
+    }
 }
