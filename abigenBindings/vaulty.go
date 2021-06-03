@@ -26,8 +26,19 @@ var (
 	_ = event.NewSubscription
 )
 
+// VaultYtokenPairInfo is an auto generated low-level Go binding around an user-defined struct.
+type VaultYtokenPairInfo struct {
+	SourceToken        common.Address
+	SourceTokenChainid *big.Int
+	SourceTokenSymbol  string
+	MappedToken        common.Address
+	MappedTokenChainid *big.Int
+	MappedTokenSymbol  string
+	Paused             bool
+}
+
 // VaultYABI is the input ABI used to generate the binding from.
-const VaultYABI = "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"ExitNonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenBalanceAfter\",\"type\":\"uint256\"}],\"name\":\"TokenBurn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tip\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"depositNonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenBalanceAfter\",\"type\":\"uint256\"}],\"name\":\"TokenMint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VALIDATOR_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fiatCurrency\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fiatFeeAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nativeToken\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"priceOracle\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stagingAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tipAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tipRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMapping\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingExitNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"tokenMappingMintdone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingPaused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingReversed\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingWatermark\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenStagingBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenWithdrawFees\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"setTipAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"fiatcurrency\",\"type\":\"string\"}],\"name\":\"setFiatCurrency\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"setFiatFeeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"nativetoken\",\"type\":\"string\"}],\"name\":\"setNativeToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"priceoracle\",\"type\":\"address\"}],\"name\":\"setPriceOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"stagingaccount\",\"type\":\"address\"}],\"name\":\"setStagingAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"pauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"unpauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"setupTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"addValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"removeValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"batchMint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mintNonce\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"exit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"mintNonce\",\"type\":\"uint256\"}],\"name\":\"skipMintdone\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"collectFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const VaultYABI = "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"FeeAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"FiatCurrencyChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newFiatFeeAmount\",\"type\":\"uint256\"}],\"name\":\"FiatFeeAmountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPriceOracle\",\"type\":\"address\"}],\"name\":\"PriceOracleChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"StakeAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"StakeRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"TipAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"TipRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tip\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"burnNonce\",\"type\":\"uint256\"}],\"name\":\"TokenBurn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tip\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"mintNonce\",\"type\":\"uint256\"}],\"name\":\"TokenMint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"admin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"rescue\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"addValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"getTip\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"pauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"removeValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"setFeeAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"setFiatCurrency\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"setFiatFeeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPriceoracle\",\"type\":\"address\"}],\"name\":\"setPriceOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"setTipAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"setTipRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"tokenMappingMintdone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingWatermark\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"tokenPairs\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"unpauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sourceChainid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"tipRate\",\"type\":\"uint256\"}],\"name\":\"setupTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTokenPairs\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"mappedTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"paused\",\"type\":\"bool\"}],\"internalType\":\"structVaultY.tokenPairInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"}],\"name\":\"batchMint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipX\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mintNonce\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"mintNonce\",\"type\":\"uint256\"}],\"name\":\"skipMintdone\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"cashout\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"cashoutBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"rescueAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // VaultY is an auto generated Go binding around an Ethereum contract.
 type VaultY struct {
@@ -171,37 +182,6 @@ func (_VaultY *VaultYTransactorRaw) Transact(opts *bind.TransactOpts, method str
 	return _VaultY.Contract.contract.Transact(opts, method, params...)
 }
 
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_VaultY *VaultYCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "ADMIN_ROLE")
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
-}
-
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_VaultY *VaultYSession) ADMINROLE() ([32]byte, error) {
-	return _VaultY.Contract.ADMINROLE(&_VaultY.CallOpts)
-}
-
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_VaultY *VaultYCallerSession) ADMINROLE() ([32]byte, error) {
-	return _VaultY.Contract.ADMINROLE(&_VaultY.CallOpts)
-}
-
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
@@ -233,74 +213,12 @@ func (_VaultY *VaultYCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
 	return _VaultY.Contract.DEFAULTADMINROLE(&_VaultY.CallOpts)
 }
 
-// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+// CashoutBalance is a free data retrieval call binding the contract method 0xf790dac4.
 //
-// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
-func (_VaultY *VaultYCaller) VALIDATORROLE(opts *bind.CallOpts) ([32]byte, error) {
+// Solidity: function cashoutBalance(address token, address owner) view returns(uint256)
+func (_VaultY *VaultYCaller) CashoutBalance(opts *bind.CallOpts, token common.Address, owner common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "VALIDATOR_ROLE")
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
-}
-
-// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
-//
-// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
-func (_VaultY *VaultYSession) VALIDATORROLE() ([32]byte, error) {
-	return _VaultY.Contract.VALIDATORROLE(&_VaultY.CallOpts)
-}
-
-// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
-//
-// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
-func (_VaultY *VaultYCallerSession) VALIDATORROLE() ([32]byte, error) {
-	return _VaultY.Contract.VALIDATORROLE(&_VaultY.CallOpts)
-}
-
-// FiatCurrency is a free data retrieval call binding the contract method 0x0d7b69e2.
-//
-// Solidity: function fiatCurrency() view returns(string)
-func (_VaultY *VaultYCaller) FiatCurrency(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "fiatCurrency")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// FiatCurrency is a free data retrieval call binding the contract method 0x0d7b69e2.
-//
-// Solidity: function fiatCurrency() view returns(string)
-func (_VaultY *VaultYSession) FiatCurrency() (string, error) {
-	return _VaultY.Contract.FiatCurrency(&_VaultY.CallOpts)
-}
-
-// FiatCurrency is a free data retrieval call binding the contract method 0x0d7b69e2.
-//
-// Solidity: function fiatCurrency() view returns(string)
-func (_VaultY *VaultYCallerSession) FiatCurrency() (string, error) {
-	return _VaultY.Contract.FiatCurrency(&_VaultY.CallOpts)
-}
-
-// FiatFeeAmount is a free data retrieval call binding the contract method 0x7b74400a.
-//
-// Solidity: function fiatFeeAmount() view returns(uint256)
-func (_VaultY *VaultYCaller) FiatFeeAmount(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "fiatFeeAmount")
+	err := _VaultY.contract.Call(opts, &out, "cashoutBalance", token, owner)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -312,18 +230,18 @@ func (_VaultY *VaultYCaller) FiatFeeAmount(opts *bind.CallOpts) (*big.Int, error
 
 }
 
-// FiatFeeAmount is a free data retrieval call binding the contract method 0x7b74400a.
+// CashoutBalance is a free data retrieval call binding the contract method 0xf790dac4.
 //
-// Solidity: function fiatFeeAmount() view returns(uint256)
-func (_VaultY *VaultYSession) FiatFeeAmount() (*big.Int, error) {
-	return _VaultY.Contract.FiatFeeAmount(&_VaultY.CallOpts)
+// Solidity: function cashoutBalance(address token, address owner) view returns(uint256)
+func (_VaultY *VaultYSession) CashoutBalance(token common.Address, owner common.Address) (*big.Int, error) {
+	return _VaultY.Contract.CashoutBalance(&_VaultY.CallOpts, token, owner)
 }
 
-// FiatFeeAmount is a free data retrieval call binding the contract method 0x7b74400a.
+// CashoutBalance is a free data retrieval call binding the contract method 0xf790dac4.
 //
-// Solidity: function fiatFeeAmount() view returns(uint256)
-func (_VaultY *VaultYCallerSession) FiatFeeAmount() (*big.Int, error) {
-	return _VaultY.Contract.FiatFeeAmount(&_VaultY.CallOpts)
+// Solidity: function cashoutBalance(address token, address owner) view returns(uint256)
+func (_VaultY *VaultYCallerSession) CashoutBalance(token common.Address, owner common.Address) (*big.Int, error) {
+	return _VaultY.Contract.CashoutBalance(&_VaultY.CallOpts, token, owner)
 }
 
 // GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
@@ -419,6 +337,68 @@ func (_VaultY *VaultYCallerSession) GetRoleMemberCount(role [32]byte) (*big.Int,
 	return _VaultY.Contract.GetRoleMemberCount(&_VaultY.CallOpts, role)
 }
 
+// GetTip is a free data retrieval call binding the contract method 0xb58f745b.
+//
+// Solidity: function getTip(address sourceToken, address mappedToken, uint256 amount) view returns(uint256)
+func (_VaultY *VaultYCaller) GetTip(opts *bind.CallOpts, sourceToken common.Address, mappedToken common.Address, amount *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _VaultY.contract.Call(opts, &out, "getTip", sourceToken, mappedToken, amount)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetTip is a free data retrieval call binding the contract method 0xb58f745b.
+//
+// Solidity: function getTip(address sourceToken, address mappedToken, uint256 amount) view returns(uint256)
+func (_VaultY *VaultYSession) GetTip(sourceToken common.Address, mappedToken common.Address, amount *big.Int) (*big.Int, error) {
+	return _VaultY.Contract.GetTip(&_VaultY.CallOpts, sourceToken, mappedToken, amount)
+}
+
+// GetTip is a free data retrieval call binding the contract method 0xb58f745b.
+//
+// Solidity: function getTip(address sourceToken, address mappedToken, uint256 amount) view returns(uint256)
+func (_VaultY *VaultYCallerSession) GetTip(sourceToken common.Address, mappedToken common.Address, amount *big.Int) (*big.Int, error) {
+	return _VaultY.Contract.GetTip(&_VaultY.CallOpts, sourceToken, mappedToken, amount)
+}
+
+// GetTokenPairs is a free data retrieval call binding the contract method 0xe24e4fdb.
+//
+// Solidity: function getTokenPairs() view returns((address,uint256,string,address,uint256,string,bool)[])
+func (_VaultY *VaultYCaller) GetTokenPairs(opts *bind.CallOpts) ([]VaultYtokenPairInfo, error) {
+	var out []interface{}
+	err := _VaultY.contract.Call(opts, &out, "getTokenPairs")
+
+	if err != nil {
+		return *new([]VaultYtokenPairInfo), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]VaultYtokenPairInfo)).(*[]VaultYtokenPairInfo)
+
+	return out0, err
+
+}
+
+// GetTokenPairs is a free data retrieval call binding the contract method 0xe24e4fdb.
+//
+// Solidity: function getTokenPairs() view returns((address,uint256,string,address,uint256,string,bool)[])
+func (_VaultY *VaultYSession) GetTokenPairs() ([]VaultYtokenPairInfo, error) {
+	return _VaultY.Contract.GetTokenPairs(&_VaultY.CallOpts)
+}
+
+// GetTokenPairs is a free data retrieval call binding the contract method 0xe24e4fdb.
+//
+// Solidity: function getTokenPairs() view returns((address,uint256,string,address,uint256,string,bool)[])
+func (_VaultY *VaultYCallerSession) GetTokenPairs() ([]VaultYtokenPairInfo, error) {
+	return _VaultY.Contract.GetTokenPairs(&_VaultY.CallOpts)
+}
+
 // GetValidators is a free data retrieval call binding the contract method 0xb7ab4db5.
 //
 // Solidity: function getValidators() view returns(address[])
@@ -481,37 +461,6 @@ func (_VaultY *VaultYCallerSession) HasRole(role [32]byte, account common.Addres
 	return _VaultY.Contract.HasRole(&_VaultY.CallOpts, role, account)
 }
 
-// NativeToken is a free data retrieval call binding the contract method 0xe1758bd8.
-//
-// Solidity: function nativeToken() view returns(string)
-func (_VaultY *VaultYCaller) NativeToken(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "nativeToken")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// NativeToken is a free data retrieval call binding the contract method 0xe1758bd8.
-//
-// Solidity: function nativeToken() view returns(string)
-func (_VaultY *VaultYSession) NativeToken() (string, error) {
-	return _VaultY.Contract.NativeToken(&_VaultY.CallOpts)
-}
-
-// NativeToken is a free data retrieval call binding the contract method 0xe1758bd8.
-//
-// Solidity: function nativeToken() view returns(string)
-func (_VaultY *VaultYCallerSession) NativeToken() (string, error) {
-	return _VaultY.Contract.NativeToken(&_VaultY.CallOpts)
-}
-
 // Paused is a free data retrieval call binding the contract method 0x5c975abb.
 //
 // Solidity: function paused() view returns(bool)
@@ -541,68 +490,6 @@ func (_VaultY *VaultYSession) Paused() (bool, error) {
 // Solidity: function paused() view returns(bool)
 func (_VaultY *VaultYCallerSession) Paused() (bool, error) {
 	return _VaultY.Contract.Paused(&_VaultY.CallOpts)
-}
-
-// PriceOracle is a free data retrieval call binding the contract method 0x2630c12f.
-//
-// Solidity: function priceOracle() view returns(address)
-func (_VaultY *VaultYCaller) PriceOracle(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "priceOracle")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// PriceOracle is a free data retrieval call binding the contract method 0x2630c12f.
-//
-// Solidity: function priceOracle() view returns(address)
-func (_VaultY *VaultYSession) PriceOracle() (common.Address, error) {
-	return _VaultY.Contract.PriceOracle(&_VaultY.CallOpts)
-}
-
-// PriceOracle is a free data retrieval call binding the contract method 0x2630c12f.
-//
-// Solidity: function priceOracle() view returns(address)
-func (_VaultY *VaultYCallerSession) PriceOracle() (common.Address, error) {
-	return _VaultY.Contract.PriceOracle(&_VaultY.CallOpts)
-}
-
-// StagingAccount is a free data retrieval call binding the contract method 0xabd375f8.
-//
-// Solidity: function stagingAccount() view returns(address)
-func (_VaultY *VaultYCaller) StagingAccount(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "stagingAccount")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// StagingAccount is a free data retrieval call binding the contract method 0xabd375f8.
-//
-// Solidity: function stagingAccount() view returns(address)
-func (_VaultY *VaultYSession) StagingAccount() (common.Address, error) {
-	return _VaultY.Contract.StagingAccount(&_VaultY.CallOpts)
-}
-
-// StagingAccount is a free data retrieval call binding the contract method 0xabd375f8.
-//
-// Solidity: function stagingAccount() view returns(address)
-func (_VaultY *VaultYCallerSession) StagingAccount() (common.Address, error) {
-	return _VaultY.Contract.StagingAccount(&_VaultY.CallOpts)
 }
 
 // SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
@@ -636,130 +523,6 @@ func (_VaultY *VaultYCallerSession) SupportsInterface(interfaceId [4]byte) (bool
 	return _VaultY.Contract.SupportsInterface(&_VaultY.CallOpts, interfaceId)
 }
 
-// TipAccount is a free data retrieval call binding the contract method 0x980be60f.
-//
-// Solidity: function tipAccount() view returns(address)
-func (_VaultY *VaultYCaller) TipAccount(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tipAccount")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// TipAccount is a free data retrieval call binding the contract method 0x980be60f.
-//
-// Solidity: function tipAccount() view returns(address)
-func (_VaultY *VaultYSession) TipAccount() (common.Address, error) {
-	return _VaultY.Contract.TipAccount(&_VaultY.CallOpts)
-}
-
-// TipAccount is a free data retrieval call binding the contract method 0x980be60f.
-//
-// Solidity: function tipAccount() view returns(address)
-func (_VaultY *VaultYCallerSession) TipAccount() (common.Address, error) {
-	return _VaultY.Contract.TipAccount(&_VaultY.CallOpts)
-}
-
-// TipRate is a free data retrieval call binding the contract method 0x498e76a0.
-//
-// Solidity: function tipRate() view returns(uint256)
-func (_VaultY *VaultYCaller) TipRate(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tipRate")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// TipRate is a free data retrieval call binding the contract method 0x498e76a0.
-//
-// Solidity: function tipRate() view returns(uint256)
-func (_VaultY *VaultYSession) TipRate() (*big.Int, error) {
-	return _VaultY.Contract.TipRate(&_VaultY.CallOpts)
-}
-
-// TipRate is a free data retrieval call binding the contract method 0x498e76a0.
-//
-// Solidity: function tipRate() view returns(uint256)
-func (_VaultY *VaultYCallerSession) TipRate() (*big.Int, error) {
-	return _VaultY.Contract.TipRate(&_VaultY.CallOpts)
-}
-
-// TokenMapping is a free data retrieval call binding the contract method 0xba27f50b.
-//
-// Solidity: function tokenMapping(address ) view returns(address)
-func (_VaultY *VaultYCaller) TokenMapping(opts *bind.CallOpts, arg0 common.Address) (common.Address, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenMapping", arg0)
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// TokenMapping is a free data retrieval call binding the contract method 0xba27f50b.
-//
-// Solidity: function tokenMapping(address ) view returns(address)
-func (_VaultY *VaultYSession) TokenMapping(arg0 common.Address) (common.Address, error) {
-	return _VaultY.Contract.TokenMapping(&_VaultY.CallOpts, arg0)
-}
-
-// TokenMapping is a free data retrieval call binding the contract method 0xba27f50b.
-//
-// Solidity: function tokenMapping(address ) view returns(address)
-func (_VaultY *VaultYCallerSession) TokenMapping(arg0 common.Address) (common.Address, error) {
-	return _VaultY.Contract.TokenMapping(&_VaultY.CallOpts, arg0)
-}
-
-// TokenMappingExitNonce is a free data retrieval call binding the contract method 0xa7eb8d8c.
-//
-// Solidity: function tokenMappingExitNonce(address , address ) view returns(uint256)
-func (_VaultY *VaultYCaller) TokenMappingExitNonce(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenMappingExitNonce", arg0, arg1)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// TokenMappingExitNonce is a free data retrieval call binding the contract method 0xa7eb8d8c.
-//
-// Solidity: function tokenMappingExitNonce(address , address ) view returns(uint256)
-func (_VaultY *VaultYSession) TokenMappingExitNonce(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenMappingExitNonce(&_VaultY.CallOpts, arg0, arg1)
-}
-
-// TokenMappingExitNonce is a free data retrieval call binding the contract method 0xa7eb8d8c.
-//
-// Solidity: function tokenMappingExitNonce(address , address ) view returns(uint256)
-func (_VaultY *VaultYCallerSession) TokenMappingExitNonce(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenMappingExitNonce(&_VaultY.CallOpts, arg0, arg1)
-}
-
 // TokenMappingMintdone is a free data retrieval call binding the contract method 0x35028ff0.
 //
 // Solidity: function tokenMappingMintdone(address , address , uint256 ) view returns(bool)
@@ -789,68 +552,6 @@ func (_VaultY *VaultYSession) TokenMappingMintdone(arg0 common.Address, arg1 com
 // Solidity: function tokenMappingMintdone(address , address , uint256 ) view returns(bool)
 func (_VaultY *VaultYCallerSession) TokenMappingMintdone(arg0 common.Address, arg1 common.Address, arg2 *big.Int) (bool, error) {
 	return _VaultY.Contract.TokenMappingMintdone(&_VaultY.CallOpts, arg0, arg1, arg2)
-}
-
-// TokenMappingPaused is a free data retrieval call binding the contract method 0x19955009.
-//
-// Solidity: function tokenMappingPaused(address , address ) view returns(bool)
-func (_VaultY *VaultYCaller) TokenMappingPaused(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (bool, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenMappingPaused", arg0, arg1)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
-}
-
-// TokenMappingPaused is a free data retrieval call binding the contract method 0x19955009.
-//
-// Solidity: function tokenMappingPaused(address , address ) view returns(bool)
-func (_VaultY *VaultYSession) TokenMappingPaused(arg0 common.Address, arg1 common.Address) (bool, error) {
-	return _VaultY.Contract.TokenMappingPaused(&_VaultY.CallOpts, arg0, arg1)
-}
-
-// TokenMappingPaused is a free data retrieval call binding the contract method 0x19955009.
-//
-// Solidity: function tokenMappingPaused(address , address ) view returns(bool)
-func (_VaultY *VaultYCallerSession) TokenMappingPaused(arg0 common.Address, arg1 common.Address) (bool, error) {
-	return _VaultY.Contract.TokenMappingPaused(&_VaultY.CallOpts, arg0, arg1)
-}
-
-// TokenMappingReversed is a free data retrieval call binding the contract method 0x0804568e.
-//
-// Solidity: function tokenMappingReversed(address ) view returns(address)
-func (_VaultY *VaultYCaller) TokenMappingReversed(opts *bind.CallOpts, arg0 common.Address) (common.Address, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenMappingReversed", arg0)
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// TokenMappingReversed is a free data retrieval call binding the contract method 0x0804568e.
-//
-// Solidity: function tokenMappingReversed(address ) view returns(address)
-func (_VaultY *VaultYSession) TokenMappingReversed(arg0 common.Address) (common.Address, error) {
-	return _VaultY.Contract.TokenMappingReversed(&_VaultY.CallOpts, arg0)
-}
-
-// TokenMappingReversed is a free data retrieval call binding the contract method 0x0804568e.
-//
-// Solidity: function tokenMappingReversed(address ) view returns(address)
-func (_VaultY *VaultYCallerSession) TokenMappingReversed(arg0 common.Address) (common.Address, error) {
-	return _VaultY.Contract.TokenMappingReversed(&_VaultY.CallOpts, arg0)
 }
 
 // TokenMappingWatermark is a free data retrieval call binding the contract method 0x55275c6f.
@@ -884,66 +585,49 @@ func (_VaultY *VaultYCallerSession) TokenMappingWatermark(arg0 common.Address, a
 	return _VaultY.Contract.TokenMappingWatermark(&_VaultY.CallOpts, arg0, arg1)
 }
 
-// TokenStagingBalances is a free data retrieval call binding the contract method 0x335701e4.
+// TokenPairs is a free data retrieval call binding the contract method 0xa15369d1.
 //
-// Solidity: function tokenStagingBalances(address , address ) view returns(uint256)
-func (_VaultY *VaultYCaller) TokenStagingBalances(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (*big.Int, error) {
+// Solidity: function tokenPairs(uint256 ) view returns(address sourceToken, address mappedToken)
+func (_VaultY *VaultYCaller) TokenPairs(opts *bind.CallOpts, arg0 *big.Int) (struct {
+	SourceToken common.Address
+	MappedToken common.Address
+}, error) {
 	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenStagingBalances", arg0, arg1)
+	err := _VaultY.contract.Call(opts, &out, "tokenPairs", arg0)
 
+	outstruct := new(struct {
+		SourceToken common.Address
+		MappedToken common.Address
+	})
 	if err != nil {
-		return *new(*big.Int), err
+		return *outstruct, err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	outstruct.SourceToken = *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+	outstruct.MappedToken = *abi.ConvertType(out[1], new(common.Address)).(*common.Address)
 
-	return out0, err
-
-}
-
-// TokenStagingBalances is a free data retrieval call binding the contract method 0x335701e4.
-//
-// Solidity: function tokenStagingBalances(address , address ) view returns(uint256)
-func (_VaultY *VaultYSession) TokenStagingBalances(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenStagingBalances(&_VaultY.CallOpts, arg0, arg1)
-}
-
-// TokenStagingBalances is a free data retrieval call binding the contract method 0x335701e4.
-//
-// Solidity: function tokenStagingBalances(address , address ) view returns(uint256)
-func (_VaultY *VaultYCallerSession) TokenStagingBalances(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenStagingBalances(&_VaultY.CallOpts, arg0, arg1)
-}
-
-// TokenWithdrawFees is a free data retrieval call binding the contract method 0xadc072aa.
-//
-// Solidity: function tokenWithdrawFees(address , address ) view returns(uint256)
-func (_VaultY *VaultYCaller) TokenWithdrawFees(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _VaultY.contract.Call(opts, &out, "tokenWithdrawFees", arg0, arg1)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
+	return *outstruct, err
 
 }
 
-// TokenWithdrawFees is a free data retrieval call binding the contract method 0xadc072aa.
+// TokenPairs is a free data retrieval call binding the contract method 0xa15369d1.
 //
-// Solidity: function tokenWithdrawFees(address , address ) view returns(uint256)
-func (_VaultY *VaultYSession) TokenWithdrawFees(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenWithdrawFees(&_VaultY.CallOpts, arg0, arg1)
+// Solidity: function tokenPairs(uint256 ) view returns(address sourceToken, address mappedToken)
+func (_VaultY *VaultYSession) TokenPairs(arg0 *big.Int) (struct {
+	SourceToken common.Address
+	MappedToken common.Address
+}, error) {
+	return _VaultY.Contract.TokenPairs(&_VaultY.CallOpts, arg0)
 }
 
-// TokenWithdrawFees is a free data retrieval call binding the contract method 0xadc072aa.
+// TokenPairs is a free data retrieval call binding the contract method 0xa15369d1.
 //
-// Solidity: function tokenWithdrawFees(address , address ) view returns(uint256)
-func (_VaultY *VaultYCallerSession) TokenWithdrawFees(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
-	return _VaultY.Contract.TokenWithdrawFees(&_VaultY.CallOpts, arg0, arg1)
+// Solidity: function tokenPairs(uint256 ) view returns(address sourceToken, address mappedToken)
+func (_VaultY *VaultYCallerSession) TokenPairs(arg0 *big.Int) (struct {
+	SourceToken common.Address
+	MappedToken common.Address
+}, error) {
+	return _VaultY.Contract.TokenPairs(&_VaultY.CallOpts, arg0)
 }
 
 // AddValidator is a paid mutator transaction binding the contract method 0x4d238c8e.
@@ -988,46 +672,46 @@ func (_VaultY *VaultYTransactorSession) BatchMint(input []byte) (*types.Transact
 	return _VaultY.Contract.BatchMint(&_VaultY.TransactOpts, input)
 }
 
-// CollectFee is a paid mutator transaction binding the contract method 0x2ec0ff6c.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function collectFee(address to, uint256 amount) returns()
-func (_VaultY *VaultYTransactor) CollectFee(opts *bind.TransactOpts, to common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "collectFee", to, amount)
+// Solidity: function burn(address mappedToken, uint256 amount) returns()
+func (_VaultY *VaultYTransactor) Burn(opts *bind.TransactOpts, mappedToken common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "burn", mappedToken, amount)
 }
 
-// CollectFee is a paid mutator transaction binding the contract method 0x2ec0ff6c.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function collectFee(address to, uint256 amount) returns()
-func (_VaultY *VaultYSession) CollectFee(to common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.CollectFee(&_VaultY.TransactOpts, to, amount)
+// Solidity: function burn(address mappedToken, uint256 amount) returns()
+func (_VaultY *VaultYSession) Burn(mappedToken common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Burn(&_VaultY.TransactOpts, mappedToken, amount)
 }
 
-// CollectFee is a paid mutator transaction binding the contract method 0x2ec0ff6c.
+// Burn is a paid mutator transaction binding the contract method 0x9dc29fac.
 //
-// Solidity: function collectFee(address to, uint256 amount) returns()
-func (_VaultY *VaultYTransactorSession) CollectFee(to common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.CollectFee(&_VaultY.TransactOpts, to, amount)
+// Solidity: function burn(address mappedToken, uint256 amount) returns()
+func (_VaultY *VaultYTransactorSession) Burn(mappedToken common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Burn(&_VaultY.TransactOpts, mappedToken, amount)
 }
 
-// Exit is a paid mutator transaction binding the contract method 0x71006c09.
+// Cashout is a paid mutator transaction binding the contract method 0xd126dac4.
 //
-// Solidity: function exit(address mappedToken, address from, uint256 amount) returns()
-func (_VaultY *VaultYTransactor) Exit(opts *bind.TransactOpts, mappedToken common.Address, from common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "exit", mappedToken, from, amount)
+// Solidity: function cashout(address token, address to, uint256 amount) returns()
+func (_VaultY *VaultYTransactor) Cashout(opts *bind.TransactOpts, token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "cashout", token, to, amount)
 }
 
-// Exit is a paid mutator transaction binding the contract method 0x71006c09.
+// Cashout is a paid mutator transaction binding the contract method 0xd126dac4.
 //
-// Solidity: function exit(address mappedToken, address from, uint256 amount) returns()
-func (_VaultY *VaultYSession) Exit(mappedToken common.Address, from common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.Exit(&_VaultY.TransactOpts, mappedToken, from, amount)
+// Solidity: function cashout(address token, address to, uint256 amount) returns()
+func (_VaultY *VaultYSession) Cashout(token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Cashout(&_VaultY.TransactOpts, token, to, amount)
 }
 
-// Exit is a paid mutator transaction binding the contract method 0x71006c09.
+// Cashout is a paid mutator transaction binding the contract method 0xd126dac4.
 //
-// Solidity: function exit(address mappedToken, address from, uint256 amount) returns()
-func (_VaultY *VaultYTransactorSession) Exit(mappedToken common.Address, from common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.Exit(&_VaultY.TransactOpts, mappedToken, from, amount)
+// Solidity: function cashout(address token, address to, uint256 amount) returns()
+func (_VaultY *VaultYTransactorSession) Cashout(token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Cashout(&_VaultY.TransactOpts, token, to, amount)
 }
 
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
@@ -1051,25 +735,25 @@ func (_VaultY *VaultYTransactorSession) GrantRole(role [32]byte, account common.
 	return _VaultY.Contract.GrantRole(&_VaultY.TransactOpts, role, account)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0xe9bca719.
+// Mint is a paid mutator transaction binding the contract method 0x3e401bf8.
 //
-// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 mintNonce) returns()
-func (_VaultY *VaultYTransactor) Mint(opts *bind.TransactOpts, sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "mint", sourceToken, mappedToken, to, amount, mintNonce)
+// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipX, uint256 mintNonce) returns()
+func (_VaultY *VaultYTransactor) Mint(opts *bind.TransactOpts, sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipX *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "mint", sourceToken, mappedToken, to, amount, tipX, mintNonce)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0xe9bca719.
+// Mint is a paid mutator transaction binding the contract method 0x3e401bf8.
 //
-// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 mintNonce) returns()
-func (_VaultY *VaultYSession) Mint(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.Mint(&_VaultY.TransactOpts, sourceToken, mappedToken, to, amount, mintNonce)
+// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipX, uint256 mintNonce) returns()
+func (_VaultY *VaultYSession) Mint(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipX *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Mint(&_VaultY.TransactOpts, sourceToken, mappedToken, to, amount, tipX, mintNonce)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0xe9bca719.
+// Mint is a paid mutator transaction binding the contract method 0x3e401bf8.
 //
-// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 mintNonce) returns()
-func (_VaultY *VaultYTransactorSession) Mint(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
-	return _VaultY.Contract.Mint(&_VaultY.TransactOpts, sourceToken, mappedToken, to, amount, mintNonce)
+// Solidity: function mint(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipX, uint256 mintNonce) returns()
+func (_VaultY *VaultYTransactorSession) Mint(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipX *big.Int, mintNonce *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.Mint(&_VaultY.TransactOpts, sourceToken, mappedToken, to, amount, tipX, mintNonce)
 }
 
 // PauseAll is a paid mutator transaction binding the contract method 0x595c6a67.
@@ -1156,6 +840,27 @@ func (_VaultY *VaultYTransactorSession) RenounceRole(role [32]byte, account comm
 	return _VaultY.Contract.RenounceRole(&_VaultY.TransactOpts, role, account)
 }
 
+// RescueAsset is a paid mutator transaction binding the contract method 0xeb3e947d.
+//
+// Solidity: function rescueAsset(address mappedToken, address to, uint256 amount) returns()
+func (_VaultY *VaultYTransactor) RescueAsset(opts *bind.TransactOpts, mappedToken common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "rescueAsset", mappedToken, to, amount)
+}
+
+// RescueAsset is a paid mutator transaction binding the contract method 0xeb3e947d.
+//
+// Solidity: function rescueAsset(address mappedToken, address to, uint256 amount) returns()
+func (_VaultY *VaultYSession) RescueAsset(mappedToken common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.RescueAsset(&_VaultY.TransactOpts, mappedToken, to, amount)
+}
+
+// RescueAsset is a paid mutator transaction binding the contract method 0xeb3e947d.
+//
+// Solidity: function rescueAsset(address mappedToken, address to, uint256 amount) returns()
+func (_VaultY *VaultYTransactorSession) RescueAsset(mappedToken common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.RescueAsset(&_VaultY.TransactOpts, mappedToken, to, amount)
+}
+
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
 //
 // Solidity: function revokeRole(bytes32 role, address account) returns()
@@ -1177,25 +882,46 @@ func (_VaultY *VaultYTransactorSession) RevokeRole(role [32]byte, account common
 	return _VaultY.Contract.RevokeRole(&_VaultY.TransactOpts, role, account)
 }
 
-// SetFiatCurrency is a paid mutator transaction binding the contract method 0x10804064.
+// SetFeeAccount is a paid mutator transaction binding the contract method 0x4b023cf8.
 //
-// Solidity: function setFiatCurrency(string fiatcurrency) returns()
-func (_VaultY *VaultYTransactor) SetFiatCurrency(opts *bind.TransactOpts, fiatcurrency string) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "setFiatCurrency", fiatcurrency)
+// Solidity: function setFeeAccount(address newFeeAccount) returns()
+func (_VaultY *VaultYTransactor) SetFeeAccount(opts *bind.TransactOpts, newFeeAccount common.Address) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "setFeeAccount", newFeeAccount)
+}
+
+// SetFeeAccount is a paid mutator transaction binding the contract method 0x4b023cf8.
+//
+// Solidity: function setFeeAccount(address newFeeAccount) returns()
+func (_VaultY *VaultYSession) SetFeeAccount(newFeeAccount common.Address) (*types.Transaction, error) {
+	return _VaultY.Contract.SetFeeAccount(&_VaultY.TransactOpts, newFeeAccount)
+}
+
+// SetFeeAccount is a paid mutator transaction binding the contract method 0x4b023cf8.
+//
+// Solidity: function setFeeAccount(address newFeeAccount) returns()
+func (_VaultY *VaultYTransactorSession) SetFeeAccount(newFeeAccount common.Address) (*types.Transaction, error) {
+	return _VaultY.Contract.SetFeeAccount(&_VaultY.TransactOpts, newFeeAccount)
 }
 
 // SetFiatCurrency is a paid mutator transaction binding the contract method 0x10804064.
 //
-// Solidity: function setFiatCurrency(string fiatcurrency) returns()
-func (_VaultY *VaultYSession) SetFiatCurrency(fiatcurrency string) (*types.Transaction, error) {
-	return _VaultY.Contract.SetFiatCurrency(&_VaultY.TransactOpts, fiatcurrency)
+// Solidity: function setFiatCurrency(string newFiatCurrency) returns()
+func (_VaultY *VaultYTransactor) SetFiatCurrency(opts *bind.TransactOpts, newFiatCurrency string) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "setFiatCurrency", newFiatCurrency)
 }
 
 // SetFiatCurrency is a paid mutator transaction binding the contract method 0x10804064.
 //
-// Solidity: function setFiatCurrency(string fiatcurrency) returns()
-func (_VaultY *VaultYTransactorSession) SetFiatCurrency(fiatcurrency string) (*types.Transaction, error) {
-	return _VaultY.Contract.SetFiatCurrency(&_VaultY.TransactOpts, fiatcurrency)
+// Solidity: function setFiatCurrency(string newFiatCurrency) returns()
+func (_VaultY *VaultYSession) SetFiatCurrency(newFiatCurrency string) (*types.Transaction, error) {
+	return _VaultY.Contract.SetFiatCurrency(&_VaultY.TransactOpts, newFiatCurrency)
+}
+
+// SetFiatCurrency is a paid mutator transaction binding the contract method 0x10804064.
+//
+// Solidity: function setFiatCurrency(string newFiatCurrency) returns()
+func (_VaultY *VaultYTransactorSession) SetFiatCurrency(newFiatCurrency string) (*types.Transaction, error) {
+	return _VaultY.Contract.SetFiatCurrency(&_VaultY.TransactOpts, newFiatCurrency)
 }
 
 // SetFiatFeeAmount is a paid mutator transaction binding the contract method 0xb7fac573.
@@ -1219,67 +945,25 @@ func (_VaultY *VaultYTransactorSession) SetFiatFeeAmount(amount *big.Int) (*type
 	return _VaultY.Contract.SetFiatFeeAmount(&_VaultY.TransactOpts, amount)
 }
 
-// SetNativeToken is a paid mutator transaction binding the contract method 0xb6600568.
+// SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setNativeToken(string nativetoken) returns()
-func (_VaultY *VaultYTransactor) SetNativeToken(opts *bind.TransactOpts, nativetoken string) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "setNativeToken", nativetoken)
-}
-
-// SetNativeToken is a paid mutator transaction binding the contract method 0xb6600568.
-//
-// Solidity: function setNativeToken(string nativetoken) returns()
-func (_VaultY *VaultYSession) SetNativeToken(nativetoken string) (*types.Transaction, error) {
-	return _VaultY.Contract.SetNativeToken(&_VaultY.TransactOpts, nativetoken)
-}
-
-// SetNativeToken is a paid mutator transaction binding the contract method 0xb6600568.
-//
-// Solidity: function setNativeToken(string nativetoken) returns()
-func (_VaultY *VaultYTransactorSession) SetNativeToken(nativetoken string) (*types.Transaction, error) {
-	return _VaultY.Contract.SetNativeToken(&_VaultY.TransactOpts, nativetoken)
+// Solidity: function setPriceOracle(address newPriceoracle) returns()
+func (_VaultY *VaultYTransactor) SetPriceOracle(opts *bind.TransactOpts, newPriceoracle common.Address) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "setPriceOracle", newPriceoracle)
 }
 
 // SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setPriceOracle(address priceoracle) returns()
-func (_VaultY *VaultYTransactor) SetPriceOracle(opts *bind.TransactOpts, priceoracle common.Address) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "setPriceOracle", priceoracle)
+// Solidity: function setPriceOracle(address newPriceoracle) returns()
+func (_VaultY *VaultYSession) SetPriceOracle(newPriceoracle common.Address) (*types.Transaction, error) {
+	return _VaultY.Contract.SetPriceOracle(&_VaultY.TransactOpts, newPriceoracle)
 }
 
 // SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setPriceOracle(address priceoracle) returns()
-func (_VaultY *VaultYSession) SetPriceOracle(priceoracle common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetPriceOracle(&_VaultY.TransactOpts, priceoracle)
-}
-
-// SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
-//
-// Solidity: function setPriceOracle(address priceoracle) returns()
-func (_VaultY *VaultYTransactorSession) SetPriceOracle(priceoracle common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetPriceOracle(&_VaultY.TransactOpts, priceoracle)
-}
-
-// SetStagingAccount is a paid mutator transaction binding the contract method 0xc3323798.
-//
-// Solidity: function setStagingAccount(address stagingaccount) returns()
-func (_VaultY *VaultYTransactor) SetStagingAccount(opts *bind.TransactOpts, stagingaccount common.Address) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "setStagingAccount", stagingaccount)
-}
-
-// SetStagingAccount is a paid mutator transaction binding the contract method 0xc3323798.
-//
-// Solidity: function setStagingAccount(address stagingaccount) returns()
-func (_VaultY *VaultYSession) SetStagingAccount(stagingaccount common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetStagingAccount(&_VaultY.TransactOpts, stagingaccount)
-}
-
-// SetStagingAccount is a paid mutator transaction binding the contract method 0xc3323798.
-//
-// Solidity: function setStagingAccount(address stagingaccount) returns()
-func (_VaultY *VaultYTransactorSession) SetStagingAccount(stagingaccount common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetStagingAccount(&_VaultY.TransactOpts, stagingaccount)
+// Solidity: function setPriceOracle(address newPriceoracle) returns()
+func (_VaultY *VaultYTransactorSession) SetPriceOracle(newPriceoracle common.Address) (*types.Transaction, error) {
+	return _VaultY.Contract.SetPriceOracle(&_VaultY.TransactOpts, newPriceoracle)
 }
 
 // SetTipAccount is a paid mutator transaction binding the contract method 0x0cddaa22.
@@ -1303,25 +987,46 @@ func (_VaultY *VaultYTransactorSession) SetTipAccount(newTipAccount common.Addre
 	return _VaultY.Contract.SetTipAccount(&_VaultY.TransactOpts, newTipAccount)
 }
 
-// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9812588b.
+// SetTipRate is a paid mutator transaction binding the contract method 0xda78defd.
 //
-// Solidity: function setupTokenMapping(address sourceToken, address mappedToken) returns(bool)
-func (_VaultY *VaultYTransactor) SetupTokenMapping(opts *bind.TransactOpts, sourceToken common.Address, mappedToken common.Address) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "setupTokenMapping", sourceToken, mappedToken)
+// Solidity: function setTipRate(address sourceToken, address mappedToken, uint256 newTipRate) returns()
+func (_VaultY *VaultYTransactor) SetTipRate(opts *bind.TransactOpts, sourceToken common.Address, mappedToken common.Address, newTipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "setTipRate", sourceToken, mappedToken, newTipRate)
 }
 
-// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9812588b.
+// SetTipRate is a paid mutator transaction binding the contract method 0xda78defd.
 //
-// Solidity: function setupTokenMapping(address sourceToken, address mappedToken) returns(bool)
-func (_VaultY *VaultYSession) SetupTokenMapping(sourceToken common.Address, mappedToken common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetupTokenMapping(&_VaultY.TransactOpts, sourceToken, mappedToken)
+// Solidity: function setTipRate(address sourceToken, address mappedToken, uint256 newTipRate) returns()
+func (_VaultY *VaultYSession) SetTipRate(sourceToken common.Address, mappedToken common.Address, newTipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.SetTipRate(&_VaultY.TransactOpts, sourceToken, mappedToken, newTipRate)
 }
 
-// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9812588b.
+// SetTipRate is a paid mutator transaction binding the contract method 0xda78defd.
 //
-// Solidity: function setupTokenMapping(address sourceToken, address mappedToken) returns(bool)
-func (_VaultY *VaultYTransactorSession) SetupTokenMapping(sourceToken common.Address, mappedToken common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.SetupTokenMapping(&_VaultY.TransactOpts, sourceToken, mappedToken)
+// Solidity: function setTipRate(address sourceToken, address mappedToken, uint256 newTipRate) returns()
+func (_VaultY *VaultYTransactorSession) SetTipRate(sourceToken common.Address, mappedToken common.Address, newTipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.SetTipRate(&_VaultY.TransactOpts, sourceToken, mappedToken, newTipRate)
+}
+
+// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9c0d9230.
+//
+// Solidity: function setupTokenMapping(uint256 sourceChainid, address sourceToken, address mappedToken, string sourceTokenSymbol_, string mappedTokenSymbol_, uint256 tipRate) returns(bool)
+func (_VaultY *VaultYTransactor) SetupTokenMapping(opts *bind.TransactOpts, sourceChainid *big.Int, sourceToken common.Address, mappedToken common.Address, sourceTokenSymbol_ string, mappedTokenSymbol_ string, tipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.contract.Transact(opts, "setupTokenMapping", sourceChainid, sourceToken, mappedToken, sourceTokenSymbol_, mappedTokenSymbol_, tipRate)
+}
+
+// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9c0d9230.
+//
+// Solidity: function setupTokenMapping(uint256 sourceChainid, address sourceToken, address mappedToken, string sourceTokenSymbol_, string mappedTokenSymbol_, uint256 tipRate) returns(bool)
+func (_VaultY *VaultYSession) SetupTokenMapping(sourceChainid *big.Int, sourceToken common.Address, mappedToken common.Address, sourceTokenSymbol_ string, mappedTokenSymbol_ string, tipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.SetupTokenMapping(&_VaultY.TransactOpts, sourceChainid, sourceToken, mappedToken, sourceTokenSymbol_, mappedTokenSymbol_, tipRate)
+}
+
+// SetupTokenMapping is a paid mutator transaction binding the contract method 0x9c0d9230.
+//
+// Solidity: function setupTokenMapping(uint256 sourceChainid, address sourceToken, address mappedToken, string sourceTokenSymbol_, string mappedTokenSymbol_, uint256 tipRate) returns(bool)
+func (_VaultY *VaultYTransactorSession) SetupTokenMapping(sourceChainid *big.Int, sourceToken common.Address, mappedToken common.Address, sourceTokenSymbol_ string, mappedTokenSymbol_ string, tipRate *big.Int) (*types.Transaction, error) {
+	return _VaultY.Contract.SetupTokenMapping(&_VaultY.TransactOpts, sourceChainid, sourceToken, mappedToken, sourceTokenSymbol_, mappedTokenSymbol_, tipRate)
 }
 
 // SkipMintdone is a paid mutator transaction binding the contract method 0x6ed201c4.
@@ -1387,27 +1092,6 @@ func (_VaultY *VaultYTransactorSession) UnpauseTokenMapping(sourceToken common.A
 	return _VaultY.Contract.UnpauseTokenMapping(&_VaultY.TransactOpts, sourceToken, mappedToken)
 }
 
-// Withdraw is a paid mutator transaction binding the contract method 0xf940e385.
-//
-// Solidity: function withdraw(address mappedToken, address to) payable returns()
-func (_VaultY *VaultYTransactor) Withdraw(opts *bind.TransactOpts, mappedToken common.Address, to common.Address) (*types.Transaction, error) {
-	return _VaultY.contract.Transact(opts, "withdraw", mappedToken, to)
-}
-
-// Withdraw is a paid mutator transaction binding the contract method 0xf940e385.
-//
-// Solidity: function withdraw(address mappedToken, address to) payable returns()
-func (_VaultY *VaultYSession) Withdraw(mappedToken common.Address, to common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.Withdraw(&_VaultY.TransactOpts, mappedToken, to)
-}
-
-// Withdraw is a paid mutator transaction binding the contract method 0xf940e385.
-//
-// Solidity: function withdraw(address mappedToken, address to) payable returns()
-func (_VaultY *VaultYTransactorSession) Withdraw(mappedToken common.Address, to common.Address) (*types.Transaction, error) {
-	return _VaultY.Contract.Withdraw(&_VaultY.TransactOpts, mappedToken, to)
-}
-
 // Fallback is a paid mutator transaction binding the contract fallback function.
 //
 // Solidity: fallback() returns()
@@ -1448,6 +1132,441 @@ func (_VaultY *VaultYSession) Receive() (*types.Transaction, error) {
 // Solidity: receive() payable returns()
 func (_VaultY *VaultYTransactorSession) Receive() (*types.Transaction, error) {
 	return _VaultY.Contract.Receive(&_VaultY.TransactOpts)
+}
+
+// VaultYFeeAccountChangedIterator is returned from FilterFeeAccountChanged and is used to iterate over the raw logs and unpacked data for FeeAccountChanged events raised by the VaultY contract.
+type VaultYFeeAccountChangedIterator struct {
+	Event *VaultYFeeAccountChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYFeeAccountChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYFeeAccountChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYFeeAccountChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYFeeAccountChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYFeeAccountChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYFeeAccountChanged represents a FeeAccountChanged event raised by the VaultY contract.
+type VaultYFeeAccountChanged struct {
+	Sender        common.Address
+	NewFeeAccount common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterFeeAccountChanged is a free log retrieval operation binding the contract event 0x508dcd584678b460e90a73b67f0c71c3c9eb2506cc1100a01ec04f6a19fac648.
+//
+// Solidity: event FeeAccountChanged(address indexed sender, address newFeeAccount)
+func (_VaultY *VaultYFilterer) FilterFeeAccountChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYFeeAccountChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "FeeAccountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYFeeAccountChangedIterator{contract: _VaultY.contract, event: "FeeAccountChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchFeeAccountChanged is a free log subscription operation binding the contract event 0x508dcd584678b460e90a73b67f0c71c3c9eb2506cc1100a01ec04f6a19fac648.
+//
+// Solidity: event FeeAccountChanged(address indexed sender, address newFeeAccount)
+func (_VaultY *VaultYFilterer) WatchFeeAccountChanged(opts *bind.WatchOpts, sink chan<- *VaultYFeeAccountChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "FeeAccountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYFeeAccountChanged)
+				if err := _VaultY.contract.UnpackLog(event, "FeeAccountChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseFeeAccountChanged is a log parse operation binding the contract event 0x508dcd584678b460e90a73b67f0c71c3c9eb2506cc1100a01ec04f6a19fac648.
+//
+// Solidity: event FeeAccountChanged(address indexed sender, address newFeeAccount)
+func (_VaultY *VaultYFilterer) ParseFeeAccountChanged(log types.Log) (*VaultYFeeAccountChanged, error) {
+	event := new(VaultYFeeAccountChanged)
+	if err := _VaultY.contract.UnpackLog(event, "FeeAccountChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYFiatCurrencyChangedIterator is returned from FilterFiatCurrencyChanged and is used to iterate over the raw logs and unpacked data for FiatCurrencyChanged events raised by the VaultY contract.
+type VaultYFiatCurrencyChangedIterator struct {
+	Event *VaultYFiatCurrencyChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYFiatCurrencyChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYFiatCurrencyChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYFiatCurrencyChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYFiatCurrencyChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYFiatCurrencyChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYFiatCurrencyChanged represents a FiatCurrencyChanged event raised by the VaultY contract.
+type VaultYFiatCurrencyChanged struct {
+	Sender          common.Address
+	NewFiatCurrency string
+	Raw             types.Log // Blockchain specific contextual infos
+}
+
+// FilterFiatCurrencyChanged is a free log retrieval operation binding the contract event 0x7ed7441c7c9c83f1fd4152cec0a268d64e2c8784a2a05edf810befb09eb2a328.
+//
+// Solidity: event FiatCurrencyChanged(address indexed sender, string newFiatCurrency)
+func (_VaultY *VaultYFilterer) FilterFiatCurrencyChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYFiatCurrencyChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "FiatCurrencyChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYFiatCurrencyChangedIterator{contract: _VaultY.contract, event: "FiatCurrencyChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchFiatCurrencyChanged is a free log subscription operation binding the contract event 0x7ed7441c7c9c83f1fd4152cec0a268d64e2c8784a2a05edf810befb09eb2a328.
+//
+// Solidity: event FiatCurrencyChanged(address indexed sender, string newFiatCurrency)
+func (_VaultY *VaultYFilterer) WatchFiatCurrencyChanged(opts *bind.WatchOpts, sink chan<- *VaultYFiatCurrencyChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "FiatCurrencyChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYFiatCurrencyChanged)
+				if err := _VaultY.contract.UnpackLog(event, "FiatCurrencyChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseFiatCurrencyChanged is a log parse operation binding the contract event 0x7ed7441c7c9c83f1fd4152cec0a268d64e2c8784a2a05edf810befb09eb2a328.
+//
+// Solidity: event FiatCurrencyChanged(address indexed sender, string newFiatCurrency)
+func (_VaultY *VaultYFilterer) ParseFiatCurrencyChanged(log types.Log) (*VaultYFiatCurrencyChanged, error) {
+	event := new(VaultYFiatCurrencyChanged)
+	if err := _VaultY.contract.UnpackLog(event, "FiatCurrencyChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYFiatFeeAmountChangedIterator is returned from FilterFiatFeeAmountChanged and is used to iterate over the raw logs and unpacked data for FiatFeeAmountChanged events raised by the VaultY contract.
+type VaultYFiatFeeAmountChangedIterator struct {
+	Event *VaultYFiatFeeAmountChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYFiatFeeAmountChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYFiatFeeAmountChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYFiatFeeAmountChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYFiatFeeAmountChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYFiatFeeAmountChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYFiatFeeAmountChanged represents a FiatFeeAmountChanged event raised by the VaultY contract.
+type VaultYFiatFeeAmountChanged struct {
+	Sender           common.Address
+	NewFiatFeeAmount *big.Int
+	Raw              types.Log // Blockchain specific contextual infos
+}
+
+// FilterFiatFeeAmountChanged is a free log retrieval operation binding the contract event 0x2460d22a2a151edef78f3e2e7bf595d43fabf127aea7b47450f81fafef9d515b.
+//
+// Solidity: event FiatFeeAmountChanged(address indexed sender, uint256 newFiatFeeAmount)
+func (_VaultY *VaultYFilterer) FilterFiatFeeAmountChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYFiatFeeAmountChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "FiatFeeAmountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYFiatFeeAmountChangedIterator{contract: _VaultY.contract, event: "FiatFeeAmountChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchFiatFeeAmountChanged is a free log subscription operation binding the contract event 0x2460d22a2a151edef78f3e2e7bf595d43fabf127aea7b47450f81fafef9d515b.
+//
+// Solidity: event FiatFeeAmountChanged(address indexed sender, uint256 newFiatFeeAmount)
+func (_VaultY *VaultYFilterer) WatchFiatFeeAmountChanged(opts *bind.WatchOpts, sink chan<- *VaultYFiatFeeAmountChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "FiatFeeAmountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYFiatFeeAmountChanged)
+				if err := _VaultY.contract.UnpackLog(event, "FiatFeeAmountChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseFiatFeeAmountChanged is a log parse operation binding the contract event 0x2460d22a2a151edef78f3e2e7bf595d43fabf127aea7b47450f81fafef9d515b.
+//
+// Solidity: event FiatFeeAmountChanged(address indexed sender, uint256 newFiatFeeAmount)
+func (_VaultY *VaultYFilterer) ParseFiatFeeAmountChanged(log types.Log) (*VaultYFiatFeeAmountChanged, error) {
+	event := new(VaultYFiatFeeAmountChanged)
+	if err := _VaultY.contract.UnpackLog(event, "FiatFeeAmountChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
 
 // VaultYPausedIterator is returned from FilterPaused and is used to iterate over the raw logs and unpacked data for Paused events raised by the VaultY contract.
@@ -1578,6 +1697,151 @@ func (_VaultY *VaultYFilterer) WatchPaused(opts *bind.WatchOpts, sink chan<- *Va
 func (_VaultY *VaultYFilterer) ParsePaused(log types.Log) (*VaultYPaused, error) {
 	event := new(VaultYPaused)
 	if err := _VaultY.contract.UnpackLog(event, "Paused", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYPriceOracleChangedIterator is returned from FilterPriceOracleChanged and is used to iterate over the raw logs and unpacked data for PriceOracleChanged events raised by the VaultY contract.
+type VaultYPriceOracleChangedIterator struct {
+	Event *VaultYPriceOracleChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYPriceOracleChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYPriceOracleChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYPriceOracleChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYPriceOracleChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYPriceOracleChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYPriceOracleChanged represents a PriceOracleChanged event raised by the VaultY contract.
+type VaultYPriceOracleChanged struct {
+	Sender         common.Address
+	NewPriceOracle common.Address
+	Raw            types.Log // Blockchain specific contextual infos
+}
+
+// FilterPriceOracleChanged is a free log retrieval operation binding the contract event 0x40bddd72ea96b80dae14e3d13e8ce2c4ecd2500d88c6c0004d24a00deab28f9c.
+//
+// Solidity: event PriceOracleChanged(address indexed sender, address newPriceOracle)
+func (_VaultY *VaultYFilterer) FilterPriceOracleChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYPriceOracleChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "PriceOracleChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYPriceOracleChangedIterator{contract: _VaultY.contract, event: "PriceOracleChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchPriceOracleChanged is a free log subscription operation binding the contract event 0x40bddd72ea96b80dae14e3d13e8ce2c4ecd2500d88c6c0004d24a00deab28f9c.
+//
+// Solidity: event PriceOracleChanged(address indexed sender, address newPriceOracle)
+func (_VaultY *VaultYFilterer) WatchPriceOracleChanged(opts *bind.WatchOpts, sink chan<- *VaultYPriceOracleChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "PriceOracleChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYPriceOracleChanged)
+				if err := _VaultY.contract.UnpackLog(event, "PriceOracleChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParsePriceOracleChanged is a log parse operation binding the contract event 0x40bddd72ea96b80dae14e3d13e8ce2c4ecd2500d88c6c0004d24a00deab28f9c.
+//
+// Solidity: event PriceOracleChanged(address indexed sender, address newPriceOracle)
+func (_VaultY *VaultYFilterer) ParsePriceOracleChanged(log types.Log) (*VaultYPriceOracleChanged, error) {
+	event := new(VaultYPriceOracleChanged)
+	if err := _VaultY.contract.UnpackLog(event, "PriceOracleChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -2070,6 +2334,606 @@ func (_VaultY *VaultYFilterer) ParseRoleRevoked(log types.Log) (*VaultYRoleRevok
 	return event, nil
 }
 
+// VaultYStakeAddedIterator is returned from FilterStakeAdded and is used to iterate over the raw logs and unpacked data for StakeAdded events raised by the VaultY contract.
+type VaultYStakeAddedIterator struct {
+	Event *VaultYStakeAdded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYStakeAddedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYStakeAdded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYStakeAdded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYStakeAddedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYStakeAddedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYStakeAdded represents a StakeAdded event raised by the VaultY contract.
+type VaultYStakeAdded struct {
+	From   common.Address
+	Epoch  *big.Int
+	Amount *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterStakeAdded is a free log retrieval operation binding the contract event 0x270d6dd254edd1d985c81cf7861b8f28fb06b6d719df04d90464034d43412440.
+//
+// Solidity: event StakeAdded(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) FilterStakeAdded(opts *bind.FilterOpts, from []common.Address, epoch []*big.Int) (*VaultYStakeAddedIterator, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var epochRule []interface{}
+	for _, epochItem := range epoch {
+		epochRule = append(epochRule, epochItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "StakeAdded", fromRule, epochRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYStakeAddedIterator{contract: _VaultY.contract, event: "StakeAdded", logs: logs, sub: sub}, nil
+}
+
+// WatchStakeAdded is a free log subscription operation binding the contract event 0x270d6dd254edd1d985c81cf7861b8f28fb06b6d719df04d90464034d43412440.
+//
+// Solidity: event StakeAdded(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) WatchStakeAdded(opts *bind.WatchOpts, sink chan<- *VaultYStakeAdded, from []common.Address, epoch []*big.Int) (event.Subscription, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var epochRule []interface{}
+	for _, epochItem := range epoch {
+		epochRule = append(epochRule, epochItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "StakeAdded", fromRule, epochRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYStakeAdded)
+				if err := _VaultY.contract.UnpackLog(event, "StakeAdded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseStakeAdded is a log parse operation binding the contract event 0x270d6dd254edd1d985c81cf7861b8f28fb06b6d719df04d90464034d43412440.
+//
+// Solidity: event StakeAdded(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) ParseStakeAdded(log types.Log) (*VaultYStakeAdded, error) {
+	event := new(VaultYStakeAdded)
+	if err := _VaultY.contract.UnpackLog(event, "StakeAdded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYStakeRemovedIterator is returned from FilterStakeRemoved and is used to iterate over the raw logs and unpacked data for StakeRemoved events raised by the VaultY contract.
+type VaultYStakeRemovedIterator struct {
+	Event *VaultYStakeRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYStakeRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYStakeRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYStakeRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYStakeRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYStakeRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYStakeRemoved represents a StakeRemoved event raised by the VaultY contract.
+type VaultYStakeRemoved struct {
+	From   common.Address
+	Epoch  *big.Int
+	Amount *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterStakeRemoved is a free log retrieval operation binding the contract event 0xdcca95406ac9554449be02d88dcdf9c877f96e4c02bdad4bd5cadefc98a20e3d.
+//
+// Solidity: event StakeRemoved(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) FilterStakeRemoved(opts *bind.FilterOpts, from []common.Address, epoch []*big.Int) (*VaultYStakeRemovedIterator, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var epochRule []interface{}
+	for _, epochItem := range epoch {
+		epochRule = append(epochRule, epochItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "StakeRemoved", fromRule, epochRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYStakeRemovedIterator{contract: _VaultY.contract, event: "StakeRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchStakeRemoved is a free log subscription operation binding the contract event 0xdcca95406ac9554449be02d88dcdf9c877f96e4c02bdad4bd5cadefc98a20e3d.
+//
+// Solidity: event StakeRemoved(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) WatchStakeRemoved(opts *bind.WatchOpts, sink chan<- *VaultYStakeRemoved, from []common.Address, epoch []*big.Int) (event.Subscription, error) {
+
+	var fromRule []interface{}
+	for _, fromItem := range from {
+		fromRule = append(fromRule, fromItem)
+	}
+	var epochRule []interface{}
+	for _, epochItem := range epoch {
+		epochRule = append(epochRule, epochItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "StakeRemoved", fromRule, epochRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYStakeRemoved)
+				if err := _VaultY.contract.UnpackLog(event, "StakeRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseStakeRemoved is a log parse operation binding the contract event 0xdcca95406ac9554449be02d88dcdf9c877f96e4c02bdad4bd5cadefc98a20e3d.
+//
+// Solidity: event StakeRemoved(address indexed from, uint256 indexed epoch, uint256 amount)
+func (_VaultY *VaultYFilterer) ParseStakeRemoved(log types.Log) (*VaultYStakeRemoved, error) {
+	event := new(VaultYStakeRemoved)
+	if err := _VaultY.contract.UnpackLog(event, "StakeRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYTipAccountChangedIterator is returned from FilterTipAccountChanged and is used to iterate over the raw logs and unpacked data for TipAccountChanged events raised by the VaultY contract.
+type VaultYTipAccountChangedIterator struct {
+	Event *VaultYTipAccountChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYTipAccountChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYTipAccountChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYTipAccountChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYTipAccountChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYTipAccountChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYTipAccountChanged represents a TipAccountChanged event raised by the VaultY contract.
+type VaultYTipAccountChanged struct {
+	Sender        common.Address
+	NewTipAccount common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterTipAccountChanged is a free log retrieval operation binding the contract event 0x028dd631374b48803cfa88ca1e6693001c280e4ffa9e573bf1002723cb03ae15.
+//
+// Solidity: event TipAccountChanged(address indexed sender, address newTipAccount)
+func (_VaultY *VaultYFilterer) FilterTipAccountChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYTipAccountChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TipAccountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYTipAccountChangedIterator{contract: _VaultY.contract, event: "TipAccountChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchTipAccountChanged is a free log subscription operation binding the contract event 0x028dd631374b48803cfa88ca1e6693001c280e4ffa9e573bf1002723cb03ae15.
+//
+// Solidity: event TipAccountChanged(address indexed sender, address newTipAccount)
+func (_VaultY *VaultYFilterer) WatchTipAccountChanged(opts *bind.WatchOpts, sink chan<- *VaultYTipAccountChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TipAccountChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYTipAccountChanged)
+				if err := _VaultY.contract.UnpackLog(event, "TipAccountChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseTipAccountChanged is a log parse operation binding the contract event 0x028dd631374b48803cfa88ca1e6693001c280e4ffa9e573bf1002723cb03ae15.
+//
+// Solidity: event TipAccountChanged(address indexed sender, address newTipAccount)
+func (_VaultY *VaultYFilterer) ParseTipAccountChanged(log types.Log) (*VaultYTipAccountChanged, error) {
+	event := new(VaultYTipAccountChanged)
+	if err := _VaultY.contract.UnpackLog(event, "TipAccountChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYTipRateChangedIterator is returned from FilterTipRateChanged and is used to iterate over the raw logs and unpacked data for TipRateChanged events raised by the VaultY contract.
+type VaultYTipRateChangedIterator struct {
+	Event *VaultYTipRateChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYTipRateChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYTipRateChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYTipRateChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYTipRateChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYTipRateChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYTipRateChanged represents a TipRateChanged event raised by the VaultY contract.
+type VaultYTipRateChanged struct {
+	Sender      common.Address
+	SourceToken common.Address
+	MappedToken common.Address
+	NewTipRate  *big.Int
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterTipRateChanged is a free log retrieval operation binding the contract event 0x7551456b2f0d91a3f37c1ac5ab2c19b7ed477502a8236b6e280061e05bd144a8.
+//
+// Solidity: event TipRateChanged(address indexed sender, address sourceToken, address mappedToken, uint256 newTipRate)
+func (_VaultY *VaultYFilterer) FilterTipRateChanged(opts *bind.FilterOpts, sender []common.Address) (*VaultYTipRateChangedIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TipRateChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYTipRateChangedIterator{contract: _VaultY.contract, event: "TipRateChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchTipRateChanged is a free log subscription operation binding the contract event 0x7551456b2f0d91a3f37c1ac5ab2c19b7ed477502a8236b6e280061e05bd144a8.
+//
+// Solidity: event TipRateChanged(address indexed sender, address sourceToken, address mappedToken, uint256 newTipRate)
+func (_VaultY *VaultYFilterer) WatchTipRateChanged(opts *bind.WatchOpts, sink chan<- *VaultYTipRateChanged, sender []common.Address) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TipRateChanged", senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYTipRateChanged)
+				if err := _VaultY.contract.UnpackLog(event, "TipRateChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseTipRateChanged is a log parse operation binding the contract event 0x7551456b2f0d91a3f37c1ac5ab2c19b7ed477502a8236b6e280061e05bd144a8.
+//
+// Solidity: event TipRateChanged(address indexed sender, address sourceToken, address mappedToken, uint256 newTipRate)
+func (_VaultY *VaultYFilterer) ParseTipRateChanged(log types.Log) (*VaultYTipRateChanged, error) {
+	event := new(VaultYTipRateChanged)
+	if err := _VaultY.contract.UnpackLog(event, "TipRateChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // VaultYTokenBurnIterator is returned from FilterTokenBurn and is used to iterate over the raw logs and unpacked data for TokenBurn events raised by the VaultY contract.
 type VaultYTokenBurnIterator struct {
 	Event *VaultYTokenBurn // Event containing the contract specifics and raw log
@@ -2139,61 +3003,65 @@ func (it *VaultYTokenBurnIterator) Close() error {
 
 // VaultYTokenBurn represents a TokenBurn event raised by the VaultY contract.
 type VaultYTokenBurn struct {
-	SourceToken       common.Address
-	MappedToken       common.Address
-	Account           common.Address
-	Amount            *big.Int
-	ExitNonce         *big.Int
-	TokenBalanceAfter *big.Int
-	Raw               types.Log // Blockchain specific contextual infos
+	SourceChainid *big.Int
+	SourceToken   common.Address
+	MappedChainid *big.Int
+	MappedToken   common.Address
+	Account       common.Address
+	Amount        *big.Int
+	Tip           *big.Int
+	BurnNonce     *big.Int
+	Raw           types.Log // Blockchain specific contextual infos
 }
 
-// FilterTokenBurn is a free log retrieval operation binding the contract event 0x190f1ba8a56661f2810c1874c30137729454d745e2a4b66490906a074a4035fc.
+// FilterTokenBurn is a free log retrieval operation binding the contract event 0x664b4a1e50f09aeb8c2a2351720c137e2d94f9a90a18e0a3a763db8d4595aa9c.
 //
-// Solidity: event TokenBurn(address indexed sourceToken, address indexed mappedToken, address account, uint256 amount, uint256 indexed ExitNonce, uint256 tokenBalanceAfter)
-func (_VaultY *VaultYFilterer) FilterTokenBurn(opts *bind.FilterOpts, sourceToken []common.Address, mappedToken []common.Address, ExitNonce []*big.Int) (*VaultYTokenBurnIterator, error) {
+// Solidity: event TokenBurn(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address account, uint256 amount, uint256 tip, uint256 indexed burnNonce)
+func (_VaultY *VaultYFilterer) FilterTokenBurn(opts *bind.FilterOpts, sourceToken []common.Address, mappedToken []common.Address, burnNonce []*big.Int) (*VaultYTokenBurnIterator, error) {
 
 	var sourceTokenRule []interface{}
 	for _, sourceTokenItem := range sourceToken {
 		sourceTokenRule = append(sourceTokenRule, sourceTokenItem)
 	}
+
 	var mappedTokenRule []interface{}
 	for _, mappedTokenItem := range mappedToken {
 		mappedTokenRule = append(mappedTokenRule, mappedTokenItem)
 	}
 
-	var ExitNonceRule []interface{}
-	for _, ExitNonceItem := range ExitNonce {
-		ExitNonceRule = append(ExitNonceRule, ExitNonceItem)
+	var burnNonceRule []interface{}
+	for _, burnNonceItem := range burnNonce {
+		burnNonceRule = append(burnNonceRule, burnNonceItem)
 	}
 
-	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TokenBurn", sourceTokenRule, mappedTokenRule, ExitNonceRule)
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TokenBurn", sourceTokenRule, mappedTokenRule, burnNonceRule)
 	if err != nil {
 		return nil, err
 	}
 	return &VaultYTokenBurnIterator{contract: _VaultY.contract, event: "TokenBurn", logs: logs, sub: sub}, nil
 }
 
-// WatchTokenBurn is a free log subscription operation binding the contract event 0x190f1ba8a56661f2810c1874c30137729454d745e2a4b66490906a074a4035fc.
+// WatchTokenBurn is a free log subscription operation binding the contract event 0x664b4a1e50f09aeb8c2a2351720c137e2d94f9a90a18e0a3a763db8d4595aa9c.
 //
-// Solidity: event TokenBurn(address indexed sourceToken, address indexed mappedToken, address account, uint256 amount, uint256 indexed ExitNonce, uint256 tokenBalanceAfter)
-func (_VaultY *VaultYFilterer) WatchTokenBurn(opts *bind.WatchOpts, sink chan<- *VaultYTokenBurn, sourceToken []common.Address, mappedToken []common.Address, ExitNonce []*big.Int) (event.Subscription, error) {
+// Solidity: event TokenBurn(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address account, uint256 amount, uint256 tip, uint256 indexed burnNonce)
+func (_VaultY *VaultYFilterer) WatchTokenBurn(opts *bind.WatchOpts, sink chan<- *VaultYTokenBurn, sourceToken []common.Address, mappedToken []common.Address, burnNonce []*big.Int) (event.Subscription, error) {
 
 	var sourceTokenRule []interface{}
 	for _, sourceTokenItem := range sourceToken {
 		sourceTokenRule = append(sourceTokenRule, sourceTokenItem)
 	}
+
 	var mappedTokenRule []interface{}
 	for _, mappedTokenItem := range mappedToken {
 		mappedTokenRule = append(mappedTokenRule, mappedTokenItem)
 	}
 
-	var ExitNonceRule []interface{}
-	for _, ExitNonceItem := range ExitNonce {
-		ExitNonceRule = append(ExitNonceRule, ExitNonceItem)
+	var burnNonceRule []interface{}
+	for _, burnNonceItem := range burnNonce {
+		burnNonceRule = append(burnNonceRule, burnNonceItem)
 	}
 
-	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TokenBurn", sourceTokenRule, mappedTokenRule, ExitNonceRule)
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TokenBurn", sourceTokenRule, mappedTokenRule, burnNonceRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2225,9 +3093,9 @@ func (_VaultY *VaultYFilterer) WatchTokenBurn(opts *bind.WatchOpts, sink chan<- 
 	}), nil
 }
 
-// ParseTokenBurn is a log parse operation binding the contract event 0x190f1ba8a56661f2810c1874c30137729454d745e2a4b66490906a074a4035fc.
+// ParseTokenBurn is a log parse operation binding the contract event 0x664b4a1e50f09aeb8c2a2351720c137e2d94f9a90a18e0a3a763db8d4595aa9c.
 //
-// Solidity: event TokenBurn(address indexed sourceToken, address indexed mappedToken, address account, uint256 amount, uint256 indexed ExitNonce, uint256 tokenBalanceAfter)
+// Solidity: event TokenBurn(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address account, uint256 amount, uint256 tip, uint256 indexed burnNonce)
 func (_VaultY *VaultYFilterer) ParseTokenBurn(log types.Log) (*VaultYTokenBurn, error) {
 	event := new(VaultYTokenBurn)
 	if err := _VaultY.contract.UnpackLog(event, "TokenBurn", log); err != nil {
@@ -2306,62 +3174,65 @@ func (it *VaultYTokenMintIterator) Close() error {
 
 // VaultYTokenMint represents a TokenMint event raised by the VaultY contract.
 type VaultYTokenMint struct {
-	SourceToken       common.Address
-	MappedToken       common.Address
-	To                common.Address
-	Amount            *big.Int
-	Tip               *big.Int
-	DepositNonce      *big.Int
-	TokenBalanceAfter *big.Int
-	Raw               types.Log // Blockchain specific contextual infos
+	SourceChainid *big.Int
+	SourceToken   common.Address
+	MappedChainid *big.Int
+	MappedToken   common.Address
+	To            common.Address
+	Amount        *big.Int
+	Tip           *big.Int
+	MintNonce     *big.Int
+	Raw           types.Log // Blockchain specific contextual infos
 }
 
-// FilterTokenMint is a free log retrieval operation binding the contract event 0xcb4365d1a29bcf52dd2a22528308a1958a0726bab3b9ace84581df181f3857b8.
+// FilterTokenMint is a free log retrieval operation binding the contract event 0x0fb9ffea2a3b78b6980f5f1efea23110de9d21e89fe8a4319a0a215da3f9845f.
 //
-// Solidity: event TokenMint(address indexed sourceToken, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed depositNonce, uint256 tokenBalanceAfter)
-func (_VaultY *VaultYFilterer) FilterTokenMint(opts *bind.FilterOpts, sourceToken []common.Address, mappedToken []common.Address, depositNonce []*big.Int) (*VaultYTokenMintIterator, error) {
+// Solidity: event TokenMint(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed mintNonce)
+func (_VaultY *VaultYFilterer) FilterTokenMint(opts *bind.FilterOpts, sourceToken []common.Address, mappedToken []common.Address, mintNonce []*big.Int) (*VaultYTokenMintIterator, error) {
 
 	var sourceTokenRule []interface{}
 	for _, sourceTokenItem := range sourceToken {
 		sourceTokenRule = append(sourceTokenRule, sourceTokenItem)
 	}
+
 	var mappedTokenRule []interface{}
 	for _, mappedTokenItem := range mappedToken {
 		mappedTokenRule = append(mappedTokenRule, mappedTokenItem)
 	}
 
-	var depositNonceRule []interface{}
-	for _, depositNonceItem := range depositNonce {
-		depositNonceRule = append(depositNonceRule, depositNonceItem)
+	var mintNonceRule []interface{}
+	for _, mintNonceItem := range mintNonce {
+		mintNonceRule = append(mintNonceRule, mintNonceItem)
 	}
 
-	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TokenMint", sourceTokenRule, mappedTokenRule, depositNonceRule)
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "TokenMint", sourceTokenRule, mappedTokenRule, mintNonceRule)
 	if err != nil {
 		return nil, err
 	}
 	return &VaultYTokenMintIterator{contract: _VaultY.contract, event: "TokenMint", logs: logs, sub: sub}, nil
 }
 
-// WatchTokenMint is a free log subscription operation binding the contract event 0xcb4365d1a29bcf52dd2a22528308a1958a0726bab3b9ace84581df181f3857b8.
+// WatchTokenMint is a free log subscription operation binding the contract event 0x0fb9ffea2a3b78b6980f5f1efea23110de9d21e89fe8a4319a0a215da3f9845f.
 //
-// Solidity: event TokenMint(address indexed sourceToken, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed depositNonce, uint256 tokenBalanceAfter)
-func (_VaultY *VaultYFilterer) WatchTokenMint(opts *bind.WatchOpts, sink chan<- *VaultYTokenMint, sourceToken []common.Address, mappedToken []common.Address, depositNonce []*big.Int) (event.Subscription, error) {
+// Solidity: event TokenMint(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed mintNonce)
+func (_VaultY *VaultYFilterer) WatchTokenMint(opts *bind.WatchOpts, sink chan<- *VaultYTokenMint, sourceToken []common.Address, mappedToken []common.Address, mintNonce []*big.Int) (event.Subscription, error) {
 
 	var sourceTokenRule []interface{}
 	for _, sourceTokenItem := range sourceToken {
 		sourceTokenRule = append(sourceTokenRule, sourceTokenItem)
 	}
+
 	var mappedTokenRule []interface{}
 	for _, mappedTokenItem := range mappedToken {
 		mappedTokenRule = append(mappedTokenRule, mappedTokenItem)
 	}
 
-	var depositNonceRule []interface{}
-	for _, depositNonceItem := range depositNonce {
-		depositNonceRule = append(depositNonceRule, depositNonceItem)
+	var mintNonceRule []interface{}
+	for _, mintNonceItem := range mintNonce {
+		mintNonceRule = append(mintNonceRule, mintNonceItem)
 	}
 
-	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TokenMint", sourceTokenRule, mappedTokenRule, depositNonceRule)
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "TokenMint", sourceTokenRule, mappedTokenRule, mintNonceRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2393,9 +3264,9 @@ func (_VaultY *VaultYFilterer) WatchTokenMint(opts *bind.WatchOpts, sink chan<- 
 	}), nil
 }
 
-// ParseTokenMint is a log parse operation binding the contract event 0xcb4365d1a29bcf52dd2a22528308a1958a0726bab3b9ace84581df181f3857b8.
+// ParseTokenMint is a log parse operation binding the contract event 0x0fb9ffea2a3b78b6980f5f1efea23110de9d21e89fe8a4319a0a215da3f9845f.
 //
-// Solidity: event TokenMint(address indexed sourceToken, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed depositNonce, uint256 tokenBalanceAfter)
+// Solidity: event TokenMint(uint256 sourceChainid, address indexed sourceToken, uint256 mappedChainid, address indexed mappedToken, address to, uint256 amount, uint256 tip, uint256 indexed mintNonce)
 func (_VaultY *VaultYFilterer) ParseTokenMint(log types.Log) (*VaultYTokenMint, error) {
 	event := new(VaultYTokenMint)
 	if err := _VaultY.contract.UnpackLog(event, "TokenMint", log); err != nil {
@@ -2533,6 +3404,143 @@ func (_VaultY *VaultYFilterer) WatchUnpaused(opts *bind.WatchOpts, sink chan<- *
 func (_VaultY *VaultYFilterer) ParseUnpaused(log types.Log) (*VaultYUnpaused, error) {
 	event := new(VaultYUnpaused)
 	if err := _VaultY.contract.UnpackLog(event, "Unpaused", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// VaultYRescueIterator is returned from FilterRescue and is used to iterate over the raw logs and unpacked data for Rescue events raised by the VaultY contract.
+type VaultYRescueIterator struct {
+	Event *VaultYRescue // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *VaultYRescueIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(VaultYRescue)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(VaultYRescue)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *VaultYRescueIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *VaultYRescueIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// VaultYRescue represents a Rescue event raised by the VaultY contract.
+type VaultYRescue struct {
+	Token  common.Address
+	Admin  common.Address
+	To     common.Address
+	Amount *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterRescue is a free log retrieval operation binding the contract event 0x9812792645a30909385d9ae8d010cf9acd0302710d36e2dbcfd8e4e2adbfb751.
+//
+// Solidity: event rescue(address token, address admin, address to, uint256 amount)
+func (_VaultY *VaultYFilterer) FilterRescue(opts *bind.FilterOpts) (*VaultYRescueIterator, error) {
+
+	logs, sub, err := _VaultY.contract.FilterLogs(opts, "rescue")
+	if err != nil {
+		return nil, err
+	}
+	return &VaultYRescueIterator{contract: _VaultY.contract, event: "rescue", logs: logs, sub: sub}, nil
+}
+
+// WatchRescue is a free log subscription operation binding the contract event 0x9812792645a30909385d9ae8d010cf9acd0302710d36e2dbcfd8e4e2adbfb751.
+//
+// Solidity: event rescue(address token, address admin, address to, uint256 amount)
+func (_VaultY *VaultYFilterer) WatchRescue(opts *bind.WatchOpts, sink chan<- *VaultYRescue) (event.Subscription, error) {
+
+	logs, sub, err := _VaultY.contract.WatchLogs(opts, "rescue")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(VaultYRescue)
+				if err := _VaultY.contract.UnpackLog(event, "rescue", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseRescue is a log parse operation binding the contract event 0x9812792645a30909385d9ae8d010cf9acd0302710d36e2dbcfd8e4e2adbfb751.
+//
+// Solidity: event rescue(address token, address admin, address to, uint256 amount)
+func (_VaultY *VaultYFilterer) ParseRescue(log types.Log) (*VaultYRescue, error) {
+	event := new(VaultYRescue)
+	if err := _VaultY.contract.UnpackLog(event, "rescue", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

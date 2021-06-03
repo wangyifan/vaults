@@ -2,22 +2,22 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./xbx.sol";
+import "./xcoin.sol";
 
 contract Minter is Ownable {
-    address internal _xtoken;
+    address internal _xcoin;
 
-    constructor(address xtoken) {
-        _xtoken = xtoken;
+    constructor(address xcoin) {
+        _xcoin = xcoin;
     }
 
     function mint(address account, uint256 amount) public onlyOwner returns (bool){
-        XToken(_xtoken).mint(account, amount);
+        XCoin(_xcoin).mint(account, amount);
         return true;
     }
 
     function setCap(uint256 newCap) public onlyOwner returns (bool) {
-        XToken(_xtoken).setCap(newCap);
+        XCoin(_xcoin).setCap(newCap);
         return true;
     }
 }

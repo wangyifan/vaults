@@ -26,107 +26,107 @@ var (
 	_ = event.NewSubscription
 )
 
-// XTokenABI is the input ABI used to generate the binding from.
-const XTokenABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"name\":\"setCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinters\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// XCoinABI is the input ABI used to generate the binding from.
+const XCoinABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burnFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"name\":\"setCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinters\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
-// XToken is an auto generated Go binding around an Ethereum contract.
-type XToken struct {
-	XTokenCaller     // Read-only binding to the contract
-	XTokenTransactor // Write-only binding to the contract
-	XTokenFilterer   // Log filterer for contract events
+// XCoin is an auto generated Go binding around an Ethereum contract.
+type XCoin struct {
+	XCoinCaller     // Read-only binding to the contract
+	XCoinTransactor // Write-only binding to the contract
+	XCoinFilterer   // Log filterer for contract events
 }
 
-// XTokenCaller is an auto generated read-only Go binding around an Ethereum contract.
-type XTokenCaller struct {
+// XCoinCaller is an auto generated read-only Go binding around an Ethereum contract.
+type XCoinCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// XTokenTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type XTokenTransactor struct {
+// XCoinTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type XCoinTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// XTokenFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type XTokenFilterer struct {
+// XCoinFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type XCoinFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// XTokenSession is an auto generated Go binding around an Ethereum contract,
+// XCoinSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type XTokenSession struct {
-	Contract     *XToken           // Generic contract binding to set the session for
+type XCoinSession struct {
+	Contract     *XCoin            // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// XTokenCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// XCoinCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type XTokenCallerSession struct {
-	Contract *XTokenCaller // Generic contract caller binding to set the session for
+type XCoinCallerSession struct {
+	Contract *XCoinCaller  // Generic contract caller binding to set the session for
 	CallOpts bind.CallOpts // Call options to use throughout this session
 }
 
-// XTokenTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// XCoinTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type XTokenTransactorSession struct {
-	Contract     *XTokenTransactor // Generic contract transactor binding to set the session for
+type XCoinTransactorSession struct {
+	Contract     *XCoinTransactor  // Generic contract transactor binding to set the session for
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// XTokenRaw is an auto generated low-level Go binding around an Ethereum contract.
-type XTokenRaw struct {
-	Contract *XToken // Generic contract binding to access the raw methods on
+// XCoinRaw is an auto generated low-level Go binding around an Ethereum contract.
+type XCoinRaw struct {
+	Contract *XCoin // Generic contract binding to access the raw methods on
 }
 
-// XTokenCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type XTokenCallerRaw struct {
-	Contract *XTokenCaller // Generic read-only contract binding to access the raw methods on
+// XCoinCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type XCoinCallerRaw struct {
+	Contract *XCoinCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// XTokenTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type XTokenTransactorRaw struct {
-	Contract *XTokenTransactor // Generic write-only contract binding to access the raw methods on
+// XCoinTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type XCoinTransactorRaw struct {
+	Contract *XCoinTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewXToken creates a new instance of XToken, bound to a specific deployed contract.
-func NewXToken(address common.Address, backend bind.ContractBackend) (*XToken, error) {
-	contract, err := bindXToken(address, backend, backend, backend)
+// NewXCoin creates a new instance of XCoin, bound to a specific deployed contract.
+func NewXCoin(address common.Address, backend bind.ContractBackend) (*XCoin, error) {
+	contract, err := bindXCoin(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &XToken{XTokenCaller: XTokenCaller{contract: contract}, XTokenTransactor: XTokenTransactor{contract: contract}, XTokenFilterer: XTokenFilterer{contract: contract}}, nil
+	return &XCoin{XCoinCaller: XCoinCaller{contract: contract}, XCoinTransactor: XCoinTransactor{contract: contract}, XCoinFilterer: XCoinFilterer{contract: contract}}, nil
 }
 
-// NewXTokenCaller creates a new read-only instance of XToken, bound to a specific deployed contract.
-func NewXTokenCaller(address common.Address, caller bind.ContractCaller) (*XTokenCaller, error) {
-	contract, err := bindXToken(address, caller, nil, nil)
+// NewXCoinCaller creates a new read-only instance of XCoin, bound to a specific deployed contract.
+func NewXCoinCaller(address common.Address, caller bind.ContractCaller) (*XCoinCaller, error) {
+	contract, err := bindXCoin(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenCaller{contract: contract}, nil
+	return &XCoinCaller{contract: contract}, nil
 }
 
-// NewXTokenTransactor creates a new write-only instance of XToken, bound to a specific deployed contract.
-func NewXTokenTransactor(address common.Address, transactor bind.ContractTransactor) (*XTokenTransactor, error) {
-	contract, err := bindXToken(address, nil, transactor, nil)
+// NewXCoinTransactor creates a new write-only instance of XCoin, bound to a specific deployed contract.
+func NewXCoinTransactor(address common.Address, transactor bind.ContractTransactor) (*XCoinTransactor, error) {
+	contract, err := bindXCoin(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenTransactor{contract: contract}, nil
+	return &XCoinTransactor{contract: contract}, nil
 }
 
-// NewXTokenFilterer creates a new log filterer instance of XToken, bound to a specific deployed contract.
-func NewXTokenFilterer(address common.Address, filterer bind.ContractFilterer) (*XTokenFilterer, error) {
-	contract, err := bindXToken(address, nil, nil, filterer)
+// NewXCoinFilterer creates a new log filterer instance of XCoin, bound to a specific deployed contract.
+func NewXCoinFilterer(address common.Address, filterer bind.ContractFilterer) (*XCoinFilterer, error) {
+	contract, err := bindXCoin(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenFilterer{contract: contract}, nil
+	return &XCoinFilterer{contract: contract}, nil
 }
 
-// bindXToken binds a generic wrapper to an already deployed contract.
-func bindXToken(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(XTokenABI))
+// bindXCoin binds a generic wrapper to an already deployed contract.
+func bindXCoin(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(XCoinABI))
 	if err != nil {
 		return nil, err
 	}
@@ -137,46 +137,46 @@ func bindXToken(address common.Address, caller bind.ContractCaller, transactor b
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_XToken *XTokenRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _XToken.Contract.XTokenCaller.contract.Call(opts, result, method, params...)
+func (_XCoin *XCoinRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _XCoin.Contract.XCoinCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_XToken *XTokenRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _XToken.Contract.XTokenTransactor.contract.Transfer(opts)
+func (_XCoin *XCoinRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _XCoin.Contract.XCoinTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_XToken *XTokenRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _XToken.Contract.XTokenTransactor.contract.Transact(opts, method, params...)
+func (_XCoin *XCoinRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _XCoin.Contract.XCoinTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_XToken *XTokenCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _XToken.Contract.contract.Call(opts, result, method, params...)
+func (_XCoin *XCoinCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _XCoin.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_XToken *XTokenTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _XToken.Contract.contract.Transfer(opts)
+func (_XCoin *XCoinTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _XCoin.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_XToken *XTokenTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _XToken.Contract.contract.Transact(opts, method, params...)
+func (_XCoin *XCoinTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _XCoin.Contract.contract.Transact(opts, method, params...)
 }
 
 // ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
 //
 // Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+func (_XCoin *XCoinCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "ADMIN_ROLE")
+	err := _XCoin.contract.Call(opts, &out, "ADMIN_ROLE")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -191,23 +191,23 @@ func (_XToken *XTokenCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
 // ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
 //
 // Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenSession) ADMINROLE() ([32]byte, error) {
-	return _XToken.Contract.ADMINROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) ADMINROLE() ([32]byte, error) {
+	return _XCoin.Contract.ADMINROLE(&_XCoin.CallOpts)
 }
 
 // ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
 //
 // Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenCallerSession) ADMINROLE() ([32]byte, error) {
-	return _XToken.Contract.ADMINROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) ADMINROLE() ([32]byte, error) {
+	return _XCoin.Contract.ADMINROLE(&_XCoin.CallOpts)
 }
 
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenCaller) DEFAULTADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+func (_XCoin *XCoinCaller) DEFAULTADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "DEFAULT_ADMIN_ROLE")
+	err := _XCoin.contract.Call(opts, &out, "DEFAULT_ADMIN_ROLE")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -222,23 +222,23 @@ func (_XToken *XTokenCaller) DEFAULTADMINROLE(opts *bind.CallOpts) ([32]byte, er
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenSession) DEFAULTADMINROLE() ([32]byte, error) {
-	return _XToken.Contract.DEFAULTADMINROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) DEFAULTADMINROLE() ([32]byte, error) {
+	return _XCoin.Contract.DEFAULTADMINROLE(&_XCoin.CallOpts)
 }
 
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
-func (_XToken *XTokenCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
-	return _XToken.Contract.DEFAULTADMINROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
+	return _XCoin.Contract.DEFAULTADMINROLE(&_XCoin.CallOpts)
 }
 
 // MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
 //
 // Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XToken *XTokenCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
+func (_XCoin *XCoinCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "MINTER_ROLE")
+	err := _XCoin.contract.Call(opts, &out, "MINTER_ROLE")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -253,23 +253,23 @@ func (_XToken *XTokenCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
 // MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
 //
 // Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XToken *XTokenSession) MINTERROLE() ([32]byte, error) {
-	return _XToken.Contract.MINTERROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) MINTERROLE() ([32]byte, error) {
+	return _XCoin.Contract.MINTERROLE(&_XCoin.CallOpts)
 }
 
 // MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
 //
 // Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XToken *XTokenCallerSession) MINTERROLE() ([32]byte, error) {
-	return _XToken.Contract.MINTERROLE(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) MINTERROLE() ([32]byte, error) {
+	return _XCoin.Contract.MINTERROLE(&_XCoin.CallOpts)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_XToken *XTokenCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
+func (_XCoin *XCoinCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "allowance", owner, spender)
+	err := _XCoin.contract.Call(opts, &out, "allowance", owner, spender)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -284,23 +284,23 @@ func (_XToken *XTokenCaller) Allowance(opts *bind.CallOpts, owner common.Address
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_XToken *XTokenSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _XToken.Contract.Allowance(&_XToken.CallOpts, owner, spender)
+func (_XCoin *XCoinSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _XCoin.Contract.Allowance(&_XCoin.CallOpts, owner, spender)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_XToken *XTokenCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _XToken.Contract.Allowance(&_XToken.CallOpts, owner, spender)
+func (_XCoin *XCoinCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _XCoin.Contract.Allowance(&_XCoin.CallOpts, owner, spender)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) view returns(uint256)
-func (_XToken *XTokenCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
+func (_XCoin *XCoinCaller) BalanceOf(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "balanceOf", account)
+	err := _XCoin.contract.Call(opts, &out, "balanceOf", account)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -315,23 +315,23 @@ func (_XToken *XTokenCaller) BalanceOf(opts *bind.CallOpts, account common.Addre
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) view returns(uint256)
-func (_XToken *XTokenSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _XToken.Contract.BalanceOf(&_XToken.CallOpts, account)
+func (_XCoin *XCoinSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _XCoin.Contract.BalanceOf(&_XCoin.CallOpts, account)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address account) view returns(uint256)
-func (_XToken *XTokenCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
-	return _XToken.Contract.BalanceOf(&_XToken.CallOpts, account)
+func (_XCoin *XCoinCallerSession) BalanceOf(account common.Address) (*big.Int, error) {
+	return _XCoin.Contract.BalanceOf(&_XCoin.CallOpts, account)
 }
 
 // Cap is a free data retrieval call binding the contract method 0x355274ea.
 //
 // Solidity: function cap() view returns(uint256)
-func (_XToken *XTokenCaller) Cap(opts *bind.CallOpts) (*big.Int, error) {
+func (_XCoin *XCoinCaller) Cap(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "cap")
+	err := _XCoin.contract.Call(opts, &out, "cap")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -346,23 +346,23 @@ func (_XToken *XTokenCaller) Cap(opts *bind.CallOpts) (*big.Int, error) {
 // Cap is a free data retrieval call binding the contract method 0x355274ea.
 //
 // Solidity: function cap() view returns(uint256)
-func (_XToken *XTokenSession) Cap() (*big.Int, error) {
-	return _XToken.Contract.Cap(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) Cap() (*big.Int, error) {
+	return _XCoin.Contract.Cap(&_XCoin.CallOpts)
 }
 
 // Cap is a free data retrieval call binding the contract method 0x355274ea.
 //
 // Solidity: function cap() view returns(uint256)
-func (_XToken *XTokenCallerSession) Cap() (*big.Int, error) {
-	return _XToken.Contract.Cap(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) Cap() (*big.Int, error) {
+	return _XCoin.Contract.Cap(&_XCoin.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() view returns(uint8)
-func (_XToken *XTokenCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
+func (_XCoin *XCoinCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "decimals")
+	err := _XCoin.contract.Call(opts, &out, "decimals")
 
 	if err != nil {
 		return *new(uint8), err
@@ -377,23 +377,23 @@ func (_XToken *XTokenCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() view returns(uint8)
-func (_XToken *XTokenSession) Decimals() (uint8, error) {
-	return _XToken.Contract.Decimals(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) Decimals() (uint8, error) {
+	return _XCoin.Contract.Decimals(&_XCoin.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() view returns(uint8)
-func (_XToken *XTokenCallerSession) Decimals() (uint8, error) {
-	return _XToken.Contract.Decimals(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) Decimals() (uint8, error) {
+	return _XCoin.Contract.Decimals(&_XCoin.CallOpts)
 }
 
 // GetMinters is a free data retrieval call binding the contract method 0x6b32810b.
 //
 // Solidity: function getMinters() view returns(address[])
-func (_XToken *XTokenCaller) GetMinters(opts *bind.CallOpts) ([]common.Address, error) {
+func (_XCoin *XCoinCaller) GetMinters(opts *bind.CallOpts) ([]common.Address, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "getMinters")
+	err := _XCoin.contract.Call(opts, &out, "getMinters")
 
 	if err != nil {
 		return *new([]common.Address), err
@@ -408,23 +408,23 @@ func (_XToken *XTokenCaller) GetMinters(opts *bind.CallOpts) ([]common.Address, 
 // GetMinters is a free data retrieval call binding the contract method 0x6b32810b.
 //
 // Solidity: function getMinters() view returns(address[])
-func (_XToken *XTokenSession) GetMinters() ([]common.Address, error) {
-	return _XToken.Contract.GetMinters(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) GetMinters() ([]common.Address, error) {
+	return _XCoin.Contract.GetMinters(&_XCoin.CallOpts)
 }
 
 // GetMinters is a free data retrieval call binding the contract method 0x6b32810b.
 //
 // Solidity: function getMinters() view returns(address[])
-func (_XToken *XTokenCallerSession) GetMinters() ([]common.Address, error) {
-	return _XToken.Contract.GetMinters(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) GetMinters() ([]common.Address, error) {
+	return _XCoin.Contract.GetMinters(&_XCoin.CallOpts)
 }
 
 // GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
 //
 // Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
-func (_XToken *XTokenCaller) GetRoleAdmin(opts *bind.CallOpts, role [32]byte) ([32]byte, error) {
+func (_XCoin *XCoinCaller) GetRoleAdmin(opts *bind.CallOpts, role [32]byte) ([32]byte, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "getRoleAdmin", role)
+	err := _XCoin.contract.Call(opts, &out, "getRoleAdmin", role)
 
 	if err != nil {
 		return *new([32]byte), err
@@ -439,23 +439,23 @@ func (_XToken *XTokenCaller) GetRoleAdmin(opts *bind.CallOpts, role [32]byte) ([
 // GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
 //
 // Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
-func (_XToken *XTokenSession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
-	return _XToken.Contract.GetRoleAdmin(&_XToken.CallOpts, role)
+func (_XCoin *XCoinSession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
+	return _XCoin.Contract.GetRoleAdmin(&_XCoin.CallOpts, role)
 }
 
 // GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
 //
 // Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
-func (_XToken *XTokenCallerSession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
-	return _XToken.Contract.GetRoleAdmin(&_XToken.CallOpts, role)
+func (_XCoin *XCoinCallerSession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
+	return _XCoin.Contract.GetRoleAdmin(&_XCoin.CallOpts, role)
 }
 
 // GetRoleMember is a free data retrieval call binding the contract method 0x9010d07c.
 //
 // Solidity: function getRoleMember(bytes32 role, uint256 index) view returns(address)
-func (_XToken *XTokenCaller) GetRoleMember(opts *bind.CallOpts, role [32]byte, index *big.Int) (common.Address, error) {
+func (_XCoin *XCoinCaller) GetRoleMember(opts *bind.CallOpts, role [32]byte, index *big.Int) (common.Address, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "getRoleMember", role, index)
+	err := _XCoin.contract.Call(opts, &out, "getRoleMember", role, index)
 
 	if err != nil {
 		return *new(common.Address), err
@@ -470,23 +470,23 @@ func (_XToken *XTokenCaller) GetRoleMember(opts *bind.CallOpts, role [32]byte, i
 // GetRoleMember is a free data retrieval call binding the contract method 0x9010d07c.
 //
 // Solidity: function getRoleMember(bytes32 role, uint256 index) view returns(address)
-func (_XToken *XTokenSession) GetRoleMember(role [32]byte, index *big.Int) (common.Address, error) {
-	return _XToken.Contract.GetRoleMember(&_XToken.CallOpts, role, index)
+func (_XCoin *XCoinSession) GetRoleMember(role [32]byte, index *big.Int) (common.Address, error) {
+	return _XCoin.Contract.GetRoleMember(&_XCoin.CallOpts, role, index)
 }
 
 // GetRoleMember is a free data retrieval call binding the contract method 0x9010d07c.
 //
 // Solidity: function getRoleMember(bytes32 role, uint256 index) view returns(address)
-func (_XToken *XTokenCallerSession) GetRoleMember(role [32]byte, index *big.Int) (common.Address, error) {
-	return _XToken.Contract.GetRoleMember(&_XToken.CallOpts, role, index)
+func (_XCoin *XCoinCallerSession) GetRoleMember(role [32]byte, index *big.Int) (common.Address, error) {
+	return _XCoin.Contract.GetRoleMember(&_XCoin.CallOpts, role, index)
 }
 
 // GetRoleMemberCount is a free data retrieval call binding the contract method 0xca15c873.
 //
 // Solidity: function getRoleMemberCount(bytes32 role) view returns(uint256)
-func (_XToken *XTokenCaller) GetRoleMemberCount(opts *bind.CallOpts, role [32]byte) (*big.Int, error) {
+func (_XCoin *XCoinCaller) GetRoleMemberCount(opts *bind.CallOpts, role [32]byte) (*big.Int, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "getRoleMemberCount", role)
+	err := _XCoin.contract.Call(opts, &out, "getRoleMemberCount", role)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -501,23 +501,23 @@ func (_XToken *XTokenCaller) GetRoleMemberCount(opts *bind.CallOpts, role [32]by
 // GetRoleMemberCount is a free data retrieval call binding the contract method 0xca15c873.
 //
 // Solidity: function getRoleMemberCount(bytes32 role) view returns(uint256)
-func (_XToken *XTokenSession) GetRoleMemberCount(role [32]byte) (*big.Int, error) {
-	return _XToken.Contract.GetRoleMemberCount(&_XToken.CallOpts, role)
+func (_XCoin *XCoinSession) GetRoleMemberCount(role [32]byte) (*big.Int, error) {
+	return _XCoin.Contract.GetRoleMemberCount(&_XCoin.CallOpts, role)
 }
 
 // GetRoleMemberCount is a free data retrieval call binding the contract method 0xca15c873.
 //
 // Solidity: function getRoleMemberCount(bytes32 role) view returns(uint256)
-func (_XToken *XTokenCallerSession) GetRoleMemberCount(role [32]byte) (*big.Int, error) {
-	return _XToken.Contract.GetRoleMemberCount(&_XToken.CallOpts, role)
+func (_XCoin *XCoinCallerSession) GetRoleMemberCount(role [32]byte) (*big.Int, error) {
+	return _XCoin.Contract.GetRoleMemberCount(&_XCoin.CallOpts, role)
 }
 
 // HasRole is a free data retrieval call binding the contract method 0x91d14854.
 //
 // Solidity: function hasRole(bytes32 role, address account) view returns(bool)
-func (_XToken *XTokenCaller) HasRole(opts *bind.CallOpts, role [32]byte, account common.Address) (bool, error) {
+func (_XCoin *XCoinCaller) HasRole(opts *bind.CallOpts, role [32]byte, account common.Address) (bool, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "hasRole", role, account)
+	err := _XCoin.contract.Call(opts, &out, "hasRole", role, account)
 
 	if err != nil {
 		return *new(bool), err
@@ -532,23 +532,23 @@ func (_XToken *XTokenCaller) HasRole(opts *bind.CallOpts, role [32]byte, account
 // HasRole is a free data retrieval call binding the contract method 0x91d14854.
 //
 // Solidity: function hasRole(bytes32 role, address account) view returns(bool)
-func (_XToken *XTokenSession) HasRole(role [32]byte, account common.Address) (bool, error) {
-	return _XToken.Contract.HasRole(&_XToken.CallOpts, role, account)
+func (_XCoin *XCoinSession) HasRole(role [32]byte, account common.Address) (bool, error) {
+	return _XCoin.Contract.HasRole(&_XCoin.CallOpts, role, account)
 }
 
 // HasRole is a free data retrieval call binding the contract method 0x91d14854.
 //
 // Solidity: function hasRole(bytes32 role, address account) view returns(bool)
-func (_XToken *XTokenCallerSession) HasRole(role [32]byte, account common.Address) (bool, error) {
-	return _XToken.Contract.HasRole(&_XToken.CallOpts, role, account)
+func (_XCoin *XCoinCallerSession) HasRole(role [32]byte, account common.Address) (bool, error) {
+	return _XCoin.Contract.HasRole(&_XCoin.CallOpts, role, account)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() view returns(string)
-func (_XToken *XTokenCaller) Name(opts *bind.CallOpts) (string, error) {
+func (_XCoin *XCoinCaller) Name(opts *bind.CallOpts) (string, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "name")
+	err := _XCoin.contract.Call(opts, &out, "name")
 
 	if err != nil {
 		return *new(string), err
@@ -563,23 +563,23 @@ func (_XToken *XTokenCaller) Name(opts *bind.CallOpts) (string, error) {
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() view returns(string)
-func (_XToken *XTokenSession) Name() (string, error) {
-	return _XToken.Contract.Name(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) Name() (string, error) {
+	return _XCoin.Contract.Name(&_XCoin.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() view returns(string)
-func (_XToken *XTokenCallerSession) Name() (string, error) {
-	return _XToken.Contract.Name(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) Name() (string, error) {
+	return _XCoin.Contract.Name(&_XCoin.CallOpts)
 }
 
 // Paused is a free data retrieval call binding the contract method 0x5c975abb.
 //
 // Solidity: function paused() view returns(bool)
-func (_XToken *XTokenCaller) Paused(opts *bind.CallOpts) (bool, error) {
+func (_XCoin *XCoinCaller) Paused(opts *bind.CallOpts) (bool, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "paused")
+	err := _XCoin.contract.Call(opts, &out, "paused")
 
 	if err != nil {
 		return *new(bool), err
@@ -594,23 +594,23 @@ func (_XToken *XTokenCaller) Paused(opts *bind.CallOpts) (bool, error) {
 // Paused is a free data retrieval call binding the contract method 0x5c975abb.
 //
 // Solidity: function paused() view returns(bool)
-func (_XToken *XTokenSession) Paused() (bool, error) {
-	return _XToken.Contract.Paused(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) Paused() (bool, error) {
+	return _XCoin.Contract.Paused(&_XCoin.CallOpts)
 }
 
 // Paused is a free data retrieval call binding the contract method 0x5c975abb.
 //
 // Solidity: function paused() view returns(bool)
-func (_XToken *XTokenCallerSession) Paused() (bool, error) {
-	return _XToken.Contract.Paused(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) Paused() (bool, error) {
+	return _XCoin.Contract.Paused(&_XCoin.CallOpts)
 }
 
 // SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
 //
 // Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
-func (_XToken *XTokenCaller) SupportsInterface(opts *bind.CallOpts, interfaceId [4]byte) (bool, error) {
+func (_XCoin *XCoinCaller) SupportsInterface(opts *bind.CallOpts, interfaceId [4]byte) (bool, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "supportsInterface", interfaceId)
+	err := _XCoin.contract.Call(opts, &out, "supportsInterface", interfaceId)
 
 	if err != nil {
 		return *new(bool), err
@@ -625,23 +625,23 @@ func (_XToken *XTokenCaller) SupportsInterface(opts *bind.CallOpts, interfaceId 
 // SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
 //
 // Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
-func (_XToken *XTokenSession) SupportsInterface(interfaceId [4]byte) (bool, error) {
-	return _XToken.Contract.SupportsInterface(&_XToken.CallOpts, interfaceId)
+func (_XCoin *XCoinSession) SupportsInterface(interfaceId [4]byte) (bool, error) {
+	return _XCoin.Contract.SupportsInterface(&_XCoin.CallOpts, interfaceId)
 }
 
 // SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
 //
 // Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
-func (_XToken *XTokenCallerSession) SupportsInterface(interfaceId [4]byte) (bool, error) {
-	return _XToken.Contract.SupportsInterface(&_XToken.CallOpts, interfaceId)
+func (_XCoin *XCoinCallerSession) SupportsInterface(interfaceId [4]byte) (bool, error) {
+	return _XCoin.Contract.SupportsInterface(&_XCoin.CallOpts, interfaceId)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() view returns(string)
-func (_XToken *XTokenCaller) Symbol(opts *bind.CallOpts) (string, error) {
+func (_XCoin *XCoinCaller) Symbol(opts *bind.CallOpts) (string, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "symbol")
+	err := _XCoin.contract.Call(opts, &out, "symbol")
 
 	if err != nil {
 		return *new(string), err
@@ -656,23 +656,23 @@ func (_XToken *XTokenCaller) Symbol(opts *bind.CallOpts) (string, error) {
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() view returns(string)
-func (_XToken *XTokenSession) Symbol() (string, error) {
-	return _XToken.Contract.Symbol(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) Symbol() (string, error) {
+	return _XCoin.Contract.Symbol(&_XCoin.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() view returns(string)
-func (_XToken *XTokenCallerSession) Symbol() (string, error) {
-	return _XToken.Contract.Symbol(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) Symbol() (string, error) {
+	return _XCoin.Contract.Symbol(&_XCoin.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_XToken *XTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
+func (_XCoin *XCoinCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _XToken.contract.Call(opts, &out, "totalSupply")
+	err := _XCoin.contract.Call(opts, &out, "totalSupply")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -687,314 +687,356 @@ func (_XToken *XTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_XToken *XTokenSession) TotalSupply() (*big.Int, error) {
-	return _XToken.Contract.TotalSupply(&_XToken.CallOpts)
+func (_XCoin *XCoinSession) TotalSupply() (*big.Int, error) {
+	return _XCoin.Contract.TotalSupply(&_XCoin.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_XToken *XTokenCallerSession) TotalSupply() (*big.Int, error) {
-	return _XToken.Contract.TotalSupply(&_XToken.CallOpts)
+func (_XCoin *XCoinCallerSession) TotalSupply() (*big.Int, error) {
+	return _XCoin.Contract.TotalSupply(&_XCoin.CallOpts)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "approve", spender, amount)
+func (_XCoin *XCoinTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_XToken *XTokenSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Approve(&_XToken.TransactOpts, spender, amount)
+func (_XCoin *XCoinSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Approve(&_XCoin.TransactOpts, spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Approve(&_XToken.TransactOpts, spender, amount)
+func (_XCoin *XCoinTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Approve(&_XCoin.TransactOpts, spender, amount)
+}
+
+// Burn is a paid mutator transaction binding the contract method 0x42966c68.
+//
+// Solidity: function burn(uint256 amount) returns()
+func (_XCoin *XCoinTransactor) Burn(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "burn", amount)
+}
+
+// Burn is a paid mutator transaction binding the contract method 0x42966c68.
+//
+// Solidity: function burn(uint256 amount) returns()
+func (_XCoin *XCoinSession) Burn(amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Burn(&_XCoin.TransactOpts, amount)
+}
+
+// Burn is a paid mutator transaction binding the contract method 0x42966c68.
+//
+// Solidity: function burn(uint256 amount) returns()
+func (_XCoin *XCoinTransactorSession) Burn(amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Burn(&_XCoin.TransactOpts, amount)
+}
+
+// BurnFrom is a paid mutator transaction binding the contract method 0x79cc6790.
+//
+// Solidity: function burnFrom(address account, uint256 amount) returns()
+func (_XCoin *XCoinTransactor) BurnFrom(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "burnFrom", account, amount)
+}
+
+// BurnFrom is a paid mutator transaction binding the contract method 0x79cc6790.
+//
+// Solidity: function burnFrom(address account, uint256 amount) returns()
+func (_XCoin *XCoinSession) BurnFrom(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.BurnFrom(&_XCoin.TransactOpts, account, amount)
+}
+
+// BurnFrom is a paid mutator transaction binding the contract method 0x79cc6790.
+//
+// Solidity: function burnFrom(address account, uint256 amount) returns()
+func (_XCoin *XCoinTransactorSession) BurnFrom(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.BurnFrom(&_XCoin.TransactOpts, account, amount)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_XToken *XTokenTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
+func (_XCoin *XCoinTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_XToken *XTokenSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.DecreaseAllowance(&_XToken.TransactOpts, spender, subtractedValue)
+func (_XCoin *XCoinSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.DecreaseAllowance(&_XCoin.TransactOpts, spender, subtractedValue)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0xa457c2d7.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_XToken *XTokenTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.DecreaseAllowance(&_XToken.TransactOpts, spender, subtractedValue)
+func (_XCoin *XCoinTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.DecreaseAllowance(&_XCoin.TransactOpts, spender, subtractedValue)
 }
 
 // GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
 //
 // Solidity: function grantMinter(address minter) returns(bool)
-func (_XToken *XTokenTransactor) GrantMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "grantMinter", minter)
+func (_XCoin *XCoinTransactor) GrantMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "grantMinter", minter)
 }
 
 // GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
 //
 // Solidity: function grantMinter(address minter) returns(bool)
-func (_XToken *XTokenSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.GrantMinter(&_XToken.TransactOpts, minter)
+func (_XCoin *XCoinSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter)
 }
 
 // GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
 //
 // Solidity: function grantMinter(address minter) returns(bool)
-func (_XToken *XTokenTransactorSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.GrantMinter(&_XToken.TransactOpts, minter)
+func (_XCoin *XCoinTransactorSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter)
 }
 
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
 // Solidity: function grantRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactor) GrantRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "grantRole", role, account)
+func (_XCoin *XCoinTransactor) GrantRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "grantRole", role, account)
 }
 
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
 // Solidity: function grantRole(bytes32 role, address account) returns()
-func (_XToken *XTokenSession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.GrantRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinSession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantRole(&_XCoin.TransactOpts, role, account)
 }
 
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
 // Solidity: function grantRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactorSession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.GrantRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinTransactorSession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantRole(&_XCoin.TransactOpts, role, account)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_XToken *XTokenTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "increaseAllowance", spender, addedValue)
+func (_XCoin *XCoinTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "increaseAllowance", spender, addedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_XToken *XTokenSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.IncreaseAllowance(&_XToken.TransactOpts, spender, addedValue)
+func (_XCoin *XCoinSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.IncreaseAllowance(&_XCoin.TransactOpts, spender, addedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x39509351.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_XToken *XTokenTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.IncreaseAllowance(&_XToken.TransactOpts, spender, addedValue)
+func (_XCoin *XCoinTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.IncreaseAllowance(&_XCoin.TransactOpts, spender, addedValue)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
 // Solidity: function mint(address account, uint256 amount) returns()
-func (_XToken *XTokenTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "mint", account, amount)
+func (_XCoin *XCoinTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "mint", account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
 // Solidity: function mint(address account, uint256 amount) returns()
-func (_XToken *XTokenSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Mint(&_XToken.TransactOpts, account, amount)
+func (_XCoin *XCoinSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Mint(&_XCoin.TransactOpts, account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.
 //
 // Solidity: function mint(address account, uint256 amount) returns()
-func (_XToken *XTokenTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Mint(&_XToken.TransactOpts, account, amount)
+func (_XCoin *XCoinTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Mint(&_XCoin.TransactOpts, account, amount)
 }
 
 // Pause is a paid mutator transaction binding the contract method 0x8456cb59.
 //
 // Solidity: function pause() returns()
-func (_XToken *XTokenTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "pause")
+func (_XCoin *XCoinTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "pause")
 }
 
 // Pause is a paid mutator transaction binding the contract method 0x8456cb59.
 //
 // Solidity: function pause() returns()
-func (_XToken *XTokenSession) Pause() (*types.Transaction, error) {
-	return _XToken.Contract.Pause(&_XToken.TransactOpts)
+func (_XCoin *XCoinSession) Pause() (*types.Transaction, error) {
+	return _XCoin.Contract.Pause(&_XCoin.TransactOpts)
 }
 
 // Pause is a paid mutator transaction binding the contract method 0x8456cb59.
 //
 // Solidity: function pause() returns()
-func (_XToken *XTokenTransactorSession) Pause() (*types.Transaction, error) {
-	return _XToken.Contract.Pause(&_XToken.TransactOpts)
+func (_XCoin *XCoinTransactorSession) Pause() (*types.Transaction, error) {
+	return _XCoin.Contract.Pause(&_XCoin.TransactOpts)
 }
 
 // RenounceRole is a paid mutator transaction binding the contract method 0x36568abe.
 //
 // Solidity: function renounceRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactor) RenounceRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "renounceRole", role, account)
+func (_XCoin *XCoinTransactor) RenounceRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "renounceRole", role, account)
 }
 
 // RenounceRole is a paid mutator transaction binding the contract method 0x36568abe.
 //
 // Solidity: function renounceRole(bytes32 role, address account) returns()
-func (_XToken *XTokenSession) RenounceRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RenounceRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinSession) RenounceRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RenounceRole(&_XCoin.TransactOpts, role, account)
 }
 
 // RenounceRole is a paid mutator transaction binding the contract method 0x36568abe.
 //
 // Solidity: function renounceRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactorSession) RenounceRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RenounceRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinTransactorSession) RenounceRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RenounceRole(&_XCoin.TransactOpts, role, account)
 }
 
 // RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
 //
 // Solidity: function revokeMinter(address minter) returns(bool)
-func (_XToken *XTokenTransactor) RevokeMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "revokeMinter", minter)
+func (_XCoin *XCoinTransactor) RevokeMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "revokeMinter", minter)
 }
 
 // RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
 //
 // Solidity: function revokeMinter(address minter) returns(bool)
-func (_XToken *XTokenSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RevokeMinter(&_XToken.TransactOpts, minter)
+func (_XCoin *XCoinSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RevokeMinter(&_XCoin.TransactOpts, minter)
 }
 
 // RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
 //
 // Solidity: function revokeMinter(address minter) returns(bool)
-func (_XToken *XTokenTransactorSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RevokeMinter(&_XToken.TransactOpts, minter)
+func (_XCoin *XCoinTransactorSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RevokeMinter(&_XCoin.TransactOpts, minter)
 }
 
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
 //
 // Solidity: function revokeRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactor) RevokeRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "revokeRole", role, account)
+func (_XCoin *XCoinTransactor) RevokeRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "revokeRole", role, account)
 }
 
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
 //
 // Solidity: function revokeRole(bytes32 role, address account) returns()
-func (_XToken *XTokenSession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RevokeRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinSession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RevokeRole(&_XCoin.TransactOpts, role, account)
 }
 
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
 //
 // Solidity: function revokeRole(bytes32 role, address account) returns()
-func (_XToken *XTokenTransactorSession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
-	return _XToken.Contract.RevokeRole(&_XToken.TransactOpts, role, account)
+func (_XCoin *XCoinTransactorSession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RevokeRole(&_XCoin.TransactOpts, role, account)
 }
 
 // SetCap is a paid mutator transaction binding the contract method 0x47786d37.
 //
 // Solidity: function setCap(uint256 cap_) returns(uint256)
-func (_XToken *XTokenTransactor) SetCap(opts *bind.TransactOpts, cap_ *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "setCap", cap_)
+func (_XCoin *XCoinTransactor) SetCap(opts *bind.TransactOpts, cap_ *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "setCap", cap_)
 }
 
 // SetCap is a paid mutator transaction binding the contract method 0x47786d37.
 //
 // Solidity: function setCap(uint256 cap_) returns(uint256)
-func (_XToken *XTokenSession) SetCap(cap_ *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.SetCap(&_XToken.TransactOpts, cap_)
+func (_XCoin *XCoinSession) SetCap(cap_ *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.SetCap(&_XCoin.TransactOpts, cap_)
 }
 
 // SetCap is a paid mutator transaction binding the contract method 0x47786d37.
 //
 // Solidity: function setCap(uint256 cap_) returns(uint256)
-func (_XToken *XTokenTransactorSession) SetCap(cap_ *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.SetCap(&_XToken.TransactOpts, cap_)
+func (_XCoin *XCoinTransactorSession) SetCap(cap_ *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.SetCap(&_XCoin.TransactOpts, cap_)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "transfer", recipient, amount)
+func (_XCoin *XCoinTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Transfer(&_XToken.TransactOpts, recipient, amount)
+func (_XCoin *XCoinSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Transfer(&_XCoin.TransactOpts, recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.Transfer(&_XToken.TransactOpts, recipient, amount)
+func (_XCoin *XCoinTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.Transfer(&_XCoin.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "transferFrom", sender, recipient, amount)
+func (_XCoin *XCoinTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.TransferFrom(&_XToken.TransactOpts, sender, recipient, amount)
+func (_XCoin *XCoinSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.TransferFrom(&_XCoin.TransactOpts, sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_XToken *XTokenTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _XToken.Contract.TransferFrom(&_XToken.TransactOpts, sender, recipient, amount)
+func (_XCoin *XCoinTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.TransferFrom(&_XCoin.TransactOpts, sender, recipient, amount)
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x3f4ba83a.
 //
 // Solidity: function unpause() returns()
-func (_XToken *XTokenTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _XToken.contract.Transact(opts, "unpause")
+func (_XCoin *XCoinTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "unpause")
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x3f4ba83a.
 //
 // Solidity: function unpause() returns()
-func (_XToken *XTokenSession) Unpause() (*types.Transaction, error) {
-	return _XToken.Contract.Unpause(&_XToken.TransactOpts)
+func (_XCoin *XCoinSession) Unpause() (*types.Transaction, error) {
+	return _XCoin.Contract.Unpause(&_XCoin.TransactOpts)
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x3f4ba83a.
 //
 // Solidity: function unpause() returns()
-func (_XToken *XTokenTransactorSession) Unpause() (*types.Transaction, error) {
-	return _XToken.Contract.Unpause(&_XToken.TransactOpts)
+func (_XCoin *XCoinTransactorSession) Unpause() (*types.Transaction, error) {
+	return _XCoin.Contract.Unpause(&_XCoin.TransactOpts)
 }
 
-// XTokenApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the XToken contract.
-type XTokenApprovalIterator struct {
-	Event *XTokenApproval // Event containing the contract specifics and raw log
+// XCoinApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the XCoin contract.
+type XCoinApprovalIterator struct {
+	Event *XCoinApproval // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1008,7 +1050,7 @@ type XTokenApprovalIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenApprovalIterator) Next() bool {
+func (it *XCoinApprovalIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1017,7 +1059,7 @@ func (it *XTokenApprovalIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenApproval)
+			it.Event = new(XCoinApproval)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1032,7 +1074,7 @@ func (it *XTokenApprovalIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenApproval)
+		it.Event = new(XCoinApproval)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1048,19 +1090,19 @@ func (it *XTokenApprovalIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenApprovalIterator) Error() error {
+func (it *XCoinApprovalIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenApprovalIterator) Close() error {
+func (it *XCoinApprovalIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenApproval represents a Approval event raised by the XToken contract.
-type XTokenApproval struct {
+// XCoinApproval represents a Approval event raised by the XCoin contract.
+type XCoinApproval struct {
 	Owner   common.Address
 	Spender common.Address
 	Value   *big.Int
@@ -1070,7 +1112,7 @@ type XTokenApproval struct {
 // FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_XToken *XTokenFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*XTokenApprovalIterator, error) {
+func (_XCoin *XCoinFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*XCoinApprovalIterator, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -1081,17 +1123,17 @@ func (_XToken *XTokenFilterer) FilterApproval(opts *bind.FilterOpts, owner []com
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenApprovalIterator{contract: _XToken.contract, event: "Approval", logs: logs, sub: sub}, nil
+	return &XCoinApprovalIterator{contract: _XCoin.contract, event: "Approval", logs: logs, sub: sub}, nil
 }
 
 // WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_XToken *XTokenFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *XTokenApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *XCoinApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -1102,7 +1144,7 @@ func (_XToken *XTokenFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1112,8 +1154,8 @@ func (_XToken *XTokenFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenApproval)
-				if err := _XToken.contract.UnpackLog(event, "Approval", log); err != nil {
+				event := new(XCoinApproval)
+				if err := _XCoin.contract.UnpackLog(event, "Approval", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1137,18 +1179,18 @@ func (_XToken *XTokenFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *
 // ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_XToken *XTokenFilterer) ParseApproval(log types.Log) (*XTokenApproval, error) {
-	event := new(XTokenApproval)
-	if err := _XToken.contract.UnpackLog(event, "Approval", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseApproval(log types.Log) (*XCoinApproval, error) {
+	event := new(XCoinApproval)
+	if err := _XCoin.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenPausedIterator is returned from FilterPaused and is used to iterate over the raw logs and unpacked data for Paused events raised by the XToken contract.
-type XTokenPausedIterator struct {
-	Event *XTokenPaused // Event containing the contract specifics and raw log
+// XCoinPausedIterator is returned from FilterPaused and is used to iterate over the raw logs and unpacked data for Paused events raised by the XCoin contract.
+type XCoinPausedIterator struct {
+	Event *XCoinPaused // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1162,7 +1204,7 @@ type XTokenPausedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenPausedIterator) Next() bool {
+func (it *XCoinPausedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1171,7 +1213,7 @@ func (it *XTokenPausedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenPaused)
+			it.Event = new(XCoinPaused)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1186,7 +1228,7 @@ func (it *XTokenPausedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenPaused)
+		it.Event = new(XCoinPaused)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1202,19 +1244,19 @@ func (it *XTokenPausedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenPausedIterator) Error() error {
+func (it *XCoinPausedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenPausedIterator) Close() error {
+func (it *XCoinPausedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenPaused represents a Paused event raised by the XToken contract.
-type XTokenPaused struct {
+// XCoinPaused represents a Paused event raised by the XCoin contract.
+type XCoinPaused struct {
 	Account common.Address
 	Raw     types.Log // Blockchain specific contextual infos
 }
@@ -1222,21 +1264,21 @@ type XTokenPaused struct {
 // FilterPaused is a free log retrieval operation binding the contract event 0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258.
 //
 // Solidity: event Paused(address account)
-func (_XToken *XTokenFilterer) FilterPaused(opts *bind.FilterOpts) (*XTokenPausedIterator, error) {
+func (_XCoin *XCoinFilterer) FilterPaused(opts *bind.FilterOpts) (*XCoinPausedIterator, error) {
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "Paused")
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "Paused")
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenPausedIterator{contract: _XToken.contract, event: "Paused", logs: logs, sub: sub}, nil
+	return &XCoinPausedIterator{contract: _XCoin.contract, event: "Paused", logs: logs, sub: sub}, nil
 }
 
 // WatchPaused is a free log subscription operation binding the contract event 0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258.
 //
 // Solidity: event Paused(address account)
-func (_XToken *XTokenFilterer) WatchPaused(opts *bind.WatchOpts, sink chan<- *XTokenPaused) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchPaused(opts *bind.WatchOpts, sink chan<- *XCoinPaused) (event.Subscription, error) {
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "Paused")
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "Paused")
 	if err != nil {
 		return nil, err
 	}
@@ -1246,8 +1288,8 @@ func (_XToken *XTokenFilterer) WatchPaused(opts *bind.WatchOpts, sink chan<- *XT
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenPaused)
-				if err := _XToken.contract.UnpackLog(event, "Paused", log); err != nil {
+				event := new(XCoinPaused)
+				if err := _XCoin.contract.UnpackLog(event, "Paused", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1271,18 +1313,18 @@ func (_XToken *XTokenFilterer) WatchPaused(opts *bind.WatchOpts, sink chan<- *XT
 // ParsePaused is a log parse operation binding the contract event 0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258.
 //
 // Solidity: event Paused(address account)
-func (_XToken *XTokenFilterer) ParsePaused(log types.Log) (*XTokenPaused, error) {
-	event := new(XTokenPaused)
-	if err := _XToken.contract.UnpackLog(event, "Paused", log); err != nil {
+func (_XCoin *XCoinFilterer) ParsePaused(log types.Log) (*XCoinPaused, error) {
+	event := new(XCoinPaused)
+	if err := _XCoin.contract.UnpackLog(event, "Paused", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenRoleAdminChangedIterator is returned from FilterRoleAdminChanged and is used to iterate over the raw logs and unpacked data for RoleAdminChanged events raised by the XToken contract.
-type XTokenRoleAdminChangedIterator struct {
-	Event *XTokenRoleAdminChanged // Event containing the contract specifics and raw log
+// XCoinRoleAdminChangedIterator is returned from FilterRoleAdminChanged and is used to iterate over the raw logs and unpacked data for RoleAdminChanged events raised by the XCoin contract.
+type XCoinRoleAdminChangedIterator struct {
+	Event *XCoinRoleAdminChanged // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1296,7 +1338,7 @@ type XTokenRoleAdminChangedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenRoleAdminChangedIterator) Next() bool {
+func (it *XCoinRoleAdminChangedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1305,7 +1347,7 @@ func (it *XTokenRoleAdminChangedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenRoleAdminChanged)
+			it.Event = new(XCoinRoleAdminChanged)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1320,7 +1362,7 @@ func (it *XTokenRoleAdminChangedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenRoleAdminChanged)
+		it.Event = new(XCoinRoleAdminChanged)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1336,19 +1378,19 @@ func (it *XTokenRoleAdminChangedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenRoleAdminChangedIterator) Error() error {
+func (it *XCoinRoleAdminChangedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenRoleAdminChangedIterator) Close() error {
+func (it *XCoinRoleAdminChangedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenRoleAdminChanged represents a RoleAdminChanged event raised by the XToken contract.
-type XTokenRoleAdminChanged struct {
+// XCoinRoleAdminChanged represents a RoleAdminChanged event raised by the XCoin contract.
+type XCoinRoleAdminChanged struct {
 	Role              [32]byte
 	PreviousAdminRole [32]byte
 	NewAdminRole      [32]byte
@@ -1358,7 +1400,7 @@ type XTokenRoleAdminChanged struct {
 // FilterRoleAdminChanged is a free log retrieval operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
 //
 // Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
-func (_XToken *XTokenFilterer) FilterRoleAdminChanged(opts *bind.FilterOpts, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (*XTokenRoleAdminChangedIterator, error) {
+func (_XCoin *XCoinFilterer) FilterRoleAdminChanged(opts *bind.FilterOpts, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (*XCoinRoleAdminChangedIterator, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1373,17 +1415,17 @@ func (_XToken *XTokenFilterer) FilterRoleAdminChanged(opts *bind.FilterOpts, rol
 		newAdminRoleRule = append(newAdminRoleRule, newAdminRoleItem)
 	}
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenRoleAdminChangedIterator{contract: _XToken.contract, event: "RoleAdminChanged", logs: logs, sub: sub}, nil
+	return &XCoinRoleAdminChangedIterator{contract: _XCoin.contract, event: "RoleAdminChanged", logs: logs, sub: sub}, nil
 }
 
 // WatchRoleAdminChanged is a free log subscription operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
 //
 // Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
-func (_XToken *XTokenFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink chan<- *XTokenRoleAdminChanged, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink chan<- *XCoinRoleAdminChanged, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (event.Subscription, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1398,7 +1440,7 @@ func (_XToken *XTokenFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink 
 		newAdminRoleRule = append(newAdminRoleRule, newAdminRoleItem)
 	}
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1408,8 +1450,8 @@ func (_XToken *XTokenFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink 
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenRoleAdminChanged)
-				if err := _XToken.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
+				event := new(XCoinRoleAdminChanged)
+				if err := _XCoin.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1433,18 +1475,18 @@ func (_XToken *XTokenFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink 
 // ParseRoleAdminChanged is a log parse operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
 //
 // Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
-func (_XToken *XTokenFilterer) ParseRoleAdminChanged(log types.Log) (*XTokenRoleAdminChanged, error) {
-	event := new(XTokenRoleAdminChanged)
-	if err := _XToken.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseRoleAdminChanged(log types.Log) (*XCoinRoleAdminChanged, error) {
+	event := new(XCoinRoleAdminChanged)
+	if err := _XCoin.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenRoleGrantedIterator is returned from FilterRoleGranted and is used to iterate over the raw logs and unpacked data for RoleGranted events raised by the XToken contract.
-type XTokenRoleGrantedIterator struct {
-	Event *XTokenRoleGranted // Event containing the contract specifics and raw log
+// XCoinRoleGrantedIterator is returned from FilterRoleGranted and is used to iterate over the raw logs and unpacked data for RoleGranted events raised by the XCoin contract.
+type XCoinRoleGrantedIterator struct {
+	Event *XCoinRoleGranted // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1458,7 +1500,7 @@ type XTokenRoleGrantedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenRoleGrantedIterator) Next() bool {
+func (it *XCoinRoleGrantedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1467,7 +1509,7 @@ func (it *XTokenRoleGrantedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenRoleGranted)
+			it.Event = new(XCoinRoleGranted)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1482,7 +1524,7 @@ func (it *XTokenRoleGrantedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenRoleGranted)
+		it.Event = new(XCoinRoleGranted)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1498,19 +1540,19 @@ func (it *XTokenRoleGrantedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenRoleGrantedIterator) Error() error {
+func (it *XCoinRoleGrantedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenRoleGrantedIterator) Close() error {
+func (it *XCoinRoleGrantedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenRoleGranted represents a RoleGranted event raised by the XToken contract.
-type XTokenRoleGranted struct {
+// XCoinRoleGranted represents a RoleGranted event raised by the XCoin contract.
+type XCoinRoleGranted struct {
 	Role    [32]byte
 	Account common.Address
 	Sender  common.Address
@@ -1520,7 +1562,7 @@ type XTokenRoleGranted struct {
 // FilterRoleGranted is a free log retrieval operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
 //
 // Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) FilterRoleGranted(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*XTokenRoleGrantedIterator, error) {
+func (_XCoin *XCoinFilterer) FilterRoleGranted(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*XCoinRoleGrantedIterator, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1535,17 +1577,17 @@ func (_XToken *XTokenFilterer) FilterRoleGranted(opts *bind.FilterOpts, role [][
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenRoleGrantedIterator{contract: _XToken.contract, event: "RoleGranted", logs: logs, sub: sub}, nil
+	return &XCoinRoleGrantedIterator{contract: _XCoin.contract, event: "RoleGranted", logs: logs, sub: sub}, nil
 }
 
 // WatchRoleGranted is a free log subscription operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
 //
 // Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<- *XTokenRoleGranted, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<- *XCoinRoleGranted, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1560,7 +1602,7 @@ func (_XToken *XTokenFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1570,8 +1612,8 @@ func (_XToken *XTokenFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenRoleGranted)
-				if err := _XToken.contract.UnpackLog(event, "RoleGranted", log); err != nil {
+				event := new(XCoinRoleGranted)
+				if err := _XCoin.contract.UnpackLog(event, "RoleGranted", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1595,18 +1637,18 @@ func (_XToken *XTokenFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<
 // ParseRoleGranted is a log parse operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
 //
 // Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) ParseRoleGranted(log types.Log) (*XTokenRoleGranted, error) {
-	event := new(XTokenRoleGranted)
-	if err := _XToken.contract.UnpackLog(event, "RoleGranted", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseRoleGranted(log types.Log) (*XCoinRoleGranted, error) {
+	event := new(XCoinRoleGranted)
+	if err := _XCoin.contract.UnpackLog(event, "RoleGranted", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenRoleRevokedIterator is returned from FilterRoleRevoked and is used to iterate over the raw logs and unpacked data for RoleRevoked events raised by the XToken contract.
-type XTokenRoleRevokedIterator struct {
-	Event *XTokenRoleRevoked // Event containing the contract specifics and raw log
+// XCoinRoleRevokedIterator is returned from FilterRoleRevoked and is used to iterate over the raw logs and unpacked data for RoleRevoked events raised by the XCoin contract.
+type XCoinRoleRevokedIterator struct {
+	Event *XCoinRoleRevoked // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1620,7 +1662,7 @@ type XTokenRoleRevokedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenRoleRevokedIterator) Next() bool {
+func (it *XCoinRoleRevokedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1629,7 +1671,7 @@ func (it *XTokenRoleRevokedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenRoleRevoked)
+			it.Event = new(XCoinRoleRevoked)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1644,7 +1686,7 @@ func (it *XTokenRoleRevokedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenRoleRevoked)
+		it.Event = new(XCoinRoleRevoked)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1660,19 +1702,19 @@ func (it *XTokenRoleRevokedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenRoleRevokedIterator) Error() error {
+func (it *XCoinRoleRevokedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenRoleRevokedIterator) Close() error {
+func (it *XCoinRoleRevokedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenRoleRevoked represents a RoleRevoked event raised by the XToken contract.
-type XTokenRoleRevoked struct {
+// XCoinRoleRevoked represents a RoleRevoked event raised by the XCoin contract.
+type XCoinRoleRevoked struct {
 	Role    [32]byte
 	Account common.Address
 	Sender  common.Address
@@ -1682,7 +1724,7 @@ type XTokenRoleRevoked struct {
 // FilterRoleRevoked is a free log retrieval operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
 //
 // Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) FilterRoleRevoked(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*XTokenRoleRevokedIterator, error) {
+func (_XCoin *XCoinFilterer) FilterRoleRevoked(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*XCoinRoleRevokedIterator, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1697,17 +1739,17 @@ func (_XToken *XTokenFilterer) FilterRoleRevoked(opts *bind.FilterOpts, role [][
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenRoleRevokedIterator{contract: _XToken.contract, event: "RoleRevoked", logs: logs, sub: sub}, nil
+	return &XCoinRoleRevokedIterator{contract: _XCoin.contract, event: "RoleRevoked", logs: logs, sub: sub}, nil
 }
 
 // WatchRoleRevoked is a free log subscription operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
 //
 // Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<- *XTokenRoleRevoked, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<- *XCoinRoleRevoked, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
 
 	var roleRule []interface{}
 	for _, roleItem := range role {
@@ -1722,7 +1764,7 @@ func (_XToken *XTokenFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1732,8 +1774,8 @@ func (_XToken *XTokenFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenRoleRevoked)
-				if err := _XToken.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
+				event := new(XCoinRoleRevoked)
+				if err := _XCoin.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1757,18 +1799,18 @@ func (_XToken *XTokenFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<
 // ParseRoleRevoked is a log parse operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
 //
 // Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
-func (_XToken *XTokenFilterer) ParseRoleRevoked(log types.Log) (*XTokenRoleRevoked, error) {
-	event := new(XTokenRoleRevoked)
-	if err := _XToken.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseRoleRevoked(log types.Log) (*XCoinRoleRevoked, error) {
+	event := new(XCoinRoleRevoked)
+	if err := _XCoin.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the XToken contract.
-type XTokenTransferIterator struct {
-	Event *XTokenTransfer // Event containing the contract specifics and raw log
+// XCoinTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the XCoin contract.
+type XCoinTransferIterator struct {
+	Event *XCoinTransfer // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1782,7 +1824,7 @@ type XTokenTransferIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenTransferIterator) Next() bool {
+func (it *XCoinTransferIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1791,7 +1833,7 @@ func (it *XTokenTransferIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenTransfer)
+			it.Event = new(XCoinTransfer)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1806,7 +1848,7 @@ func (it *XTokenTransferIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenTransfer)
+		it.Event = new(XCoinTransfer)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1822,19 +1864,19 @@ func (it *XTokenTransferIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenTransferIterator) Error() error {
+func (it *XCoinTransferIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenTransferIterator) Close() error {
+func (it *XCoinTransferIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenTransfer represents a Transfer event raised by the XToken contract.
-type XTokenTransfer struct {
+// XCoinTransfer represents a Transfer event raised by the XCoin contract.
+type XCoinTransfer struct {
 	From  common.Address
 	To    common.Address
 	Value *big.Int
@@ -1844,7 +1886,7 @@ type XTokenTransfer struct {
 // FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_XToken *XTokenFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*XTokenTransferIterator, error) {
+func (_XCoin *XCoinFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*XCoinTransferIterator, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1855,17 +1897,17 @@ func (_XToken *XTokenFilterer) FilterTransfer(opts *bind.FilterOpts, from []comm
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenTransferIterator{contract: _XToken.contract, event: "Transfer", logs: logs, sub: sub}, nil
+	return &XCoinTransferIterator{contract: _XCoin.contract, event: "Transfer", logs: logs, sub: sub}, nil
 }
 
 // WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_XToken *XTokenFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *XTokenTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *XCoinTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1876,7 +1918,7 @@ func (_XToken *XTokenFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1886,8 +1928,8 @@ func (_XToken *XTokenFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenTransfer)
-				if err := _XToken.contract.UnpackLog(event, "Transfer", log); err != nil {
+				event := new(XCoinTransfer)
+				if err := _XCoin.contract.UnpackLog(event, "Transfer", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1911,18 +1953,18 @@ func (_XToken *XTokenFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *
 // ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_XToken *XTokenFilterer) ParseTransfer(log types.Log) (*XTokenTransfer, error) {
-	event := new(XTokenTransfer)
-	if err := _XToken.contract.UnpackLog(event, "Transfer", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseTransfer(log types.Log) (*XCoinTransfer, error) {
+	event := new(XCoinTransfer)
+	if err := _XCoin.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// XTokenUnpausedIterator is returned from FilterUnpaused and is used to iterate over the raw logs and unpacked data for Unpaused events raised by the XToken contract.
-type XTokenUnpausedIterator struct {
-	Event *XTokenUnpaused // Event containing the contract specifics and raw log
+// XCoinUnpausedIterator is returned from FilterUnpaused and is used to iterate over the raw logs and unpacked data for Unpaused events raised by the XCoin contract.
+type XCoinUnpausedIterator struct {
+	Event *XCoinUnpaused // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1936,7 +1978,7 @@ type XTokenUnpausedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *XTokenUnpausedIterator) Next() bool {
+func (it *XCoinUnpausedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1945,7 +1987,7 @@ func (it *XTokenUnpausedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(XTokenUnpaused)
+			it.Event = new(XCoinUnpaused)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1960,7 +2002,7 @@ func (it *XTokenUnpausedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(XTokenUnpaused)
+		it.Event = new(XCoinUnpaused)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1976,19 +2018,19 @@ func (it *XTokenUnpausedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *XTokenUnpausedIterator) Error() error {
+func (it *XCoinUnpausedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *XTokenUnpausedIterator) Close() error {
+func (it *XCoinUnpausedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// XTokenUnpaused represents a Unpaused event raised by the XToken contract.
-type XTokenUnpaused struct {
+// XCoinUnpaused represents a Unpaused event raised by the XCoin contract.
+type XCoinUnpaused struct {
 	Account common.Address
 	Raw     types.Log // Blockchain specific contextual infos
 }
@@ -1996,21 +2038,21 @@ type XTokenUnpaused struct {
 // FilterUnpaused is a free log retrieval operation binding the contract event 0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa.
 //
 // Solidity: event Unpaused(address account)
-func (_XToken *XTokenFilterer) FilterUnpaused(opts *bind.FilterOpts) (*XTokenUnpausedIterator, error) {
+func (_XCoin *XCoinFilterer) FilterUnpaused(opts *bind.FilterOpts) (*XCoinUnpausedIterator, error) {
 
-	logs, sub, err := _XToken.contract.FilterLogs(opts, "Unpaused")
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "Unpaused")
 	if err != nil {
 		return nil, err
 	}
-	return &XTokenUnpausedIterator{contract: _XToken.contract, event: "Unpaused", logs: logs, sub: sub}, nil
+	return &XCoinUnpausedIterator{contract: _XCoin.contract, event: "Unpaused", logs: logs, sub: sub}, nil
 }
 
 // WatchUnpaused is a free log subscription operation binding the contract event 0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa.
 //
 // Solidity: event Unpaused(address account)
-func (_XToken *XTokenFilterer) WatchUnpaused(opts *bind.WatchOpts, sink chan<- *XTokenUnpaused) (event.Subscription, error) {
+func (_XCoin *XCoinFilterer) WatchUnpaused(opts *bind.WatchOpts, sink chan<- *XCoinUnpaused) (event.Subscription, error) {
 
-	logs, sub, err := _XToken.contract.WatchLogs(opts, "Unpaused")
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "Unpaused")
 	if err != nil {
 		return nil, err
 	}
@@ -2020,8 +2062,8 @@ func (_XToken *XTokenFilterer) WatchUnpaused(opts *bind.WatchOpts, sink chan<- *
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(XTokenUnpaused)
-				if err := _XToken.contract.UnpackLog(event, "Unpaused", log); err != nil {
+				event := new(XCoinUnpaused)
+				if err := _XCoin.contract.UnpackLog(event, "Unpaused", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2045,9 +2087,9 @@ func (_XToken *XTokenFilterer) WatchUnpaused(opts *bind.WatchOpts, sink chan<- *
 // ParseUnpaused is a log parse operation binding the contract event 0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa.
 //
 // Solidity: event Unpaused(address account)
-func (_XToken *XTokenFilterer) ParseUnpaused(log types.Log) (*XTokenUnpaused, error) {
-	event := new(XTokenUnpaused)
-	if err := _XToken.contract.UnpackLog(event, "Unpaused", log); err != nil {
+func (_XCoin *XCoinFilterer) ParseUnpaused(log types.Log) (*XCoinUnpaused, error) {
+	event := new(XCoinUnpaused)
+	if err := _XCoin.contract.UnpackLog(event, "Unpaused", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
