@@ -3,3 +3,5 @@ node_modules/
 build/
 abigenBindings/bin/
 abigenBindings/abi/
+coverage.json
+coverage/

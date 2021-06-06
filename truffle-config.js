@@ -118,6 +118,7 @@ module.exports = {
   // Plugins
   plugins: [
       "truffle-contract-size",
-      "@chainsafe/truffle-plugin-abigen"
+      "@chainsafe/truffle-plugin-abigen",
+      "solidity-coverage"
   ]
 };

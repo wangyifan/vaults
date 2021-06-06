@@ -6,7 +6,15 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 contract RoleAccess is AccessControlEnumerable {
     // role definition
     bytes32 internal constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 internal constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
+    bytes32 internal constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 internal constant REFUNDOP_ROLE = keccak256("REFUNDOP_ROLE");
+    bytes32 internal constant NONCEOP_ROLE = keccak256("NONCEOP_ROLE");
+
+    // struct
+    struct Role {
+        bytes32 role;
+        string describe;
+    }
 
     // modifier
     modifier onlyAdmin {
@@ -14,29 +22,48 @@ contract RoleAccess is AccessControlEnumerable {
         _;
     }
 
-    modifier onlyValidator {
-        require(hasRole(VALIDATOR_ROLE, _msgSender()), "Caller is not a validator");
+    modifier onlyMinter {
+        require(hasRole(MINTER_ROLE, _msgSender()), "Caller is not a minter");
         _;
     }
 
-    function addValidator(address validator) external onlyAdmin returns (bool) {
-        grantRole(VALIDATOR_ROLE, validator);
+    modifier onlyRefundOp {
+        require(hasRole(REFUNDOP_ROLE, _msgSender()), "Caller is not a refund op");
+        _;
+    }
+
+    modifier onlyNonceOp {
+        require(hasRole(NONCEOP_ROLE, _msgSender()), "Caller is not a nonce op");
+        _;
+    }
+
+    function getRoles() public pure returns(Role[] memory) {
+        Role[] memory result = new Role[](4);
+        result[0] = Role(ADMIN_ROLE, "admin");
+        result[1] = Role(MINTER_ROLE, "minter");
+        result[2] = Role(REFUNDOP_ROLE, "refund op");
+        result[3] = Role(NONCEOP_ROLE, "nonce op");
+        return result;
+    }
+
+    function addRoleMember(bytes32 role, address member) external onlyAdmin returns (bool) {
+        grantRole(role, member);
         return true;
     }
 
-    function removeValidator(address validator) external onlyAdmin returns (bool) {
-        if (hasRole(VALIDATOR_ROLE, validator)) {
-            revokeRole(VALIDATOR_ROLE, validator);
+    function removeRoleMember(bytes32 role, address member) external onlyAdmin returns (bool) {
+        if (hasRole(role, member)) {
+            revokeRole(role, member);
         }
         return true;
     }
 
-    function getValidators() external view returns (address[] memory) {
-        uint256 count = getRoleMemberCount(VALIDATOR_ROLE);
-        address[]  memory validators_ = new address[](count);
+    function getRoleMembers(bytes32 role) external view returns (address[] memory) {
+        uint256 count = getRoleMemberCount(role);
+        address[]  memory members_ = new address[](count);
         for (uint index = 0; index < count; index++) {
-            validators_[index] = getRoleMember(VALIDATOR_ROLE, index);
+            members_[index] = getRoleMember(role, index);
         }
-        return validators_;
+        return members_;
     }
 }

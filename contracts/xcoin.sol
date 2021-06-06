@@ -34,7 +34,7 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
     // variables
     uint256 internal _cap;
 
-    constructor(string memory name, string memory symbol, uint256 cap_) ERC20(name, symbol) {
+    constructor(string memory name, string memory symbol, uint256 cap_) ERC20(name, symbol){
          require(cap_ > 0, "ERC20: cap is 0");
         _cap = cap_;
 
@@ -82,6 +82,20 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
     function mint(address account, uint256 amount) public onlyMinter whenNotPaused {
         _mint(account, amount);
     }
+
+    /*
+    function batchMint(address[] accounts, uint256[] amount) public onlyMinter whenNotPaused {
+        require(account != address(0), "ERC20: mint to the zero address");
+        require(accounts.length == amount.length, "ERC20: mismatched accounts and amounts");
+        uint256 totalAmount = 0;
+        for (uint index = 0; index < accounts.length; index++) {
+              _beforeTokenTransfer(address(0), account, amount);
+              totalAmount += amount;
+              _balances[account] += amount;
+              emit Transfer(address(0), account, amount);
+        }
+        _totalSupply += totalAmount;
+    }*/
 
     // when paused, both mint() and transfer() will revert
     function pause() public onlyAdmin {

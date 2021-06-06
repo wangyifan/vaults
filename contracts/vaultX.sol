@@ -31,6 +31,15 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         address mappedToken;
     }
 
+    struct tokenWithdraw {
+      address sourceToken;
+      address mappedToken;
+      address payable to;
+      uint256 amount;
+      uint256 tipY;
+      uint256 withdrawNonce;
+    }
+
     address NATIVETOKEN;
 
     // variables
@@ -41,14 +50,13 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => address) internal tokenMappingReversed;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) public tokenMappingDepositNonce;
-    mapping(address => mapping(address => uint256)) internal tokenStagingBalances;
+    mapping(address => uint256) internal tipBalances;
+    mapping(uint256 => bool) public omitNonces;
     tokenPair[] internal tokenPairs;
 
     // events
     event TokenDeposit(
-        uint256 sourceChainid,
         address indexed sourceToken,
-        uint256 mappedChainid,
         address indexed mappedToken,
         address from,
         uint256 amount,
@@ -56,20 +64,34 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 indexed depositNonce
     );
     event TokenWithdraw(
-        uint256 sourceChainid,
         address indexed sourceToken,
-        uint256 mappedChainid,
         address indexed mappedToken,
         address to,
         uint256 amount,
+        uint256 tip,
         uint256 indexed withdrawNonce
+    );
+    event IgnoreNonces(
+        address sender,
+        uint256[] nonces
+    );
+    event SkipNonce(
+        uint256 start,
+        uint256 step
+    );
+    event Refund(
+        address token,
+        address payable to,
+        uint256 amount
     );
 
     constructor(address nativeToken) Staking(10) {
         // setup roles
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(ADMIN_ROLE, _msgSender());
-        _setupRole(VALIDATOR_ROLE, _msgSender());
+        _setupRole(MINTER_ROLE, _msgSender());
+        _setupRole(REFUNDOP_ROLE, _msgSender());
+        _setupRole(NONCEOP_ROLE, _msgSender());
 
         // fee setting
         tipAccount = _msgSender();
@@ -145,15 +167,13 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         if (shouldTip()) {
             tipX = getTip(sourceToken, mappedToken, amount);
             if (tipX > 0) {
-                tokenStagingBalances[NATIVETOKEN][tipAccount] += tipX;
+                tipBalances[NATIVETOKEN] += tipX;
             }
         }
 
         // 2. emit event
         emit TokenDeposit(
-            block.chainid,
             sourceToken,
-            mappedTokenChainids[mappedToken],
             mappedToken,
             from,
             amount,
@@ -184,15 +204,13 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         if (shouldTip()) {
             tipX = getTip(sourceToken, mappedToken, amount);
             if (tipX > 0){
-                tokenStagingBalances[sourceToken][tipAccount] += tipX;
+                tipBalances[sourceToken] += tipX;
             }
         }
 
         // 2. emit event
         emit TokenDeposit(
-            block.chainid,
             sourceToken,
-            mappedTokenChainids[mappedToken],
             mappedToken,
             from,
             amount,
@@ -206,61 +224,77 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
+    function batchWithdraw(
+        bytes calldata signature, bytes calldata input
+    ) external onlyMinter {
+        require(validateSignature(signature), "Invalid token mint signature");
+        tokenWithdraw[] memory tokenWithdraws = abi.decode(input, (tokenWithdraw[]));
+
+        for(uint256 index=0;index < tokenWithdraws.length;index++) {
+            tokenWithdraw memory tw = tokenWithdraws[index];
+            if(omitNonces[tw.withdrawNonce]==false){
+                withdraw(
+                    tw.sourceToken,
+                    tw.mappedToken,
+                    tw.to,
+                    tw.amount,
+                    tw.tipY,
+                    tw.withdrawNonce
+                );
+            }
+        }
+    }
+
+    function validateSignature(bytes memory signature) internal pure returns(bool){
+        require(signature.length > 0);
+        return true;
+    }
+
     function withdraw(
         address sourceToken,
         address mappedToken,
-        address to,
+        address payable to,
         uint256 amount,
         uint256 tipY,
         uint256 withdrawNonce
-    ) external whenNotPaused onlyValidator {
-        require(tokenMapping[sourceToken] != address(0), "token mapping not found");
-        require(tokenMappingPaused[sourceToken][mappedToken] == false);
-        require(to != address(0), "withdraw to the zero address");
-        require(amount > 0, "withdraw only to positive amount ");
-        require(withdrawNonce == tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
+    ) public onlyMinter {
+        require(
+            withdrawNonce == tokenMappingWatermark[sourceToken][mappedToken],
+            "withdraw nonce too low"
+        );
 
-        // 1. charge tip
-        uint256 tipX = 0;
-        if (shouldTip()) {
-            tipX = getTip(sourceToken, mappedToken, amount);
-            if (tipX > 0){
-                tokenStagingBalances[sourceToken][tipAccount] += tipX;
+        // process the withdraw event
+        if(omitNonces[withdrawNonce]==false) {
+            // 1. charge tip
+            uint256 tipX = 0;
+            if (tipAccount != address(0)) {
+                tipX = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+                tipBalances[sourceToken] += tipX;
+            }
+
+            // 2. unlock token back to user
+            uint256 netAmount = amount - tipX - tipY;
+            require(netAmount > 0, "withdraw net amount negative");
+            if (sourceToken == NATIVETOKEN) {
+                payable(to).transfer(netAmount);
+            } else {
+              IERC20(sourceToken).transfer(to, netAmount);
             }
         }
 
-        // 2. unlock token back to user
-        uint256 netAmount = amount - tipX - tipY;
-        require(netAmount > 0, "withdraw net amount negative");
-        if (sourceToken == NATIVETOKEN) {
-            payable(to).transfer(netAmount);
-        } else {
-            IERC20(sourceToken).transfer(to, netAmount);
-        }
-
-        // 3. emit event
-        emit TokenWithdraw(
-            block.chainid,
-            sourceToken,
-            mappedTokenChainids[mappedToken],
-            mappedToken,
-            to,
-            amount,
-            withdrawNonce
-        );
-
-        // 4. delete storage space if possible
-        tokenMappingWatermark[sourceToken][mappedToken] = withdrawNonce + 1;
+        // increase watermark
+        tokenMappingWatermark[sourceToken][mappedToken]++;
     }
 
     // cashout mint the staged asset
-    function cashout(address token, address payable to, uint256 amount) external whenNotPaused {
+    function tipCashout(address token, address payable to, uint256 amount) external whenNotPaused {
         address owner = _msgSender();
-        uint256 balance = tokenStagingBalances[token][owner];
+        require(owner == tipAccount, "Not tip account");
+        uint256 balance = tipBalances[token];
         require(to != address(0), "cashout to the zero address");
         require(balance >= amount, "cashout amount too large");
 
-        tokenStagingBalances[token][owner] -= amount;
+        tipBalances[token] -= amount;
 
         // transfer the token
         if (token == NATIVETOKEN) {
@@ -270,11 +304,37 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         }
     }
 
-    function cashoutBalance(address token, address owner) external view returns(uint256){
-        return tokenStagingBalances[token][owner];
+    function tipBalance(address token) external view returns(uint256){
+        return tipBalances[token];
     }
 
-    function skipWithdrawWatermark(address sourceToken, address mappedToken, uint256 skip) external {
-      tokenMappingWatermark[sourceToken][mappedToken] += skip;
+    function addNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+        for(uint256 index=0;index<nonces.length;index++) {
+            omitNonces[nonces[index]] = true;
+        }
+        emit IgnoreNonces(_msgSender(), nonces);
+    }
+
+    function removeNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+        for(uint256 index=0;index<nonces.length;index++) {
+            delete omitNonces[nonces[index]];
+        }
+    }
+
+    function skipWithdrawWatermark(
+        address sourceToken,
+        address mappedToken,
+        uint256 skip) external onlyNonceOp {
+        emit SkipNonce(tokenMappingWatermark[sourceToken][mappedToken], skip);
+        tokenMappingWatermark[sourceToken][mappedToken] += skip;
+    }
+
+    function refund(address token, address payable to, uint256 amount) external onlyRefundOp {
+        if (token == NATIVETOKEN) {
+            to.transfer(amount);
+        } else {
+            IERC20(token).transfer(to, amount);
+        }
+        emit Refund(token, to, amount);
     }
 }

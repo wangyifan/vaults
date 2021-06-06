@@ -31,22 +31,30 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         address mappedToken;
     }
 
+    struct tokenMint {
+      address sourceToken;
+      address mappedToken;
+      address payable to;
+      uint256 amount;
+      uint256 tipX;
+      uint256 mintNonce;
+    }
+
     // variables
     mapping(address => uint256) internal sourceTokenChainids;
     mapping(address => string) internal sourceTokenSymbols;
     mapping(address => string) internal mappedTokenSymbols;
     mapping(address => address) internal tokenMapping;
     mapping(address => address) internal tokenMappingReversed;
+    mapping(address => uint256) internal tipBalances;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) internal tokenMappingBurnNonce;
-    mapping(address => mapping(address => uint256)) internal tokenStagingBalances;
+    mapping(uint256 => bool) public omitNonces;
     tokenPair[] public tokenPairs;
 
     // events
     event TokenMint(
-        uint256 sourceChainid,
         address indexed sourceToken,
-        uint256 mappedChainid,
         address indexed mappedToken,
         address to,
         uint256 amount,
@@ -54,27 +62,34 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 indexed mintNonce
     );
     event TokenBurn(
-        uint256 sourceChainid,
         address indexed sourceToken,
-        uint256 mappedChainid,
         address indexed mappedToken,
         address account,
         uint256 amount,
         uint256 tip,
         uint256 indexed burnNonce
     );
-    event rescue(
+    event SkipNonce(
+        uint256 start,
+        uint256 step
+    );
+    event IgnoreNonces(
+        address sender,
+        uint256[] nonces
+    );
+    event Refund(
         address token,
-        address admin,
-        address to,
+        address payable to,
         uint256 amount
     );
 
     constructor() Staking(10) {
-        //setup roles
+      // setup roles
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(ADMIN_ROLE, _msgSender());
-        _setupRole(VALIDATOR_ROLE, _msgSender());
+        _setupRole(MINTER_ROLE, _msgSender());
+        _setupRole(REFUNDOP_ROLE, _msgSender());
+        _setupRole(NONCEOP_ROLE, _msgSender());
 
         // fee setting for tip
         tipAccount = _msgSender();
@@ -131,60 +146,55 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     }
 
     // mint in batch
-    function batchMint(bytes calldata input) external onlyValidator whenNotPaused {
-        require(input.length%160==0);
-        for(uint index = 0; index < input.length; index+=160){
-            address sourceToken = abi.decode(input[index:32], (address));
-            address mappedToken = abi.decode(input[32:64], (address));
-            address to = abi.decode(input[64:96], (address));
-            uint256 amount = abi.decode(input[96:128], (uint256));
-            uint256 mintNonce = abi.decode(input[128:160], (uint256));
-            uint256 tip = 0;
-            mint(sourceToken, mappedToken, to, amount, tip, mintNonce);
+    function batchMint(
+        bytes calldata signature, bytes calldata input
+    ) external onlyMinter whenNotPaused {
+        require(validateSignature(signature), "Invalid token mint signature");
+        tokenMint[] memory tokenMints = abi.decode(input, (tokenMint[]));
+
+        for(uint256 index=0;index < tokenMints.length;index++){
+            tokenMint memory tm = tokenMints[index];
+            mint(
+                tm.sourceToken,
+                tm.mappedToken,
+                tm.to,
+                tm.amount,
+                tm.tipX,
+                tm.mintNonce
+            );
         }
+    }
+
+    function validateSignature(bytes memory signature) internal pure returns(bool){
+        require(signature.length > 0);
+        return true;
     }
 
     // only validator can mint
     function mint(
         address sourceToken,
         address mappedToken,
-        address to,
+        address payable to,
         uint256 amount,
         uint256 tipX,
         uint256 mintNonce
-    ) public onlyValidator whenNotPaused {
-        require(to != address(0), "mint to the zero address");
-        require(tokenMappingPaused[sourceToken][mappedToken] == false,"token mapping paused");
+    ) public onlyMinter {
         require(mintNonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
-        // 1. charge tip
-        uint256 tipY = 0;
-        if (shouldTip()) {
-            tipY = getTip(sourceToken, mappedToken, amount);
-            if (tipY > 0) {
-                tokenStagingBalances[mappedToken][tipAccount] += tipY;
+        // process the mint event
+        if(omitNonces[mintNonce]==false) {
+            // 1. charge tip
+            uint256 tipY = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+            if (tipY != 0) {
+              tipBalances[mappedToken] += tipY;
             }
+
+            // 2. mint the token
+            XCoin(mappedToken).mint(to, amount - tipX - tipY);
         }
 
-        // 2. mint the token
-        uint256 netAmount = amount - tipY - tipX;
-        require(netAmount > 0, "Negative net amount");
-        XCoin(mappedToken).mint(to, netAmount);
-
-        // 3. emit event
-        emit TokenMint(
-            sourceTokenChainids[sourceToken],
-            sourceToken,
-            block.chainid,
-            mappedToken,
-            to,
-            amount,
-            tipY,
-            mintNonce
-        );
-
-        // 4. increase nonce
-        tokenMappingWatermark[sourceToken][mappedToken] = mintNonce + 1;
+        // increase watermark
+        tokenMappingWatermark[sourceToken][mappedToken]++;
     }
 
     // anyone can exit the mapped token back to its origin chain
@@ -216,9 +226,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // emit event
         emit TokenBurn(
-            sourceTokenChainids[sourceToken],
             sourceToken,
-            block.chainid,
             mappedToken,
             from,
             amount,
@@ -231,28 +239,45 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     }
 
     // cashout mint the staged asset
-    function cashout(address token, address to, uint256 amount) external whenNotPaused {
+    function tipCashout(address token, address to, uint256 amount) external whenNotPaused {
         address owner = _msgSender();
-        uint256 balance = tokenStagingBalances[token][owner];
+        require(owner == tipAccount, "Not tip account");
+        uint256 balance = tipBalances[token];
         require(to != address(0), "cashout to the zero address");
         require(balance >= amount, "cashout amount too large");
 
-        tokenStagingBalances[token][owner] -= amount;
+        tipBalances[token] -= amount;
 
         // mint the token
         XCoin(token).mint(to, amount);
     }
 
-    function cashoutBalance(address token, address owner) external view returns(uint256){
-        return tokenStagingBalances[token][owner];
+    function tipBalance(address token) external view returns(uint256){
+        return tipBalances[token];
     }
 
-    function skipMintWatermark(address sourceToken, address mappedToken, uint256 skip) external {
+    function addNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+        for(uint256 index=0;index<nonces.length;index++) {
+            omitNonces[nonces[index]] = true;
+        }
+        emit IgnoreNonces(_msgSender(), nonces);
+    }
+
+    function removeNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+        for(uint256 index=0;index<nonces.length;index++) {
+            delete omitNonces[nonces[index]];
+        }
+    }
+
+    function skipMintWatermark(
+        address sourceToken, address mappedToken, uint256 skip
+    ) external onlyNonceOp {
+        emit SkipNonce(tokenMappingWatermark[sourceToken][mappedToken], skip);
         tokenMappingWatermark[sourceToken][mappedToken] += skip;
     }
 
-    function rescueAsset(address mappedToken, address to, uint256 amount) external onlyAdmin{
-        XCoin(mappedToken).transfer(to, amount);
-        emit rescue(mappedToken, _msgSender(), to, amount);
+    function refund(address token, address payable to, uint256 amount) external onlyRefundOp {
+        XCoin(token).mint(to, amount);
+        emit Refund(token, to, amount);
     }
 }

@@ -17,8 +17,13 @@ const NATIVETOKEN = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3(
 ).substring(26));
 const gasPrice = 20000000000;
 
+function calculateCost(receipt) {
+    var gasCost = gasPrice * receipt['receipt']['gasUsed'];
+    return [receipt['receipt']['gasUsed'], gasCost/1000000000000000000.0];
+}
+
 // Start test block
-contract('VaultX', function ([ owner, user, user2, user3]) {
+contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) {
     beforeEach(async function () {
         this.vaultx = await VaultX.new(NATIVETOKEN, {from: owner});
         this.sourceToken = await TestCoin.new("Source Token", sourceTokenSymbol, 1000000, {from: owner});
@@ -76,9 +81,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
-                sourceChainid: sourceChainid.toString(),
                 sourceToken: NATIVETOKEN,
-                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: etherValue.toString(),
@@ -165,9 +168,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
-                sourceChainid: sourceChainid.toString(),
                 sourceToken: this.sourceToken.address,
-                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: amount.toString(),
@@ -184,6 +185,13 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
             this.sourceToken.address, this.mappedToken.address
         );
         expect(nonce.toNumber()).to.equal(1);
+
+        // tip cashout
+        var balance = await this.vaultx.tipBalance(this.sourceToken.address);
+        expect(balance.toString()).to.equal("123");
+        await this.vaultx.tipCashout(this.sourceToken.address, user3, balance);
+        balance = await this.sourceToken.balanceOf(user3);
+        expect(balance.toString()).to.equal("123");
     });
 
     it('Check if erc20 token deposit revert when contract is paused', async function () {
@@ -286,11 +294,11 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expect(balance.toString()).to.equal((amountLocked - totalTip).toString());
 
         // check staging balance
-        balance = await this.vaultx.cashoutBalance(this.sourceToken.address,owner);
+        balance = await this.vaultx.tipBalance(this.sourceToken.address);
         expect(balance.toString()).to.equal(totalTipX.toString());
 
         //cashout
-        await this.vaultx.cashout(this.sourceToken.address, owner, totalTipX);
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, totalTipX);
 
         // check balance after cashout
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -355,8 +363,8 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expect(balance.toString()).to.equal("0");
 
         //cashout
-        await this.vaultx.cashout(this.sourceToken.address, owner, 6);
-        await this.vaultx.cashout(this.sourceToken.address, user, 6000 - 12, {from: user});
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, 6);
+        await this.vaultx.tipCashout(this.sourceToken.address, user, 6000 - 12, {from: user});
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -397,8 +405,8 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expect(balance.toString()).to.equal((6000-12).toString());
 
         // cash out
-        await this.vaultx.cashout(this.sourceToken.address, owner, 1);
-        await this.vaultx.cashout(this.sourceToken.address, user, 998, {from: user});
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, 1);
+        await this.vaultx.tipCashout(this.sourceToken.address, user, 998, {from: user});
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -442,9 +450,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
-                sourceChainid: sourceChainid.toString(),
                 sourceToken: NATIVETOKEN,
-                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: etherValue2.toString(),
@@ -461,9 +467,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expectEvent(
             receipt, 'TokenDeposit',
             {
-                sourceChainid: sourceChainid.toString(),
                 sourceToken: NATIVETOKEN,
-                mappedChainid: mappedChainid.toString(),
                 mappedToken: this.mappedToken.address,
                 from: user,
                 amount: etherValue3.toString(),
@@ -478,7 +482,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         // cashout
         var tipX = ether("0.005");
         var balanceBefore = await web3.eth.getBalance(user2);
-        await this.vaultx.cashout(NATIVETOKEN, user2, tipX, {from: owner});
+        await this.vaultx.tipCashout(NATIVETOKEN, user2, tipX, {from: owner});
         var balanceAfter = await web3.eth.getBalance(user2);
         expect(Number(balanceAfter) - Number(balanceBefore)).to.equal(tipX.toNumber());
 
@@ -498,8 +502,8 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         );
 
         // cash out tip
-        await this.vaultx.cashout(NATIVETOKEN, user2, tipX, {from: owner});
-        expect((await this.vaultx.cashoutBalance(NATIVETOKEN, owner)).toString()).to.equal("0");
+        await this.vaultx.tipCashout(NATIVETOKEN, user2, tipX, {from: owner});
+        expect((await this.vaultx.tipBalance(NATIVETOKEN)).toString()).to.equal("0");
 
         // check balance
         balanceAfter = await web3.eth.getBalance(user3);
@@ -534,7 +538,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
 
         // cashout
         var tipX = 5;
-        await this.vaultx.cashout(this.sourceToken.address, owner, tipX);
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, tipX);
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -558,7 +562,7 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
 
         // cashout
         tipX = 4;
-        await this.vaultx.cashout(this.sourceToken.address, owner, tipX, {from: owner});
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, tipX, {from: owner});
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -567,5 +571,185 @@ contract('VaultX', function ([ owner, user, user2, user3]) {
         expect(balance.toString()).to.equal((5+4).toString());
         balance = await this.sourceToken.balanceOf(user);
         expect(balance.toString()).to.equal((5000+amount-8).toString());
+    });
+
+    it('Check role access functions', async function () {
+        var omitNonces = [0, 1, 2];
+        var skip = 3;
+        var result = await expectRevert(
+            this.vaultx.addNoncesToOmit(omitNonces, {from: user}),
+            "Caller is not a nonce op"
+        );
+
+        result = await expectRevert(
+            this.vaultx.removeNoncesToOmit(omitNonces, {from: user}),
+            "Caller is not a nonce op"
+        );
+
+        result = await expectRevert(
+            this.vaultx.skipWithdrawWatermark(
+                this.sourceToken.address, this.mappedToken.address, skip, {from: user}),
+            "Caller is not a nonce op"
+        );
+
+        result = await expectRevert(
+            this.vaultx.refund(this.mappedToken.address, user, 10000, {from: user}),
+            "Caller is not a refund op"
+        );
+
+        result = await this.vaultx.getRoles();
+        var roleMap = new Map();
+        for(var i=0;i<result.length;i++){
+            roleMap[result[i].describe] = result[i].role;
+        }
+
+        // grant all roles to user
+        result = await this.vaultx.addRoleMember(roleMap["refund op"], user);
+        result = await this.vaultx.addRoleMember(roleMap["nonce op"], user);
+
+        // check nonces functions
+        expect(await this.vaultx.omitNonces.call(0)).to.equal(false);
+        expect(await this.vaultx.omitNonces.call(1)).to.equal(false);
+        expect(await this.vaultx.omitNonces.call(2)).to.equal(false);
+        await this.vaultx.addNoncesToOmit(omitNonces, {from: user});
+        expect(await this.vaultx.omitNonces.call(0)).to.equal(true);
+        expect(await this.vaultx.omitNonces.call(1)).to.equal(true);
+        expect(await this.vaultx.omitNonces.call(2)).to.equal(true);
+        await this.vaultx.removeNoncesToOmit(omitNonces, {from: user});
+        expect(await this.vaultx.omitNonces.call(0)).to.equal(false);
+        expect(await this.vaultx.omitNonces.call(1)).to.equal(false);
+        expect(await this.vaultx.omitNonces.call(2)).to.equal(false);
+
+        // check watermark function
+        var receipt = await this.vaultx.skipWithdrawWatermark(
+            this.sourceToken.address, this.mappedToken.address, skip, {from: user}
+        );
+        expectEvent(
+            receipt, "SkipNonce",
+            {
+                start: "0",
+                step: "3"
+            }
+        );
+
+        // check refund
+        var amount = 10000;
+        await this.sourceToken.mint(user, amount);
+        await this.sourceToken.approve(this.vaultx.address, amount, {from: user});
+        await this.vaultx.depositToken(
+            this.sourceToken.address,
+            amount,
+            {from: user}
+        );
+
+        // tip has not been cashout yet, so the contract has all the token.
+        var balanceBefore = await this.sourceToken.balanceOf(user);
+        this.vaultx.refund(this.sourceToken.address, user, amount, {from: user});
+        var balanceAfter = await this.sourceToken.balanceOf(user);
+        expect(balanceAfter.sub(balanceBefore).toString()).to.equal(amount.toString());
+    });
+
+    it('check batch withdraw', async function () {
+        await this.sourceToken.mint(this.vaultx.address, 100000);
+        var typesArray = ["tuple(address, address, address, uint256, uint256, uint256)[]"];
+        var parameters = [
+            [
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user1,
+                    10000,
+                    10,
+                    0
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user2,
+                    10000,
+                    10,
+                    1
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user3,
+                    10000,
+                    10,
+                    2
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user4,
+                    10000,
+                    10,
+                    3
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user5,
+                    10000,
+                    10,
+                    4
+                ]
+            ]
+        ];
+        var signature = Buffer.from("fake signature", "latin1");
+        var tokenWithdraws = web3.eth.abi.encodeParameters(typesArray, parameters);
+        var receipt = await this.vaultx.batchWithdraw(signature, tokenWithdraws);
+        console.log("batchWithdraw() for [0, 1, 2, 3, 4]", calculateCost(receipt));
+        expect((await this.sourceToken.balanceOf(user1)).toString()).to.equal((10000-10-10).toString());
+        var tipBalance = await this.vaultx.tipBalance(this.sourceToken.address);
+        expect(tipBalance.toString()).to.equal((50).toString());
+
+        parameters = [
+            [
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user1,
+                    10000,
+                    10,
+                    5
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user2,
+                    10000,
+                    10,
+                    6
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user3,
+                    10000,
+                    10,
+                    7
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user4,
+                    10000,
+                    10,
+                    8
+                ],
+                [
+                    this.sourceToken.address,
+                    this.mappedToken.address,
+                    user5,
+                    10000,
+                    10,
+                    9
+                ]
+            ]
+        ];
+        tokenWithdraws = web3.eth.abi.encodeParameters(typesArray, parameters);
+        receipt = await this.vaultx.batchWithdraw(signature, tokenWithdraws);
+        console.log("batchMint() for [5, 6, 7, 8, 9]", calculateCost(receipt));
     });
 });
