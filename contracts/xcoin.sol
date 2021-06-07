@@ -83,20 +83,6 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
         _mint(account, amount);
     }
 
-    /*
-    function batchMint(address[] accounts, uint256[] amount) public onlyMinter whenNotPaused {
-        require(account != address(0), "ERC20: mint to the zero address");
-        require(accounts.length == amount.length, "ERC20: mismatched accounts and amounts");
-        uint256 totalAmount = 0;
-        for (uint index = 0; index < accounts.length; index++) {
-              _beforeTokenTransfer(address(0), account, amount);
-              totalAmount += amount;
-              _balances[account] += amount;
-              emit Transfer(address(0), account, amount);
-        }
-        _totalSupply += totalAmount;
-    }*/
-
     // when paused, both mint() and transfer() will revert
     function pause() public onlyAdmin {
         _pause();
