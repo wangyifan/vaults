@@ -190,6 +190,8 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             }
 
             // 2. mint the token
+            uint256 netAmount = amount -tipX - tipY;
+            require(netAmount > 0, "mint net amount negative");
             XCoin(mappedToken).mint(to, amount - tipX - tipY);
         }
 

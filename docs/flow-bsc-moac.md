@@ -17,9 +17,4 @@ burn(...)
 ```bash
 withdraw(...)
 ```
----
-
-## 3. 在vaultX中，用户调用以下函数提款
-```bash
-cashout(...)
-```
+！！！ 注意调试时，1. withdraw函数的nonce需要递增, 2. vaultx中需要有相应的资产额度足够解锁。

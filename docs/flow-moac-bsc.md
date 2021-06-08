@@ -10,7 +10,7 @@ grantMinter(...)
 
 ---
 
-## 1. 在vault合约中设置代币映射
+## 1. 在vault合约中设置代币映射并启用
 
 需要在vaultX和vaultY以相同配置都执行一遍
 ```bash
@@ -25,21 +25,14 @@ unpauseTokenMapping(...)
 ```bash
 depositNative(...)
 ```
+！！！ 如果是ERC20资产，调用deposit函数前，需要首先授权：
+```bash
+approve(...)
+```
 ---
 
-## 3. 在vaultY中，xchain调用以下函数增发bmoac
+## 3. 在vaultY中，调用以下函数增发bmoac
 ```bash
 mint(...)
 ```
-
----
-
-## 4. 在vaultY中，用户调用以下函数提款
-```bash
-cashout(...)
-```
-
-
-
-
-
+！！！ 调试时，注意mint函数调用的nonce参数需要递增
