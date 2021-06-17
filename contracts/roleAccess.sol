@@ -9,6 +9,7 @@ contract RoleAccess is AccessControlEnumerable {
     bytes32 internal constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 internal constant REFUNDOP_ROLE = keccak256("REFUNDOP_ROLE");
     bytes32 internal constant NONCEOP_ROLE = keccak256("NONCEOP_ROLE");
+    bytes32 internal constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
 
     // struct
     struct Role {
@@ -37,12 +38,19 @@ contract RoleAccess is AccessControlEnumerable {
         _;
     }
 
+    modifier onlyValidator {
+        require(hasRole(VALIDATOR_ROLE, _msgSender()), "Caller is not a validator");
+        _;
+    }
+
+
     function getRoles() public pure returns(Role[] memory) {
-        Role[] memory result = new Role[](4);
+        Role[] memory result = new Role[](5);
         result[0] = Role(ADMIN_ROLE, "admin");
         result[1] = Role(MINTER_ROLE, "minter");
         result[2] = Role(REFUNDOP_ROLE, "refund op");
         result[3] = Role(NONCEOP_ROLE, "nonce op");
+        result[4] = Role(VALIDATOR_ROLE, "validator");
         return result;
     }
 

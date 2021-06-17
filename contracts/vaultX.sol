@@ -53,9 +53,11 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => uint256) internal tipBalances;
     mapping(uint256 => bool) public omitNonces;
     tokenPair[] internal tokenPairs;
+    uint256 public CreatedAt;
 
     // events
     event TokenDeposit(
+        address vault,
         address indexed sourceToken,
         address indexed mappedToken,
         address from,
@@ -64,6 +66,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 indexed depositNonce
     );
     event TokenWithdraw(
+        address vault,
         address indexed sourceToken,
         address indexed mappedToken,
         address to,
@@ -98,6 +101,9 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // setup native token
         NATIVETOKEN = nativeToken;
+
+        // record when the valut is created
+        CreatedAt = block.number;
     }
 
     // fallback function
@@ -173,6 +179,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // 2. emit event
         emit TokenDeposit(
+            address(this),
             sourceToken,
             mappedToken,
             from,
@@ -210,6 +217,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // 2. emit event
         emit TokenDeposit(
+            address(this),
             sourceToken,
             mappedToken,
             from,

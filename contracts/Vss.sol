@@ -55,6 +55,8 @@ contract VssBase {
     address public owner;
     address public caller;
     address public lastSender;
+    address public xeventsAddr;
+    int public regStatus = 0;
     int public vssThreshold = 0;
     int public vssNodeCount = 0;
     int public vssConfigVersion = 0;
@@ -62,6 +64,7 @@ contract VssBase {
     int public lastNodeChangeConfigVersion = 0;
     int public lastNodeChangeBlock = 0;
     int public slowNodeThreshold = 50; // number of blocks
+    int constant MinThreshold = 1;
 
     // reserve for future usage
     mapping(bytes32 => mapping(int => bytes)) public generalAttributes;
@@ -69,9 +72,19 @@ contract VssBase {
     enum VssMembership {noreg, active, inactive} // noreg: node never seen before
 
     constructor(int threshold) {
-        require(threshold >= 2);
+        require(threshold >= MinThreshold);
         vssThreshold = threshold;
         owner = msg.sender;
+    }
+
+    function regOpen() public {
+        require(owner == msg.sender);
+        regStatus = 1;
+    }
+
+    function regClose() public {
+        require(owner == msg.sender);
+        regStatus = 0;
     }
 
     function setGeneralAttributes(bytes32 namespace, int key, bytes memory value) public {
@@ -81,7 +94,7 @@ contract VssBase {
 
     function setThreshold(int newThreshold) public {
         require(owner == msg.sender);
-        require(newThreshold >= 2);
+        require(newThreshold >= MinThreshold);
         vssThreshold = newThreshold;
         vssConfigVersion++;
     }
@@ -101,9 +114,14 @@ contract VssBase {
         slowNodeThreshold = newThreshold;
     }
 
+    function setXevents(address contractAddr) public {
+        require(caller == msg.sender || owner == msg.sender);
+        xeventsAddr = contractAddr;
+    }
+
     function registerVSS(address sender, bytes32 publickey) public {
         require(caller == msg.sender || owner == msg.sender);
-
+        //require(regStatus == 1);
         lastSender = msg.sender;
         vssPublicKeys[sender] = publickey;
     }
@@ -121,7 +139,6 @@ contract VssBase {
 
     function deactivateVSS(address sender) public {
         require(caller == msg.sender || owner == msg.sender) ;
-
         if (vssNodeMemberships[sender] == uint(VssMembership.active)) {
             vssNodeMemberships[sender] = uint(VssMembership.inactive);
             vssConfigVersion++;
@@ -130,6 +147,7 @@ contract VssBase {
 
     function activateVSS(address sender) public {
         require(caller == msg.sender || owner == msg.sender);
+        //require(regStatus == 1);
         lastSender = msg.sender;
 
         // if it is a node we never seen before which is noreg

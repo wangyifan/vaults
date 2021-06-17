@@ -8,16 +8,22 @@ module.exports = async function (deployer, network, accounts) {
         vaultx = await vaultX.at(vaultxAddress);
 
         // setup token mapping
+        var sourceChainid = await web3.eth.getChainId();
         const admin = accounts[0];
-        const sourceToken = "0x91228250705AF76cB0f7EbC128d27d532F36cfF9";
+        var nativeToken = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3("0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF@" + sourceChainid.toString()).substring(26));
+        var sourceToken = nativeToken;
         const mappedToken = "0x0000000000000000000000000000000000000001";
         const mappedChainid = 101;
+        const sourceTokenSymbol = "abc";
         const mappedTokenSymbol = "xyz";
+        const tipRate = 10;
         const receipt1 = await vaultx.setupTokenMapping(
-            sourceToken,
             mappedChainid,
+            sourceToken,
             mappedToken,
+            sourceTokenSymbol,
             mappedTokenSymbol,
+            tipRate,
             {from: admin}
         );
 
