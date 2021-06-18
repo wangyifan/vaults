@@ -62,12 +62,14 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 indexed mintNonce
     );
     event TokenBurn(
+        address vault,
         address indexed sourceToken,
         address indexed mappedToken,
         address account,
         uint256 amount,
         uint256 tip,
-        uint256 indexed burnNonce
+        uint256 indexed burnNonce,
+        uint256 blockNumber
     );
     event SkipNonce(
         uint256 start,
@@ -228,12 +230,14 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // emit event
         emit TokenBurn(
+            address(this),
             sourceToken,
             mappedToken,
             from,
             amount,
             tipY,
-            tokenMappingBurnNonce[sourceToken][mappedToken]
+            tokenMappingBurnNonce[sourceToken][mappedToken],
+            block.number
         );
 
         // increase nonce

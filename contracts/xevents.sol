@@ -11,6 +11,7 @@ contract XEvents is RoleAccess {
   struct VaultEvent {
       bytes eventData;
       bytes sig;
+      uint256 blockNumber;
   }
 
   constructor(){
@@ -36,6 +37,7 @@ contract XEvents is RoleAccess {
       address vault,
       uint256 nonce,
       bytes32 tokenMapping,
+      uint256 blockNumber,
       bytes calldata eventData) external {
       // store vault events in order
       require(vaultEventWatermark[vault][tokenMapping] == nonce, "nonce too low");
@@ -44,12 +46,19 @@ contract XEvents is RoleAccess {
       VaultEvent memory vaultEvent;
       vaultEvent.sig = sig;
       vaultEvent.eventData = eventData;
+      vaultEvent.blockNumber = blockNumber;
 
       // tokenMapping is sha3(source chain id, soure token, mapped chain id, mapped token)
       vaultEvents[vault][tokenMapping][nonce] = vaultEvent;
 
       // increase watermark by one
       vaultEventWatermark[vault][tokenMapping]+=1;
+  }
+
+  function watermarkBlock(address vault, bytes32 tokenMapping) external view returns(uint256){
+      uint256 watermark = vaultEventWatermark[vault][tokenMapping];
+      VaultEvent memory vaultEvent = vaultEvents[vault][tokenMapping][watermark];
+      return vaultEvent.blockNumber;
   }
 
   function done(address vault, bytes32 tokenMapping, uint256 nonce) external {

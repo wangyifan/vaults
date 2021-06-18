@@ -63,7 +63,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         address from,
         uint256 amount,
         uint256 tip,
-        uint256 indexed depositNonce
+        uint256 indexed depositNonce,
+        uint256 blockNumber
     );
     event TokenWithdraw(
         address vault,
@@ -185,7 +186,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
             from,
             amount,
             tipX,
-            tokenMappingDepositNonce[sourceToken][mappedToken]
+            tokenMappingDepositNonce[sourceToken][mappedToken],
+            block.number
         );
 
         // 3. increase nonce
@@ -223,7 +225,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
             from,
             amount,
             tipX,
-            tokenMappingDepositNonce[sourceToken][mappedToken]
+            tokenMappingDepositNonce[sourceToken][mappedToken],
+            block.number
         );
 
         // 3. increase nonce
