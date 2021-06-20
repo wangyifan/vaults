@@ -11,9 +11,10 @@ module.exports = async function (deployer, network, accounts) {
         var sourceChainid = await web3.eth.getChainId();
         const admin = accounts[0];
         var nativeToken = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3("0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF@" + sourceChainid.toString()).substring(26));
+        console.log("Native token:", nativeToken);
         var sourceToken = nativeToken;
-        const mappedToken = "0x0000000000000000000000000000000000000001";
-        const mappedChainid = 101;
+        const mappedToken = "0x8553cE822a9072b5fF0992Da9A61D5CE54a1F5Df";
+        const mappedChainid = 95125;
         const sourceTokenSymbol = "abc";
         const mappedTokenSymbol = "xyz";
         const tipRate = 10;

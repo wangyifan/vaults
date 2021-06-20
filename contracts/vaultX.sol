@@ -58,6 +58,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     // events
     event TokenDeposit(
         address vault,
+        uint256 sourceChainid,
+        uint256 mappedChainid,
         address indexed sourceToken,
         address indexed mappedToken,
         address from,
@@ -181,6 +183,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         // 2. emit event
         emit TokenDeposit(
             address(this),
+            block.chainid,
+            mappedTokenChainids[mappedToken],
             sourceToken,
             mappedToken,
             from,
@@ -220,6 +224,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         // 2. emit event
         emit TokenDeposit(
             address(this),
+            block.chainid,
+            mappedTokenChainids[mappedToken],
             sourceToken,
             mappedToken,
             from,

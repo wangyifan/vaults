@@ -63,6 +63,8 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     );
     event TokenBurn(
         address vault,
+        uint256 sourceChainid,
+        uint256 mappedChainid,
         address indexed sourceToken,
         address indexed mappedToken,
         address account,
@@ -172,6 +174,12 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
+    // admin can assign minter role to another EOA or smart contract
+    function grantMinter(address minter) public onlyAdmin returns (bool) {
+        grantRole(MINTER_ROLE, minter);
+        return true;
+    }
+
     // only validator can mint
     function mint(
         address sourceToken,
@@ -231,6 +239,8 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         // emit event
         emit TokenBurn(
             address(this),
+            sourceTokenChainids[sourceToken],
+            block.chainid,
             sourceToken,
             mappedToken,
             from,
