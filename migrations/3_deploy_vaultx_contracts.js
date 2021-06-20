@@ -51,11 +51,21 @@ module.exports = function (deployer, network, accounts) {
             await vssBaseInstance.regClose();
 
             // grant vault y to mint
+            const vaultxInstance = await vaultX.deployed();
             const vaultyInstance = await vaultY.deployed();
             const xcoinInstance = await xcoin.deployed();
             await xcoinInstance.grantMinter(vaultyInstance.address);
             console.log("Xcoin:", xcoinInstance.address);
             console.log("vaultY:", vaultyInstance.address);
+
+            console.log("\n\n");
+            console.log("Grant xchain address mint role on vault X");
+            // grant xchainAddress on vault Y to mint
+            for(i = 0; i < xchainAddressPubkeys.length; i++) {
+                var addr = xchainAddressPubkeys[i][0];
+                var result = await vaultxInstance.grantMinter(addr);
+                console.log("Grant minter", addr, "result:", result);
+            }
 
             console.log("\n\n");
             console.log("Grant xchain address mint role on vault Y");

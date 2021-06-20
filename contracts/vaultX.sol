@@ -56,6 +56,18 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     uint256 public CreatedAt;
 
     // events
+    event TokenBurn(
+        address vault,
+        uint256 sourceChainid,
+        uint256 mappedChainid,
+        address indexed sourceToken,
+        address indexed mappedToken,
+        address from,
+        uint256 amount,
+        uint256 tip,
+        uint256 indexed nonce,
+        uint256 blockNumber
+    );
     event TokenDeposit(
         address vault,
         uint256 sourceChainid,
@@ -65,17 +77,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         address from,
         uint256 amount,
         uint256 tip,
-        uint256 indexed depositNonce,
+        uint256 indexed nonce,
         uint256 blockNumber
-    );
-    event TokenWithdraw(
-        address vault,
-        address indexed sourceToken,
-        address indexed mappedToken,
-        address to,
-        uint256 amount,
-        uint256 tip,
-        uint256 indexed withdrawNonce
     );
     event IgnoreNonces(
         address sender,
@@ -267,21 +270,39 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
+    // admin can assign minter role to another EOA or smart contract
+    function grantMinter(address minter) public onlyAdmin returns (bool) {
+        grantRole(MINTER_ROLE, minter);
+        return true;
+    }
+
+    // this is just placeholder so that the generated go binding will
+    // have the same interface between the two vaults x & y.
+    function mint(
+        address sourceToken,
+        address mappedToken,
+        address payable to,
+        uint256 amount,
+        uint256 tipX,
+        uint256 nonce
+    ) public {
+    }
+
     function withdraw(
         address sourceToken,
         address mappedToken,
         address payable to,
         uint256 amount,
         uint256 tipY,
-        uint256 withdrawNonce
+        uint256 nonce
     ) public onlyMinter {
         require(
-            withdrawNonce == tokenMappingWatermark[sourceToken][mappedToken],
+            nonce == tokenMappingWatermark[sourceToken][mappedToken],
             "withdraw nonce too low"
         );
 
         // process the withdraw event
-        if(omitNonces[withdrawNonce]==false) {
+        if(omitNonces[nonce]==false) {
             // 1. charge tip
             uint256 tipX = 0;
             if (tipAccount != address(0)) {

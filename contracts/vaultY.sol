@@ -53,13 +53,17 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     tokenPair[] public tokenPairs;
 
     // events
-    event TokenMint(
+    event TokenDeposit(
+        address vault,
+        uint256 sourceChainid,
+        uint256 mappedChainid,
         address indexed sourceToken,
         address indexed mappedToken,
-        address to,
+        address from,
         uint256 amount,
         uint256 tip,
-        uint256 indexed mintNonce
+        uint256 indexed nonce,
+        uint256 blockNumber
     );
     event TokenBurn(
         address vault,
@@ -67,10 +71,10 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 mappedChainid,
         address indexed sourceToken,
         address indexed mappedToken,
-        address account,
+        address from,
         uint256 amount,
         uint256 tip,
-        uint256 indexed burnNonce,
+        uint256 indexed nonce,
         uint256 blockNumber
     );
     event SkipNonce(
@@ -180,19 +184,30 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
-    // only validator can mint
+    // this is just placeholder so that the generated go binding will
+    // have the same interface between the two vaults x & y.
+    function withdraw(
+        address sourceToken,
+        address mappedToken,
+        address payable to,
+        uint256 amount,
+        uint256 tipY,
+        uint256 nonce
+    ) public {
+    }
+
     function mint(
         address sourceToken,
         address mappedToken,
         address payable to,
         uint256 amount,
         uint256 tipX,
-        uint256 mintNonce
+        uint256 nonce
     ) public onlyMinter {
-        require(mintNonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
+        require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
         // process the mint event
-        if(omitNonces[mintNonce]==false) {
+        if(omitNonces[nonce]==false) {
             // 1. charge tip
             uint256 tipY = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
             if (tipY != 0) {
