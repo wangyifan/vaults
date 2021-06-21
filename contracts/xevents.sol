@@ -15,7 +15,7 @@ contract XEvents is RoleAccess {
   }
 
   function initialize() external {
-      require(initialized == false, "can only initialize once");
+      require(!initialized, "can only initialize once");
       _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
       _setupRole(ADMIN_ROLE, _msgSender());
       _setupRole(VALIDATOR_ROLE, _msgSender());
@@ -35,7 +35,7 @@ contract XEvents is RoleAccess {
   //[vault][tokenMapping] => nonce
   mapping(address =>mapping(bytes32 => uint256)) public mintWatermark;
   uint256 public storeCounter;
-  bool public initialized;
+  bool private initialized;
 
   function store(
       bytes calldata sig,

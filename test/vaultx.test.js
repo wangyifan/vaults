@@ -86,7 +86,7 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
                 from: user,
                 amount: etherValue.toString(),
                 tip: ether("0.00123"),
-                depositNonce: "0"
+                nonce: "0"
             }
         );
 
@@ -173,7 +173,7 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
                 from: user,
                 amount: amount.toString(),
                 tip: "123",
-                depositNonce: "0"
+                nonce: "0"
             }
         );
 
@@ -455,7 +455,7 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
                 from: user,
                 amount: etherValue2.toString(),
                 tip: ether("0.002"),
-                depositNonce: "0"
+                nonce: "0"
             }
         );
 
@@ -472,7 +472,7 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
                 from: user,
                 amount: etherValue3.toString(),
                 tip: ether("0.003"),
-                depositNonce: "1"
+                nonce: "1"
             }
         );
 

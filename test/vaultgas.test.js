@@ -100,7 +100,7 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
             from: user,
             amount: etherValue.toString(),
             tip: tip.toString(),
-            depositNonce: nonce
+            nonce: nonce
         };
 
         receipt = await this.vaulty.mint(

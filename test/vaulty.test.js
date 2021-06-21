@@ -221,10 +221,10 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
                     sourceToken: this.sourceToken.address,
                     //mappedChainid: mappedChainid.toString(),
                     mappedToken: this.mappedToken.address,
-                    account: user,
+                    from: user,
                     amount: amount.toString(),
                     tip: tipY.toString(),
-                    burnNonce: burnNonce.toString()
+                    nonce: burnNonce.toString()
                 }
             );
             burnNonce += 1;

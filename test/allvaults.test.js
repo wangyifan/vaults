@@ -108,7 +108,7 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
                 from: user,
                 amount: etherValue.toString(),
                 tip: tip.toString(),
-                depositNonce: "0"
+                nonce: "0"
         };
 
         expectEvent(receipt, 'TokenDeposit', tokenDepositEvent);
@@ -141,7 +141,7 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
             user,
             tokenDepositEvent.amount,
             tokenDepositEvent.tip,
-            tokenDepositEvent.depositNonce,
+            tokenDepositEvent.nonce,
             {from: owner}
         );
         //console.log("mint(): ", calculateCost(receipt));
@@ -202,10 +202,10 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
         tokenBurnEvent = {
             sourceToken: NATIVETOKEN,
             mappedToken: this.mappedTokenNative.address,
-            account: user,
+            from: user,
             amount: amount.toString(),
             tip: tipY.toString(),
-            burnNonce: "0"
+            nonce: "0"
         };
         expectEvent(receipt, "TokenBurn", tokenBurnEvent);
 
@@ -234,10 +234,10 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
         receipt = await this.vaultx.withdraw(
             tokenBurnEvent.sourceToken,
             tokenBurnEvent.mappedToken,
-            tokenBurnEvent.account,
+            tokenBurnEvent.from,
             tokenBurnEvent.amount,
             tokenBurnEvent.tip,
-            tokenBurnEvent.burnNonce
+            tokenBurnEvent.nonce
         );
         //console.log("withdraw(): ", calculateCost(receipt));
         // cashout balance
