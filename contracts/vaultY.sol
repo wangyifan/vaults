@@ -51,6 +51,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => mapping(address => uint256 )) internal tokenMappingBurnNonce;
     mapping(uint256 => bool) public omitNonces;
     tokenPair[] public tokenPairs;
+    uint256 public CreatedAt;
 
     // events
     event TokenDeposit(
@@ -101,6 +102,9 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
         // fee setting for tip
         tipAccount = _msgSender();
+
+        // record when the valut is created
+        CreatedAt = block.number;
     }
 
     // fallback function

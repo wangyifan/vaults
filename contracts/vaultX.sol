@@ -56,7 +56,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     uint256 public CreatedAt;
 
     // events
-    event TokenBurn(
+    event TokenDeposit(
         address vault,
         uint256 sourceChainid,
         uint256 mappedChainid,
@@ -68,7 +68,9 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 indexed nonce,
         uint256 blockNumber
     );
-    event TokenDeposit(
+    // this is just placeholder so that the generated go binding will
+    // have the same interface between the two vaults x & y.
+    event TokenBurn(
         address vault,
         uint256 sourceChainid,
         uint256 mappedChainid,
