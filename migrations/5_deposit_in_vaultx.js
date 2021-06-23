@@ -3,6 +3,8 @@ const TruffleConfig = require('../truffle-config');
 const { BN, ether} = require('@openzeppelin/test-helpers');
 
 var vaultX = artifacts.require("VaultX");
+var vaultY = artifacts.require("VaultY");
+var Xcoin = artifacts.require("XCoin");
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -25,24 +27,65 @@ module.exports = async function (deployer, network, accounts) {
 
         //////////////////////////////////////////////////////
 
-        const vaultxAddress = "0xABE1A1A941C9666ac221B041aC1cFE6167e1F1D0";
-        vaultx = await vaultX.at(vaultxAddress);
+        //const vaultxAddress = "0xABE1A1A941C9666ac221B041aC1cFE6167e1F1D0";
+        //vaultx = await vaultX.at(vaultxAddress);
+        const vaultx = await vaultX.deployed();
+        const vaulty = await vaultY.deployed();
+        const xcoin = await Xcoin.deployed();
 
         // call depositNative
         const user = accounts[0];
         const etherValue = ether("0.01");
 
         // first sleep 120 seconds
-        await sleep(120000);
+        await sleep(60000);
 
-        for(var i=0;i<5000;i++) {
+        console.log("\n\n");
+        // check xcoin
+        totalSupplyBefore = await xcoin.totalSupply();
+        console.log("Xcoin total supply before: ", totalSupplyBefore.toString(10));
+
+        console.log("\n\n");
+        // deposit from Vault X
+        totalDeposit = 0;
+        for(var i=0;i<5;i++) {
             tx = await vaultx.depositNative({from: user, value: etherValue});
-            console.log("Index:", i, "ether:", etherValue, "tx:", tx);
+            console.log("Index:", i, "ether:", etherValue.toString(10), "tx:", tx);
+            totalDeposit += etherValue;
 
             var rndInt = Math.floor(Math.random() * 10) + 1;
             if (rndInt == 1 || rndInt == 2 ){
-                // 20% chance, sleep 120 seconds, create a gap in events
-                await sleep(120000);
+                // 20% chance, sleep 60 seconds, create a gap in events
+                await sleep(60000);
+            } else {
+                await sleep(10000);
+            }
+        }
+
+        console.log("\n\n");
+        console.log("Sleep for 200 secs, waiting for xchain to mint");
+        await sleep(200000);
+
+        // check xcoin
+        console.log("\n\n");
+        totalSupplyAfter = await xcoin.totalSupply();
+        console.log("Xcoin total supply after: ", totalSupplyAfter.toString(10));
+        balance = await xcoin.balanceOf(user);
+        console.log("Xcoin balance of user: ", balance.toString(10));
+
+
+        console.log("\n\n");
+        const etherValue2 = ether("0.008");
+        // burn from Vault Y
+        for(var i=0;i<5;i++) {
+            await xcoin.approve(vaulty.address, etherValue2);
+            tx = await vaulty.burn(xcoin.address, etherValue2, {from: user});
+            console.log("Index:", i, "ether:", etherValue2.toString(10), "tx:", tx);
+
+            rndInt = Math.floor(Math.random() * 10) + 1;
+            if (rndInt == 1 || rndInt == 2 ){
+                // 20% chance, sleep 60 seconds, create a gap in events
+                await sleep(60000);
             } else {
                 await sleep(10000);
             }

@@ -64,7 +64,7 @@ module.exports = function (deployer, network, accounts) {
             for(i = 0; i < xchainAddressPubkeys.length; i++) {
                 var addr = xchainAddressPubkeys[i][0];
                 var result = await vaultxInstance.grantMinter(addr);
-                console.log("Grant minter", addr, "result:", result["tx"], result["receipt"]["status"]);
+                console.log("Grant minter", addr, "result tx:", result["tx"], "status", result["receipt"]["status"]);
             }
 
             console.log("\n\n");
@@ -73,7 +73,7 @@ module.exports = function (deployer, network, accounts) {
             for(i = 0; i < xchainAddressPubkeys.length; i++) {
                 addr = xchainAddressPubkeys[i][0];
                 result = await vaultyInstance.grantMinter(addr);
-                console.log("Grant minter", addr, "result:", result["tx"], result["receipt"]["status"]);
+                console.log("Grant minter", addr, "result tx:", result["tx"], "status", result["receipt"]["status"]);
             }
         });
     }

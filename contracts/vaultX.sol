@@ -209,7 +209,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     function depositToken(address sourceToken, uint256 amount) external whenNotPaused returns (bool){
         address mappedToken = tokenMapping[sourceToken];
         require(sourceToken.isContract(), "source token is not a contract");
-        require(tokenMapping[sourceToken] != address(0), "token mapping not found");
+        require(mappedToken != address(0), "token mapping not found");
         require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
         address from = _msgSender();
@@ -298,10 +298,9 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 tipY,
         uint256 nonce
     ) public onlyMinter {
-        require(
-            nonce == tokenMappingWatermark[sourceToken][mappedToken],
-            "withdraw nonce too low"
-        );
+        require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
+        require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping not found");
+        require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
 
         // process the withdraw event
         if(omitNonces[nonce]==false) {

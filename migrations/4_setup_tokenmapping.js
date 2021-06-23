@@ -1,11 +1,12 @@
 const { BN, ether} = require('@openzeppelin/test-helpers');
 
 var vaultX = artifacts.require("VaultX");
+var vaultY = artifacts.require("VaultY");
 
 module.exports = async function (deployer, network, accounts) {
     if (network == "vaultxdev") {
-        const vaultxAddress = "0xABE1A1A941C9666ac221B041aC1cFE6167e1F1D0";
-        vaultx = await vaultX.at(vaultxAddress);
+        const vaultx = await vaultX.deployed();
+        const vaulty = await vaultY.deployed();
 
         // setup token mapping
         var sourceChainid = await web3.eth.getChainId();
@@ -18,6 +19,9 @@ module.exports = async function (deployer, network, accounts) {
         const sourceTokenSymbol = "abc";
         const mappedTokenSymbol = "xyz";
         const tipRate = 10;
+
+        //////////////////////////////////////
+        /////////// Vault X
         const receipt1 = await vaultx.setupTokenMapping(
             mappedChainid,
             sourceToken,
@@ -30,6 +34,25 @@ module.exports = async function (deployer, network, accounts) {
 
         // unpause the token mapping
         const receipt2 = await vaultx.unpauseTokenMapping(
+            sourceToken,
+            mappedToken,
+            {from: admin}
+        );
+
+        ///////////////////////////////////////
+        //////////// Vault Y
+        const receipt3 = await vaulty.setupTokenMapping(
+            sourceChainid,
+            sourceToken,
+            mappedToken,
+            sourceTokenSymbol,
+            mappedTokenSymbol,
+            tipRate,
+            {from: admin}
+        );
+
+        // unpause the token mapping
+        const receipt4 = await vaulty.unpauseTokenMapping(
             sourceToken,
             mappedToken,
             {from: admin}

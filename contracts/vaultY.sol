@@ -208,6 +208,8 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 tipX,
         uint256 nonce
     ) public onlyMinter {
+        require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
+        require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping not found");
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
         // process the mint event
@@ -230,12 +232,10 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
     // anyone can exit the mapped token back to its origin chain
     function burn(address mappedToken, uint256 amount) whenNotPaused external {
-        require(mappedToken.isContract(), "mapped token address is not a contract");
         address sourceToken = tokenMappingReversed[mappedToken];
-        require(
-            tokenMappingPaused[sourceToken][mappedToken] == false,
-            "token mapping paused"
-        );
+        require(mappedToken.isContract(), "mapped token address is not a contract");
+        require(sourceToken != address(0), "token mapping not found");
+        require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
         address from = _msgSender();
         // charge tip if needed
