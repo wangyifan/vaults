@@ -26,9 +26,6 @@ module.exports = async function (deployer, network, accounts) {
         console.log(">> Unlocking done");
 
         //////////////////////////////////////////////////////
-
-        //const vaultxAddress = "0xABE1A1A941C9666ac221B041aC1cFE6167e1F1D0";
-        //vaultx = await vaultX.at(vaultxAddress);
         const vaultx = await vaultX.deployed();
         const vaulty = await vaultY.deployed();
         const xcoin = await Xcoin.deployed();
@@ -46,9 +43,11 @@ module.exports = async function (deployer, network, accounts) {
         console.log("Xcoin total supply before: ", totalSupplyBefore.toString(10));
 
         console.log("\n\n");
+        //////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
         // deposit from Vault X
         totalDeposit = 0;
-        for(var i=0;i<5;i++) {
+        for(var i=0;i<10;i++) {
             tx = await vaultx.depositNative({from: user, value: etherValue});
             console.log("Index:", i, "ether:", etherValue.toString(10), "tx:", tx);
             totalDeposit += etherValue;
@@ -76,8 +75,10 @@ module.exports = async function (deployer, network, accounts) {
 
         console.log("\n\n");
         const etherValue2 = ether("0.008");
+        //////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
         // burn from Vault Y
-        for(var i=0;i<5;i++) {
+        for(var i=0;i<10;i++) {
             await xcoin.approve(vaulty.address, etherValue2);
             tx = await vaulty.burn(xcoin.address, etherValue2, {from: user});
             console.log("Index:", i, "ether:", etherValue2.toString(10), "tx:", tx);
