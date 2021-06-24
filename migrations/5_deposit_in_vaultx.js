@@ -46,9 +46,9 @@ module.exports = async function (deployer, network, accounts) {
         //////////////////////////////////////////////////////
         //////////////////////////////////////////////////////
         // deposit from Vault X
-        totalDeposit = 0;
-        for(var i=0;i<10;i++) {
-            tx = await vaultx.depositNative({from: user, value: etherValue});
+        var totalDeposit = 0;
+        for(var i=0;i<7;i++) {
+            var tx = await vaultx.depositNative({from: user, value: etherValue});
             console.log("Index:", i, "ether:", etherValue.toString(10), "tx:", tx);
             totalDeposit += etherValue;
 
@@ -62,23 +62,23 @@ module.exports = async function (deployer, network, accounts) {
         }
 
         console.log("\n\n");
-        console.log("Sleep for 200 secs, waiting for xchain to mint");
-        await sleep(200000);
+        console.log("Sleep for 100 secs, waiting for xchain to mint");
+        await sleep(100000);
 
         // check xcoin
         console.log("\n\n");
-        totalSupplyAfter = await xcoin.totalSupply();
+        var totalSupplyAfter = await xcoin.totalSupply();
         console.log("Xcoin total supply after: ", totalSupplyAfter.toString(10));
-        balance = await xcoin.balanceOf(user);
+        var balance = await xcoin.balanceOf(user);
         console.log("Xcoin balance of user: ", balance.toString(10));
 
 
         console.log("\n\n");
-        const etherValue2 = ether("0.008");
+        const etherValue2 = ether("0.005");
         //////////////////////////////////////////////////////
         //////////////////////////////////////////////////////
         // burn from Vault Y
-        for(var i=0;i<10;i++) {
+        for(i=0;i<5;i++) {
             await xcoin.approve(vaulty.address, etherValue2);
             tx = await vaulty.burn(xcoin.address, etherValue2, {from: user});
             console.log("Index:", i, "ether:", etherValue2.toString(10), "tx:", tx);
@@ -91,5 +91,47 @@ module.exports = async function (deployer, network, accounts) {
                 await sleep(10000);
             }
         }
+
+        // no wait, start deposit immedeiately
+        console.log("\n\n");
+
+        //////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
+        // deposit from Vault X
+        for(i=0;i<6;i++) {
+            tx = await vaultx.depositNative({from: user, value: etherValue});
+            console.log("Index:", i, "ether:", etherValue.toString(10), "tx:", tx);
+            totalDeposit += etherValue;
+
+            rndInt = Math.floor(Math.random() * 10) + 1;
+            if (rndInt == 1 || rndInt == 2 ){
+                // 20% chance, sleep 60 seconds, create a gap in events
+                await sleep(60000);
+            } else {
+                await sleep(10000);
+            }
+        }
+
+        console.log("\n\n");
+        console.log("Sleep for 100 secs, waiting for xchain to mint");
+        await sleep(100000);
+
+        //////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
+        // burn from Vault Y
+        for(i=0;i<10;i++) {
+            await xcoin.approve(vaulty.address, etherValue2);
+            tx = await vaulty.burn(xcoin.address, etherValue2, {from: user});
+            console.log("Index:", i, "ether:", etherValue2.toString(10), "tx:", tx);
+
+            rndInt = Math.floor(Math.random() * 10) + 1;
+            if (rndInt == 1 || rndInt == 2 ){
+                // 20% chance, sleep 60 seconds, create a gap in events
+                await sleep(60000);
+            } else {
+                await sleep(10000);
+            }
+        }
+
     }
 };
