@@ -131,6 +131,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
             "source token is not a contract"
         );
         require(mappedToken != address(0), "mapped token is null address");
+        require(tokenMapping[sourceToken] == address(0), "token mapping exists");
 
         tokenMapping[sourceToken] = mappedToken;
         tokenMappingReversed[mappedToken] = sourceToken;

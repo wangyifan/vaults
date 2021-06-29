@@ -122,6 +122,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     ) external onlyAdmin returns (bool) {
         require(mappedToken.isContract(), "mapped token address is not a contract");
         require(sourceToken != address(0), "mapped token is null address");
+        require(tokenMapping[sourceToken] == address(0), "token mapping exists");
 
         tokenMapping[sourceToken] = mappedToken;
         tokenMappingReversed[mappedToken] = sourceToken;

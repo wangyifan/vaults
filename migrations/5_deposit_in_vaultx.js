@@ -26,9 +26,9 @@ module.exports = async function (deployer, network, accounts) {
         console.log(">> Unlocking done");
 
         //////////////////////////////////////////////////////
-        const vaultx = await vaultX.deployed();
-        const vaulty = await vaultY.deployed();
-        const xcoin = await Xcoin.deployed();
+        const vaultx = await vaultX.at('0xABE1A1A941C9666ac221B041aC1cFE6167e1F1D0');
+        const vaulty = await vaultY.at('0xcCa8BAA2d1E83A38bdbcF52a9e5BbB530f50493A');
+        const xcoin = await Xcoin.at('0x8553cE822a9072b5fF0992Da9A61D5CE54a1F5Df');
 
         // call depositNative
         const user = accounts[0];

@@ -25,6 +25,7 @@ abigen: compile
 	abigen --abi abigenBindings/abi/VaultY.abi --pkg main --type VaultY --out abigenBindings/vaulty.go
 	abigen --abi abigenBindings/abi/VssBase.abi --pkg main --type VssBase --out abigenBindings/vssbase.go
 	abigen --abi abigenBindings/abi/XEvents.abi --pkg main --type XEvents --out abigenBindings/xevents.go
-	@echo "Done generating go binding for xchain contracts [vaultx.go, wtoken.go, vaulty.go, xcoin.go, vssbase.go, xevents.go]"
+	abigen --abi abigenBindings/abi/XConfig.abi --pkg main --type XConfig --out abigenBindings/xconfig.go
+	@echo "Done generating go binding for xchain contracts [vaultx.go, wtoken.go, vaulty.go, xcoin.go, vssbase.go, xevents.go, xconfig.go]"
 
 
