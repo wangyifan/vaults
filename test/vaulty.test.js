@@ -23,9 +23,10 @@ function calculateCost(receipt) {
 // Start test block
 contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ]) {
     beforeEach(async function () {
+        const ether100 = ether("100");
         this.vaulty = await VaultY.new({from: owner});
-        this.sourceToken = await TestCoin.new("Source Token", sourceTokenSymbol, 1000000, {from: owner});
-        this.mappedToken = await TestCoin.new("Mapped Token", mappedTokenSymbol, 1000000, {from: owner});
+        this.sourceToken = await TestCoin.new("Source Token", sourceTokenSymbol, ether100, {from: owner});
+        this.mappedToken = await TestCoin.new("Mapped Token", mappedTokenSymbol, ether100, {from: owner});
 
         // #1 token mapping
         this.vaulty.setupTokenMapping(
@@ -333,11 +334,6 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
             "Caller is not a nonce op"
         );
 
-        result = await expectRevert(
-            this.vaulty.refund(this.mappedToken.address, user, 10000, {from: user}),
-            "Caller is not a refund op"
-        );
-
         result = await this.vaulty.getRoles();
         var roleMap = new Map();
         for(var i=0;i<result.length;i++){
@@ -347,9 +343,6 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
         // grant all roles to user
         result = await this.vaulty.addRoleMember(roleMap["refund op"], user);
         result = await this.vaulty.addRoleMember(roleMap["nonce op"], user);
-
-        // call again, no revert
-        await this.vaulty.refund(this.mappedToken.address, user, 10000, {from: user});
 
         // check result
         expect(await this.vaulty.omitNonces.call(0)).to.equal(false);
@@ -374,11 +367,6 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
                 step: "3"
             }
         );
-
-        var balanceBefore = await this.mappedToken.balanceOf(user);
-        this.vaulty.refund(this.mappedToken.address, user, 10000, {from: user});
-        var balanceAfter = await this.mappedToken.balanceOf(user);
-        expect(balanceAfter.sub(balanceBefore).toString()).to.equal("10000");
     });
 
     it('check skip mint nonces', async function () {
@@ -437,9 +425,9 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
         );
     });
 
-    it('check batch withdraw', async function () {
-        var typesArray = ["tuple(address, address, address, uint256, uint256, uint256)[]"];
-        var parameters = [
+    it('check batch mint', async function () {
+        //var typesArray = ["tuple(address, address, address, uint256, uint256, uint256)[]"];
+        var tokenMints =
             [
                 [
                     this.sourceToken.address,
@@ -481,17 +469,16 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
                     10,
                     4
                 ]
-            ]
-        ];
+            ];
         var signature = Buffer.from("fake signature", "latin1");
-        var tokenMints = web3.eth.abi.encodeParameters(typesArray, parameters);
+        //var tokenMints = web3.eth.abi.encodeParameters(typesArray, parameters);
         var receipt = await this.vaulty.batchMint(signature, tokenMints);
         console.log("batchMint() for [0, 1, 2, 3, 4]", calculateCost(receipt));
         expect((await this.mappedToken.balanceOf(user1)).toString()).to.equal((10000-10-10).toString());
         var tipBalance = await this.vaulty.tipBalance(this.mappedToken.address);
         expect(tipBalance.toString()).to.equal((50).toString());
 
-        parameters = [
+        tokenMints =
             [
                 [
                     this.sourceToken.address,
@@ -533,9 +520,8 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
                     10,
                     9
                 ]
-            ]
-        ];
-        tokenMints = web3.eth.abi.encodeParameters(typesArray, parameters);
+            ];
+        //tokenMints = web3.eth.abi.encodeParameters(typesArray, parameters);
         receipt = await this.vaulty.batchMint(signature, tokenMints);
         console.log("batchMint() for [5, 6, 7, 8, 9]", calculateCost(receipt));
     });

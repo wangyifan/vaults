@@ -52,6 +52,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(uint256 => bool) public omitNonces;
     tokenPair[] public tokenPairs;
     uint256 public CreatedAt;
+    uint256 public totalBurnNonce;
 
     // events
     event TokenDeposit(
@@ -64,6 +65,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 amount,
         uint256 tip,
         uint256 indexed nonce,
+        uint256 totalNonce,
         uint256 blockNumber
     );
     event TokenBurn(
@@ -76,6 +78,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 amount,
         uint256 tip,
         uint256 indexed nonce,
+        uint256 totalNonce,
         uint256 blockNumber
     );
     event SkipNonce(
@@ -120,9 +123,10 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         string memory mappedTokenSymbol_,
         uint256 tipRate
     ) external onlyAdmin returns (bool) {
+        require(sourceToken != address(0), "source token is null address");
         require(mappedToken.isContract(), "mapped token address is not a contract");
-        require(sourceToken != address(0), "mapped token is null address");
-        require(tokenMapping[sourceToken] == address(0), "token mapping exists");
+        require(tokenMappingBurnNonce[sourceToken][mappedToken] == 0, "token mapping nonce exists");
+        require(tokenMappingWatermark[sourceToken][mappedToken] == 0, "token mapping watermark exists");
 
         tokenMapping[sourceToken] = mappedToken;
         tokenMappingReversed[mappedToken] = sourceToken;
@@ -138,6 +142,20 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         pauseTokenMapping(sourceToken, mappedToken);
         // set tip
         setTipRate(sourceToken, mappedToken, tipRate);
+
+        return true;
+    }
+
+    function updateTokenMapping(
+        uint256 sourceChainid,
+        address sourceToken,
+        address mappedToken,
+        string memory sourceTokenSymbol_,
+        string memory mappedTokenSymbol_
+    ) external onlyAdmin returns (bool){
+        sourceTokenChainids[sourceToken] = sourceChainid;
+        sourceTokenSymbols[sourceToken] = sourceTokenSymbol_;
+        mappedTokenSymbols[mappedToken] = mappedTokenSymbol_;
 
         return true;
     }
@@ -160,11 +178,9 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
 
     // mint in batch
     function batchMint(
-        bytes calldata signature, bytes calldata input
+        bytes calldata signature, tokenMint[] memory tokenMints
     ) external onlyMinter whenNotPaused {
         require(validateSignature(signature), "Invalid token mint signature");
-        tokenMint[] memory tokenMints = abi.decode(input, (tokenMint[]));
-
         for(uint256 index=0;index < tokenMints.length;index++){
             tokenMint memory tm = tokenMints[index];
             mint(
@@ -189,7 +205,13 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
-    // this is just placeholder so that the generated go binding will
+    // revoke minter role to another EOA or smart contract
+    function revokeMinter(address minter) public onlyAdmin returns (bool) {
+        revokeRole(MINTER_ROLE, minter);
+        return true;
+    }
+
+    // this is just a placeholder so that the generated go binding will
     // have the same interface between the two vaults x & y.
     function withdraw(
         address sourceToken,
@@ -210,7 +232,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 nonce
     ) public onlyMinter {
         require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
-        require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping not found");
+        require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping reversed not found");
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
         // process the mint event
@@ -236,6 +258,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         address sourceToken = tokenMappingReversed[mappedToken];
         require(mappedToken.isContract(), "mapped token address is not a contract");
         require(sourceToken != address(0), "token mapping not found");
+        require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping reversed not found");
         require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
         address from = _msgSender();
@@ -267,11 +290,13 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             amount,
             tipY,
             tokenMappingBurnNonce[sourceToken][mappedToken],
+            totalBurnNonce,
             block.number
         );
 
         // increase nonce
         tokenMappingBurnNonce[sourceToken][mappedToken] += 1;
+        totalBurnNonce += 1;
     }
 
     // cashout mint the staged asset
@@ -310,10 +335,5 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     ) external onlyNonceOp {
         emit SkipNonce(tokenMappingWatermark[sourceToken][mappedToken], skip);
         tokenMappingWatermark[sourceToken][mappedToken] += skip;
-    }
-
-    function refund(address token, address payable to, uint256 amount) external onlyRefundOp {
-        XCoin(token).mint(to, amount);
-        emit Refund(token, to, amount);
     }
 }

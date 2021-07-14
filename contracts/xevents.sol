@@ -1,15 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/security/Pausable.sol";
 import "./roleAccess.sol";
 
-contract XEvents is RoleAccess {
+contract XEvents is RoleAccess, Pausable {
 
   // structs
   struct VaultEvent {
-      bytes eventData;
       bytes sig;
-      uint256 blockNumber;
+      bytes eventData;
+  }
+
+  struct VaultEventExt {
+      bytes sig;
+      address vault;
+      uint256 nonce;
+      bytes32 tokenMapping;
+      bytes eventData;
   }
 
   function initialize() external {
@@ -32,20 +40,39 @@ contract XEvents is RoleAccess {
   mapping(address =>mapping(bytes32 => uint256)) public mintWatermark;
   bool private initialized;
 
+
+  function validateSignature(bytes memory signature) internal pure returns(bool){
+      require(signature.length > 0);
+      return true;
+  }
+
+  function RecordVaultEventBatch(
+      VaultEventExt[] memory vaultEventExts
+  ) external whenNotPaused {
+      for(uint256 index=0;index<vaultEventExts.length;index++) {
+          RecordVaultEvent(
+              vaultEventExts[index].sig,
+              vaultEventExts[index].vault,
+              vaultEventExts[index].nonce,
+              vaultEventExts[index].tokenMapping,
+              vaultEventExts[index].eventData
+          );
+      }
+  }
+
   function RecordVaultEvent(
-      bytes calldata sig,
+      bytes memory sig,
       address vault,
       uint256 nonce,
       bytes32 tokenMapping,
-      uint256 blockNumber,
-      bytes calldata eventData) external {
+      bytes memory eventData) public whenNotPaused{
       // store vault events in order
       require(tokenMappingWatermark[vault][tokenMapping] == nonce, "nonce too low");
+      require(validateSignature(sig), "Invalid vault event signature");
 
       VaultEvent memory vaultEvent;
       vaultEvent.sig = sig;
       vaultEvent.eventData = eventData;
-      vaultEvent.blockNumber = blockNumber;
 
       // tokenMapping is sha3(source chain id, soure token, mapped chain id, mapped token)
       vaultEvents[vault][tokenMapping][nonce] = vaultEvent;
@@ -73,5 +100,19 @@ contract XEvents is RoleAccess {
 
   function rescueTokenMapping(address vault, bytes32 tokenMapping, uint256 nonce) public {
       tokenMappingWatermark[vault][tokenMapping] = nonce;
+  }
+
+  // admin can assign validator role to another EOA or smart contract
+  function grantValidator(address validator) public onlyAdmin returns (bool) {
+      grantRole(VALIDATOR_ROLE, validator);
+      return true;
+  }
+
+  function pause() external onlyAdmin {
+      _pause();
+  }
+
+  function unpause() external onlyAdmin {
+      _unpause();
   }
 }

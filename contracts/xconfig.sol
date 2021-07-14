@@ -9,16 +9,25 @@ contract XConfig is RoleAccess {
       require(!initialized, "can only initialize once");
       _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
       _setupRole(ADMIN_ROLE, _msgSender());
+      _setupRole(VALIDATOR_ROLE, _msgSender());
       initialized = true;
   }
 
-  // increase by one when new config is recorded
-  uint256 public ConfigVersion;
-  mapping(uint256 => bytes) public Configs;
+  // initialize should be called only once
   bool private initialized;
 
-  function UpdateConfig(bytes calldata config) onlyAdmin external {
-    ConfigVersion += 1;
-    Configs[ConfigVersion] = config;
+  uint256 public VaultConfigVersion;
+  uint256 public VssConfigVersion;
+  mapping(uint256 => bytes) public VaultConfigs;
+  mapping(uint256 => bytes) public VssConfigs;
+  address[] public activeVssMemberList;
+
+  function updateVssConfig() onlyValidator external {
+  }
+
+
+  function UpdateVaultConfig(bytes calldata config) onlyAdmin external {
+    VaultConfigVersion += 1;
+    VaultConfigs[VaultConfigVersion] = config;
   }
 }
