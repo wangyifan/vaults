@@ -3,6 +3,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./staking.sol";
 import "./roleAccess.sol";
@@ -14,6 +15,7 @@ import "./tokenFee.sol";
 contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     using SafeMath for uint256;
     using Address for address;
+    using SafeERC20 for IERC20;
 
     // structs
     struct tokenPairInfo {
@@ -236,7 +238,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         address from = _msgSender();
 
         // 0. lock token in this contract
-        IERC20(sourceToken).transferFrom(from, address(this), amount);
+        IERC20(sourceToken).safeTransferFrom(from, address(this), amount);
 
         // 1. charge tip
         uint256 tipX = 0;
@@ -344,7 +346,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
             if (sourceToken == NATIVETOKEN) {
                 payable(to).transfer(netAmount);
             } else {
-              IERC20(sourceToken).transfer(to, netAmount);
+              IERC20(sourceToken).safeTransfer(to, netAmount);
             }
         }
 
@@ -366,7 +368,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         if (token == NATIVETOKEN) {
             to.transfer(amount);
         } else {
-            IERC20(token).transfer(to, amount);
+            IERC20(token).safeTransfer(to, amount);
         }
     }
 
@@ -399,7 +401,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         if (token == NATIVETOKEN) {
             to.transfer(amount);
         } else {
-            IERC20(token).transfer(to, amount);
+            IERC20(token).safeTransfer(to, amount);
         }
         emit Refund(token, to, amount);
     }

@@ -69,54 +69,62 @@ module.exports = async function (deployer, network, accounts) {
             vaultx2.address, ether("100"), {from: user}
         );
 
+        var depositCount = 0;
         for(var i=0;i<35;i++) {
             // deposit native vault x 1, one time
-            var tx = await vaultx1.depositNative({from: user, value: etherValue});
-            console.log("[vaultx 1 native] Index:", i,
+            var tx1 = vaultx1.depositNative({from: user, value: etherValue});
+            /*console.log("[vaultx 1 native] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
+                       );*/
             // deposit native vault x 2, two times
-            tx = await vaultx2.depositNative({from: user, value: etherValue});
-            console.log("[vaultx 2 native] Index:", i,
+            var tx2 = vaultx2.depositNative({from: user, value: etherValue});
+            /*console.log("[vaultx 2 native] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
-            tx = await vaultx2.depositNative({from: user, value: etherValue});
-            console.log("[vaultx 2 native] Index:", i,
+                       );*/
+            var tx3 = vaultx2.depositNative({from: user, value: etherValue});
+            /*console.log("[vaultx 2 native] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
+                       );*/
             // deposit erc20 vault x 1, two times
-            tx = await vaultx1.depositToken(erc20_source_x_coin_1.address, etherValue, {from: user});
-            console.log("[vaultx 1 erc20] Index:", i,
+            var tx4 = vaultx1.depositToken(erc20_source_x_coin_1.address, etherValue, {from: user});
+            /*console.log("[vaultx 1 erc20] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
-            tx = await vaultx1.depositToken(erc20_source_x_coin_1.address, etherValue, {from: user});
-            console.log("[vaultx 1 erc20] Index:", i,
+                       );*/
+            var tx5 = vaultx1.depositToken(erc20_source_x_coin_1.address, etherValue, {from: user});
+            /*console.log("[vaultx 1 erc20] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
+                       );*/
             // deposit erc20 vault x 2, one time
-            tx = await vaultx2.depositToken(erc20_source_x_coin_2.address, etherValue, {from: user});
-            console.log("[vaultx 2 erc20] Index:", i,
+            var tx6 = vaultx2.depositToken(erc20_source_x_coin_2.address, etherValue, {from: user});
+            /*console.log("[vaultx 2 erc20] Index:", i,
                         "ether:", etherValue.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
+                        );*/
+
+            var txs = [tx1, tx2, tx3, tx4, tx5, tx6];
+            for(i=0;i<txs.length;i++) {
+                result = await txs[i];
+                console.log("[deposit result await ", depositCount, "] block =", result['receipt']['blockNumber'], result['tx']);
+                depositCount++;
+            }
 
             var rndInt = Math.floor(Math.random() * 10) + 1;
             if (rndInt == 1 || rndInt == 2 ){
                 // 20% chance, sleep 60 seconds, create a gap in events
-                await sleep(60);
+                await sleep(30);
             } else {
-                await sleep(10);
+                await sleep(5);
             }
         }
 
@@ -165,38 +173,46 @@ module.exports = async function (deployer, network, accounts) {
             vaulty2.address, ether("100"), {from: user}
         );
 
+        var burnCount = 0;
         for(i=0;i<35;i++) {
-            tx = await vaulty1.burn(mapped_native_coin_1.address, etherValueB, {from: user});
-            console.log("[vaulty 1 native] Index:", i,
+            tx1 = vaulty1.burn(mapped_native_coin_1.address, etherValueB, {from: user});
+            /*console.log("[vaulty 1 native] Index:", i,
                         "ether:", etherValueB.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
-            tx = await vaulty1.burn(erc20_mapped_y_coin_1.address, etherValueB, {from: user});
-            console.log("[vaulty 1 erc20] Index:", i,
+                       );*/
+            tx2 = vaulty1.burn(erc20_mapped_y_coin_1.address, etherValueB, {from: user});
+            /*console.log("[vaulty 1 erc20] Index:", i,
                         "ether:", etherValueB.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
-            tx = await vaulty2.burn(mapped_native_coin_2.address, etherValueB, {from: user});
-            console.log("[vaulty 2 native] Index:", i,
+                       );*/
+            tx3 = vaulty2.burn(mapped_native_coin_2.address, etherValueB, {from: user});
+            /*console.log("[vaulty 2 native] Index:", i,
                         "ether:", etherValueB.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
-            tx = await vaulty2.burn(erc20_mapped_y_coin_2.address, etherValueB, {from: user});
-            console.log("[vaulty 2 erc20] Index:", i,
+                       );*/
+            tx4 = vaulty2.burn(erc20_mapped_y_coin_2.address, etherValueB, {from: user});
+            /*console.log("[vaulty 2 erc20] Index:", i,
                         "ether:", etherValueB.toString(10),
                         "tx:", tx["tx"],
                         "block:", tx["receipt"]["blockNumber"]
-                       );
+                        );*/
+
+            txs = [tx1, tx2, tx3, tx4];
+            for(i=0;i<txs.length;i++) {
+                result = await txs[i];
+                console.log("[burn result await ", burnCount, "]", result['receipt']['blockNumber'], result['tx']);
+                burnCount++;
+            }
 
             rndInt = Math.floor(Math.random() * 10) + 1;
             if (rndInt == 1 || rndInt == 2 ){
-                // 20% chance, sleep 60 seconds, create a gap in events
-                await sleep(60);
+                // 20% chance, sleep 30 seconds, create a gap in events
+                await sleep(30);
             } else {
-                await sleep(10);
+                await sleep(5);
             }
         }
     }

@@ -26,8 +26,14 @@ var (
 	_ = event.NewSubscription
 )
 
+// RoleAccessRole is an auto generated low-level Go binding around an user-defined struct.
+type RoleAccessRole struct {
+	Role     [32]byte
+	Describe string
+}
+
 // XCoinABI is the input ABI used to generate the binding from.
-const XCoinABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burnFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"name\":\"setCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinters\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const XCoinABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"}],\"name\":\"Blacklisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"}],\"name\":\"UnBlacklisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"addRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"blacklist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoles\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"describe\",\"type\":\"string\"}],\"internalType\":\"structRoleAccess.Role[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isBlacklisted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"removeRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"unBlacklist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cap_\",\"type\":\"uint256\"}],\"name\":\"setCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"allowance\",\"type\":\"uint256\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinters\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"minters\",\"type\":\"address[]\"}],\"name\":\"getMinterAllowance\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"burnFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // XCoin is an auto generated Go binding around an Ethereum contract.
 type XCoin struct {
@@ -171,37 +177,6 @@ func (_XCoin *XCoinTransactorRaw) Transact(opts *bind.TransactOpts, method strin
 	return _XCoin.Contract.contract.Transact(opts, method, params...)
 }
 
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XCoin *XCoinCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
-	var out []interface{}
-	err := _XCoin.contract.Call(opts, &out, "ADMIN_ROLE")
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
-}
-
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XCoin *XCoinSession) ADMINROLE() ([32]byte, error) {
-	return _XCoin.Contract.ADMINROLE(&_XCoin.CallOpts)
-}
-
-// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
-//
-// Solidity: function ADMIN_ROLE() view returns(bytes32)
-func (_XCoin *XCoinCallerSession) ADMINROLE() ([32]byte, error) {
-	return _XCoin.Contract.ADMINROLE(&_XCoin.CallOpts)
-}
-
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
@@ -231,37 +206,6 @@ func (_XCoin *XCoinSession) DEFAULTADMINROLE() ([32]byte, error) {
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
 func (_XCoin *XCoinCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
 	return _XCoin.Contract.DEFAULTADMINROLE(&_XCoin.CallOpts)
-}
-
-// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
-//
-// Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XCoin *XCoinCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
-	var out []interface{}
-	err := _XCoin.contract.Call(opts, &out, "MINTER_ROLE")
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
-}
-
-// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
-//
-// Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XCoin *XCoinSession) MINTERROLE() ([32]byte, error) {
-	return _XCoin.Contract.MINTERROLE(&_XCoin.CallOpts)
-}
-
-// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
-//
-// Solidity: function MINTER_ROLE() view returns(bytes32)
-func (_XCoin *XCoinCallerSession) MINTERROLE() ([32]byte, error) {
-	return _XCoin.Contract.MINTERROLE(&_XCoin.CallOpts)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -388,6 +332,37 @@ func (_XCoin *XCoinCallerSession) Decimals() (uint8, error) {
 	return _XCoin.Contract.Decimals(&_XCoin.CallOpts)
 }
 
+// GetMinterAllowance is a free data retrieval call binding the contract method 0xe0308731.
+//
+// Solidity: function getMinterAllowance(address[] minters) view returns(uint256[])
+func (_XCoin *XCoinCaller) GetMinterAllowance(opts *bind.CallOpts, minters []common.Address) ([]*big.Int, error) {
+	var out []interface{}
+	err := _XCoin.contract.Call(opts, &out, "getMinterAllowance", minters)
+
+	if err != nil {
+		return *new([]*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
+
+	return out0, err
+
+}
+
+// GetMinterAllowance is a free data retrieval call binding the contract method 0xe0308731.
+//
+// Solidity: function getMinterAllowance(address[] minters) view returns(uint256[])
+func (_XCoin *XCoinSession) GetMinterAllowance(minters []common.Address) ([]*big.Int, error) {
+	return _XCoin.Contract.GetMinterAllowance(&_XCoin.CallOpts, minters)
+}
+
+// GetMinterAllowance is a free data retrieval call binding the contract method 0xe0308731.
+//
+// Solidity: function getMinterAllowance(address[] minters) view returns(uint256[])
+func (_XCoin *XCoinCallerSession) GetMinterAllowance(minters []common.Address) ([]*big.Int, error) {
+	return _XCoin.Contract.GetMinterAllowance(&_XCoin.CallOpts, minters)
+}
+
 // GetMinters is a free data retrieval call binding the contract method 0x6b32810b.
 //
 // Solidity: function getMinters() view returns(address[])
@@ -512,6 +487,68 @@ func (_XCoin *XCoinCallerSession) GetRoleMemberCount(role [32]byte) (*big.Int, e
 	return _XCoin.Contract.GetRoleMemberCount(&_XCoin.CallOpts, role)
 }
 
+// GetRoleMembers is a free data retrieval call binding the contract method 0xa3246ad3.
+//
+// Solidity: function getRoleMembers(bytes32 role) view returns(address[])
+func (_XCoin *XCoinCaller) GetRoleMembers(opts *bind.CallOpts, role [32]byte) ([]common.Address, error) {
+	var out []interface{}
+	err := _XCoin.contract.Call(opts, &out, "getRoleMembers", role)
+
+	if err != nil {
+		return *new([]common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]common.Address)).(*[]common.Address)
+
+	return out0, err
+
+}
+
+// GetRoleMembers is a free data retrieval call binding the contract method 0xa3246ad3.
+//
+// Solidity: function getRoleMembers(bytes32 role) view returns(address[])
+func (_XCoin *XCoinSession) GetRoleMembers(role [32]byte) ([]common.Address, error) {
+	return _XCoin.Contract.GetRoleMembers(&_XCoin.CallOpts, role)
+}
+
+// GetRoleMembers is a free data retrieval call binding the contract method 0xa3246ad3.
+//
+// Solidity: function getRoleMembers(bytes32 role) view returns(address[])
+func (_XCoin *XCoinCallerSession) GetRoleMembers(role [32]byte) ([]common.Address, error) {
+	return _XCoin.Contract.GetRoleMembers(&_XCoin.CallOpts, role)
+}
+
+// GetRoles is a free data retrieval call binding the contract method 0x71061398.
+//
+// Solidity: function getRoles() pure returns((bytes32,string)[])
+func (_XCoin *XCoinCaller) GetRoles(opts *bind.CallOpts) ([]RoleAccessRole, error) {
+	var out []interface{}
+	err := _XCoin.contract.Call(opts, &out, "getRoles")
+
+	if err != nil {
+		return *new([]RoleAccessRole), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]RoleAccessRole)).(*[]RoleAccessRole)
+
+	return out0, err
+
+}
+
+// GetRoles is a free data retrieval call binding the contract method 0x71061398.
+//
+// Solidity: function getRoles() pure returns((bytes32,string)[])
+func (_XCoin *XCoinSession) GetRoles() ([]RoleAccessRole, error) {
+	return _XCoin.Contract.GetRoles(&_XCoin.CallOpts)
+}
+
+// GetRoles is a free data retrieval call binding the contract method 0x71061398.
+//
+// Solidity: function getRoles() pure returns((bytes32,string)[])
+func (_XCoin *XCoinCallerSession) GetRoles() ([]RoleAccessRole, error) {
+	return _XCoin.Contract.GetRoles(&_XCoin.CallOpts)
+}
+
 // HasRole is a free data retrieval call binding the contract method 0x91d14854.
 //
 // Solidity: function hasRole(bytes32 role, address account) view returns(bool)
@@ -541,6 +578,37 @@ func (_XCoin *XCoinSession) HasRole(role [32]byte, account common.Address) (bool
 // Solidity: function hasRole(bytes32 role, address account) view returns(bool)
 func (_XCoin *XCoinCallerSession) HasRole(role [32]byte, account common.Address) (bool, error) {
 	return _XCoin.Contract.HasRole(&_XCoin.CallOpts, role, account)
+}
+
+// IsBlacklisted is a free data retrieval call binding the contract method 0xfe575a87.
+//
+// Solidity: function isBlacklisted(address account) view returns(bool)
+func (_XCoin *XCoinCaller) IsBlacklisted(opts *bind.CallOpts, account common.Address) (bool, error) {
+	var out []interface{}
+	err := _XCoin.contract.Call(opts, &out, "isBlacklisted", account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsBlacklisted is a free data retrieval call binding the contract method 0xfe575a87.
+//
+// Solidity: function isBlacklisted(address account) view returns(bool)
+func (_XCoin *XCoinSession) IsBlacklisted(account common.Address) (bool, error) {
+	return _XCoin.Contract.IsBlacklisted(&_XCoin.CallOpts, account)
+}
+
+// IsBlacklisted is a free data retrieval call binding the contract method 0xfe575a87.
+//
+// Solidity: function isBlacklisted(address account) view returns(bool)
+func (_XCoin *XCoinCallerSession) IsBlacklisted(account common.Address) (bool, error) {
+	return _XCoin.Contract.IsBlacklisted(&_XCoin.CallOpts, account)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
@@ -698,6 +766,27 @@ func (_XCoin *XCoinCallerSession) TotalSupply() (*big.Int, error) {
 	return _XCoin.Contract.TotalSupply(&_XCoin.CallOpts)
 }
 
+// AddRoleMember is a paid mutator transaction binding the contract method 0x1b65471f.
+//
+// Solidity: function addRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinTransactor) AddRoleMember(opts *bind.TransactOpts, role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "addRoleMember", role, member)
+}
+
+// AddRoleMember is a paid mutator transaction binding the contract method 0x1b65471f.
+//
+// Solidity: function addRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinSession) AddRoleMember(role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.AddRoleMember(&_XCoin.TransactOpts, role, member)
+}
+
+// AddRoleMember is a paid mutator transaction binding the contract method 0x1b65471f.
+//
+// Solidity: function addRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinTransactorSession) AddRoleMember(role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.AddRoleMember(&_XCoin.TransactOpts, role, member)
+}
+
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
@@ -717,6 +806,27 @@ func (_XCoin *XCoinSession) Approve(spender common.Address, amount *big.Int) (*t
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
 func (_XCoin *XCoinTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _XCoin.Contract.Approve(&_XCoin.TransactOpts, spender, amount)
+}
+
+// Blacklist is a paid mutator transaction binding the contract method 0xf9f92be4.
+//
+// Solidity: function blacklist(address account) returns()
+func (_XCoin *XCoinTransactor) Blacklist(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "blacklist", account)
+}
+
+// Blacklist is a paid mutator transaction binding the contract method 0xf9f92be4.
+//
+// Solidity: function blacklist(address account) returns()
+func (_XCoin *XCoinSession) Blacklist(account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.Blacklist(&_XCoin.TransactOpts, account)
+}
+
+// Blacklist is a paid mutator transaction binding the contract method 0xf9f92be4.
+//
+// Solidity: function blacklist(address account) returns()
+func (_XCoin *XCoinTransactorSession) Blacklist(account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.Blacklist(&_XCoin.TransactOpts, account)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x42966c68.
@@ -782,25 +892,25 @@ func (_XCoin *XCoinTransactorSession) DecreaseAllowance(spender common.Address, 
 	return _XCoin.Contract.DecreaseAllowance(&_XCoin.TransactOpts, spender, subtractedValue)
 }
 
-// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+// GrantMinter is a paid mutator transaction binding the contract method 0x989fba2d.
 //
-// Solidity: function grantMinter(address minter) returns(bool)
-func (_XCoin *XCoinTransactor) GrantMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
-	return _XCoin.contract.Transact(opts, "grantMinter", minter)
+// Solidity: function grantMinter(address minter, uint256 allowance) returns(bool)
+func (_XCoin *XCoinTransactor) GrantMinter(opts *bind.TransactOpts, minter common.Address, allowance *big.Int) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "grantMinter", minter, allowance)
 }
 
-// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+// GrantMinter is a paid mutator transaction binding the contract method 0x989fba2d.
 //
-// Solidity: function grantMinter(address minter) returns(bool)
-func (_XCoin *XCoinSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
-	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter)
+// Solidity: function grantMinter(address minter, uint256 allowance) returns(bool)
+func (_XCoin *XCoinSession) GrantMinter(minter common.Address, allowance *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter, allowance)
 }
 
-// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+// GrantMinter is a paid mutator transaction binding the contract method 0x989fba2d.
 //
-// Solidity: function grantMinter(address minter) returns(bool)
-func (_XCoin *XCoinTransactorSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
-	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter)
+// Solidity: function grantMinter(address minter, uint256 allowance) returns(bool)
+func (_XCoin *XCoinTransactorSession) GrantMinter(minter common.Address, allowance *big.Int) (*types.Transaction, error) {
+	return _XCoin.Contract.GrantMinter(&_XCoin.TransactOpts, minter, allowance)
 }
 
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
@@ -885,6 +995,27 @@ func (_XCoin *XCoinSession) Pause() (*types.Transaction, error) {
 // Solidity: function pause() returns()
 func (_XCoin *XCoinTransactorSession) Pause() (*types.Transaction, error) {
 	return _XCoin.Contract.Pause(&_XCoin.TransactOpts)
+}
+
+// RemoveRoleMember is a paid mutator transaction binding the contract method 0x4dd8fac8.
+//
+// Solidity: function removeRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinTransactor) RemoveRoleMember(opts *bind.TransactOpts, role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "removeRoleMember", role, member)
+}
+
+// RemoveRoleMember is a paid mutator transaction binding the contract method 0x4dd8fac8.
+//
+// Solidity: function removeRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinSession) RemoveRoleMember(role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RemoveRoleMember(&_XCoin.TransactOpts, role, member)
+}
+
+// RemoveRoleMember is a paid mutator transaction binding the contract method 0x4dd8fac8.
+//
+// Solidity: function removeRoleMember(bytes32 role, address member) returns(bool)
+func (_XCoin *XCoinTransactorSession) RemoveRoleMember(role [32]byte, member common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.RemoveRoleMember(&_XCoin.TransactOpts, role, member)
 }
 
 // RenounceRole is a paid mutator transaction binding the contract method 0x36568abe.
@@ -1011,6 +1142,27 @@ func (_XCoin *XCoinSession) TransferFrom(sender common.Address, recipient common
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
 func (_XCoin *XCoinTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _XCoin.Contract.TransferFrom(&_XCoin.TransactOpts, sender, recipient, amount)
+}
+
+// UnBlacklist is a paid mutator transaction binding the contract method 0x1a895266.
+//
+// Solidity: function unBlacklist(address account) returns()
+func (_XCoin *XCoinTransactor) UnBlacklist(opts *bind.TransactOpts, account common.Address) (*types.Transaction, error) {
+	return _XCoin.contract.Transact(opts, "unBlacklist", account)
+}
+
+// UnBlacklist is a paid mutator transaction binding the contract method 0x1a895266.
+//
+// Solidity: function unBlacklist(address account) returns()
+func (_XCoin *XCoinSession) UnBlacklist(account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.UnBlacklist(&_XCoin.TransactOpts, account)
+}
+
+// UnBlacklist is a paid mutator transaction binding the contract method 0x1a895266.
+//
+// Solidity: function unBlacklist(address account) returns()
+func (_XCoin *XCoinTransactorSession) UnBlacklist(account common.Address) (*types.Transaction, error) {
+	return _XCoin.Contract.UnBlacklist(&_XCoin.TransactOpts, account)
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x3f4ba83a.
@@ -1182,6 +1334,150 @@ func (_XCoin *XCoinFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *XC
 func (_XCoin *XCoinFilterer) ParseApproval(log types.Log) (*XCoinApproval, error) {
 	event := new(XCoinApproval)
 	if err := _XCoin.contract.UnpackLog(event, "Approval", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// XCoinBlacklistedIterator is returned from FilterBlacklisted and is used to iterate over the raw logs and unpacked data for Blacklisted events raised by the XCoin contract.
+type XCoinBlacklistedIterator struct {
+	Event *XCoinBlacklisted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *XCoinBlacklistedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(XCoinBlacklisted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(XCoinBlacklisted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *XCoinBlacklistedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *XCoinBlacklistedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// XCoinBlacklisted represents a Blacklisted event raised by the XCoin contract.
+type XCoinBlacklisted struct {
+	Account common.Address
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterBlacklisted is a free log retrieval operation binding the contract event 0xffa4e6181777692565cf28528fc88fd1516ea86b56da075235fa575af6a4b855.
+//
+// Solidity: event Blacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) FilterBlacklisted(opts *bind.FilterOpts, _account []common.Address) (*XCoinBlacklistedIterator, error) {
+
+	var _accountRule []interface{}
+	for _, _accountItem := range _account {
+		_accountRule = append(_accountRule, _accountItem)
+	}
+
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "Blacklisted", _accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &XCoinBlacklistedIterator{contract: _XCoin.contract, event: "Blacklisted", logs: logs, sub: sub}, nil
+}
+
+// WatchBlacklisted is a free log subscription operation binding the contract event 0xffa4e6181777692565cf28528fc88fd1516ea86b56da075235fa575af6a4b855.
+//
+// Solidity: event Blacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) WatchBlacklisted(opts *bind.WatchOpts, sink chan<- *XCoinBlacklisted, _account []common.Address) (event.Subscription, error) {
+
+	var _accountRule []interface{}
+	for _, _accountItem := range _account {
+		_accountRule = append(_accountRule, _accountItem)
+	}
+
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "Blacklisted", _accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(XCoinBlacklisted)
+				if err := _XCoin.contract.UnpackLog(event, "Blacklisted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseBlacklisted is a log parse operation binding the contract event 0xffa4e6181777692565cf28528fc88fd1516ea86b56da075235fa575af6a4b855.
+//
+// Solidity: event Blacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) ParseBlacklisted(log types.Log) (*XCoinBlacklisted, error) {
+	event := new(XCoinBlacklisted)
+	if err := _XCoin.contract.UnpackLog(event, "Blacklisted", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -1956,6 +2252,150 @@ func (_XCoin *XCoinFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *XC
 func (_XCoin *XCoinFilterer) ParseTransfer(log types.Log) (*XCoinTransfer, error) {
 	event := new(XCoinTransfer)
 	if err := _XCoin.contract.UnpackLog(event, "Transfer", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// XCoinUnBlacklistedIterator is returned from FilterUnBlacklisted and is used to iterate over the raw logs and unpacked data for UnBlacklisted events raised by the XCoin contract.
+type XCoinUnBlacklistedIterator struct {
+	Event *XCoinUnBlacklisted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *XCoinUnBlacklistedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(XCoinUnBlacklisted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(XCoinUnBlacklisted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *XCoinUnBlacklistedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *XCoinUnBlacklistedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// XCoinUnBlacklisted represents a UnBlacklisted event raised by the XCoin contract.
+type XCoinUnBlacklisted struct {
+	Account common.Address
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterUnBlacklisted is a free log retrieval operation binding the contract event 0x117e3210bb9aa7d9baff172026820255c6f6c30ba8999d1c2fd88e2848137c4e.
+//
+// Solidity: event UnBlacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) FilterUnBlacklisted(opts *bind.FilterOpts, _account []common.Address) (*XCoinUnBlacklistedIterator, error) {
+
+	var _accountRule []interface{}
+	for _, _accountItem := range _account {
+		_accountRule = append(_accountRule, _accountItem)
+	}
+
+	logs, sub, err := _XCoin.contract.FilterLogs(opts, "UnBlacklisted", _accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &XCoinUnBlacklistedIterator{contract: _XCoin.contract, event: "UnBlacklisted", logs: logs, sub: sub}, nil
+}
+
+// WatchUnBlacklisted is a free log subscription operation binding the contract event 0x117e3210bb9aa7d9baff172026820255c6f6c30ba8999d1c2fd88e2848137c4e.
+//
+// Solidity: event UnBlacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) WatchUnBlacklisted(opts *bind.WatchOpts, sink chan<- *XCoinUnBlacklisted, _account []common.Address) (event.Subscription, error) {
+
+	var _accountRule []interface{}
+	for _, _accountItem := range _account {
+		_accountRule = append(_accountRule, _accountItem)
+	}
+
+	logs, sub, err := _XCoin.contract.WatchLogs(opts, "UnBlacklisted", _accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(XCoinUnBlacklisted)
+				if err := _XCoin.contract.UnpackLog(event, "UnBlacklisted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseUnBlacklisted is a log parse operation binding the contract event 0x117e3210bb9aa7d9baff172026820255c6f6c30ba8999d1c2fd88e2848137c4e.
+//
+// Solidity: event UnBlacklisted(address indexed _account)
+func (_XCoin *XCoinFilterer) ParseUnBlacklisted(log types.Log) (*XCoinUnBlacklisted, error) {
+	event := new(XCoinUnBlacklisted)
+	if err := _XCoin.contract.UnpackLog(event, "UnBlacklisted", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

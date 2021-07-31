@@ -8,6 +8,7 @@ const { BN, ether, expectEvent, expectRevert } = require('@openzeppelin/test-hel
 // Load compiled artifacts
 const XCoin = artifacts.require('XCoin');
 const Minter = artifacts.require('Minter');
+const ether1b = ether("1000000000");
 
 // Start test block
 contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
@@ -34,7 +35,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(addresses.includes(xOwner)).to.equal(true);
 
         // grant minter
-        result = await this.xcoin.grantMinter(this.minter.address, {from: xOwner});
+        result = await this.xcoin.grantMinter(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);
@@ -43,11 +44,11 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
 
         // minter and user can not grant
         result = await expectRevert(
-            this.xcoin.grantMinter(this.minter.address, {from: this.minter.address}),
+            this.xcoin.grantMinter(this.minter.address, ether1b, {from: this.minter.address}),
             "Caller is not a admin"
         );
         result = await expectRevert(
-            this.xcoin.grantMinter(this.minter.address, {from: user}),
+            this.xcoin.grantMinter(this.minter.address, ether1b, {from: user}),
             "Caller is not a admin"
         );
 
@@ -131,7 +132,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         );
 
         // grant minter
-        result = await this.xcoin.grantMinter(this.minter.address, {from: xOwner});
+        result = await this.xcoin.grantMinter(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);
@@ -267,21 +268,21 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         // transfer fail after pause
         result = await expectRevert(
             this.xcoin.transfer(user2, 10000, {from: user}),
-            "ERC20 Pausable: token transfer while paused"
+            "Pausable: paused -- Reason given: Pausable: paused."
         );
-
-        // approve still works but transferfrom should rever
-        result = await this.xcoin.approve(user2, 10000, {from: user});
-        allow = await this.xcoin.allowance(user, user2);
-        expect(allow.toString()).to.equal("10000");
 
         result = await expectRevert(
             this.xcoin.transferFrom(user, user2, 10000, {from: user2}),
-            "ERC20 Pausable: token transfer while paused"
+            "Pausable: paused -- Reason given: Pausable: paused."
         );
 
         // unpause
         result = await this.xcoin.unpause({from: xOwner});
+
+        // approve should resume
+        result = await this.xcoin.approve(user2, 10000, {from: user});
+        allow = await this.xcoin.allowance(user, user2);
+        expect(allow.toString()).to.equal("10000");
 
         // transfer should resume
         result = await this.xcoin.transfer(user2, 10000, {from: user});
@@ -307,22 +308,27 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         var balance = await this.xcoin.balanceOf(user);
         expect(balance.toString()).to.equal("200000");
 
-        // burn by owner
-        result = await this.xcoin.burn(10000, {from: user});
+        // user can not burn
+        result = await expectRevert(
+            this.xcoin.burn(10000, {from: user}),
+            "Caller is not a minter",
+        );
         balance = await this.xcoin.balanceOf(user);
+        expect(balance.toString()).to.equal("200000");
+
+        // minter can burn their own balance
+        result = await this.xcoin.mint(xOwner, 200000, {from: xOwner});
+        balance = await this.xcoin.balanceOf(xOwner);
+        expect(balance.toString()).to.equal("200000");
+        result = await this.xcoin.burn(10000, {from: xOwner});
+        balance = await this.xcoin.balanceOf(xOwner);
         expect(balance.toString()).to.equal("190000");
 
-        // without approval, other user can not burn
-        result = await expectRevert(
-            this.xcoin.burnFrom(user, 10000, {from: user2}),
-            "ERC20: burn amount exceeds allowance"
-        );
-
         // burnFrom after approve
-        result = await this.xcoin.approve(user2, 10000, {from: user});
-        result = await this.xcoin.burnFrom(user, 10000, {from: user2});
+        result = await this.xcoin.approve(xOwner, 10000, {from: user});
+        result = await this.xcoin.burnFrom(user, 10000, {from: xOwner});
         balance = await this.xcoin.balanceOf(user);
-        expect(balance.toString()).to.equal("180000");
+        expect(balance.toString()).to.equal("190000");
     });
 
     it('check mint by contract', async function () {
@@ -341,7 +347,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(balance.toString()).to.equal("0");
 
         // grant minter
-        result = await this.xcoin.grantMinter(this.minter.address, {from: xOwner});
+        result = await this.xcoin.grantMinter(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);

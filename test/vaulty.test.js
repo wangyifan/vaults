@@ -14,6 +14,7 @@ const sourceTokenSymbol = "abc";
 const mappedTokenSymbol = "xyz";
 const gwei = 1000000000;
 const gasPrice = 20 * gwei;
+const ether1b = ether("1000000000");
 
 function calculateCost(receipt) {
     var gasCost = gasPrice * receipt['receipt']['gasUsed'];
@@ -40,7 +41,7 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
         this.vaulty.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
 
         // #2 grant mint to vault contract
-        this.mappedToken.grantMinter(this.vaulty.address, {from: owner});
+        this.mappedToken.grantMinter(this.vaulty.address, ether1b, {from: owner});
     });
 
     it('Check if pause and unpause work', async function () {

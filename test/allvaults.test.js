@@ -19,6 +19,7 @@ const NATIVETOKEN = web3.utils.toChecksumAddress("0x" + web3.utils.soliditySha3(
 ).substring(26));
 const gwei = 1000000000;
 const gasPrice = 20 * gwei;
+const ether1b = ether("1000000000");
 
 function calculateCost(receipt) {
     var gasCost = gasPrice * receipt['receipt']['gasUsed'];
@@ -84,8 +85,8 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
         this.vaulty.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
 
         // #5 grant mint to vaulty contract
-        this.mappedTokenNative.grantMinter(this.vaulty.address, {from: owner});
-        this.mappedToken.grantMinter(this.vaulty.address, {from: owner});
+        this.mappedTokenNative.grantMinter(this.vaulty.address, ether1b, {from: owner});
+        this.mappedToken.grantMinter(this.vaulty.address, ether1b, {from: owner});
     });
 
     it('full test native : deposit -> mint -> burn - > withdraw', async function () {

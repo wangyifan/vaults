@@ -2,6 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "./xcoin.sol";
 import "./staking.sol";
@@ -14,6 +15,7 @@ import "./tokenFee.sol";
 contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     using SafeMath for uint256;
     using Address for address;
+    using SafeERC20 for IERC20;
 
     // structs
     struct tokenPairInfo {
@@ -269,7 +271,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             if (tipY > 0) {
                 // transfer directly instead of staging account since
                 // the asset is not under control of the vault contract
-                XCoin(mappedToken).transferFrom(from, tipAccount, tipY);
+                IERC20(mappedToken).safeTransferFrom(from, tipAccount, tipY);
             }
         }
 

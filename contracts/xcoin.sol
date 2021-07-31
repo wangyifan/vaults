@@ -12,27 +12,15 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
+import "./roleAccess.sol";
+import "./blacklistable.sol";
 
-contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
+contract XCoin is RoleAccess, Blacklistable, Pausable, ERC20Burnable {
     using SafeMath for uint256;
-
-    // role definition
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
-    // modifier
-    modifier onlyAdmin {
-        require(hasRole(ADMIN_ROLE, _msgSender()), "Caller is not a admin");
-        _;
-    }
-
-    modifier onlyMinter {
-        require(hasRole(MINTER_ROLE, _msgSender()), "Caller is not a minter");
-        _;
-    }
 
     // variables
     uint256 internal _cap;
+    mapping(address => uint256) internal minterAllowance;
 
     constructor(string memory name, string memory symbol, uint256 cap_) ERC20(name, symbol){
          require(cap_ > 0, "ERC20: cap is 0");
@@ -42,6 +30,7 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, _msgSender());
+        _setupRole(BLACKLISTER_ROLE, _msgSender());
     }
 
     function cap() public view returns (uint256) {
@@ -56,13 +45,15 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
     }
 
     // admin can assign minter role to another EOA or smart contract
-    function grantMinter(address minter) public onlyAdmin returns (bool) {
+    function grantMinter(address minter, uint256 allowance) public onlyAdmin returns (bool) {
         grantRole(MINTER_ROLE, minter);
+        minterAllowance[minter] = allowance;
         return true;
     }
 
     function revokeMinter(address minter) public onlyAdmin returns (bool) {
         if (hasRole(MINTER_ROLE, minter)) {
+            minterAllowance[minter] = 0;
             revokeRole(MINTER_ROLE, minter);
         }
         return true;
@@ -78,9 +69,81 @@ contract XCoin is Pausable, AccessControlEnumerable, ERC20Burnable {
         return minters_;
     }
 
+    function getMinterAllowance(address[] memory minters) public view returns (uint256[] memory) {
+        uint256 count = minters.length;
+        uint256[] memory minterAllowance_ = new uint256[](count);
+        for (uint index = 0; index < count; index++) {
+            minterAllowance_[index] = minterAllowance[minters[index]];
+        }
+        return minterAllowance_;
+    }
+
     // only account with minter role can mint
-    function mint(address account, uint256 amount) public onlyMinter whenNotPaused {
+    function mint(address account, uint256 amount)
+        public
+        whenNotPaused
+        notBlacklisted(account)
+        notBlacklisted(msg.sender)
+        onlyMinter
+    {
         _mint(account, amount);
+    }
+
+    // only account with minter role can burn
+    function burn(uint256 amount)
+        public
+        override
+        whenNotPaused
+        notBlacklisted(msg.sender)
+        onlyMinter
+    {
+        _burn(_msgSender(), amount);
+    }
+
+    // only account with minter role can burn
+    function burnFrom(address account, uint256 amount)
+        public
+        override
+        whenNotPaused
+        notBlacklisted(account)
+        notBlacklisted(msg.sender)
+        onlyMinter
+    {
+        super.burnFrom(account, amount);
+    }
+
+    function approve(address spender, uint256 amount)
+        public
+        override
+        whenNotPaused
+        notBlacklisted(spender)
+        notBlacklisted(msg.sender)
+        returns (bool)
+    {
+        return super.approve(spender, amount);
+    }
+
+    function transfer(address recipient, uint256 amount)
+        public
+        override
+        whenNotPaused
+        notBlacklisted(recipient)
+        notBlacklisted(msg.sender)
+        returns (bool)
+    {
+      return super.transfer(recipient, amount);
+    }
+
+    function transferFrom(address sender, address recipient, uint256 amount)
+        public
+        override
+        whenNotPaused
+        notBlacklisted(sender)
+        notBlacklisted(recipient)
+        notBlacklisted(msg.sender)
+        returns (bool)
+    {
+        return super.transferFrom(sender, recipient, amount);
     }
 
     // when paused, both mint() and transfer() will revert
