@@ -11,18 +11,20 @@ pragma solidity >=0.8.0 <0.9.0;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "./roleAccess.sol";
 import "./blacklistable.sol";
 
-contract XCoin is RoleAccess, Blacklistable, Pausable, ERC20Burnable {
+contract XCoin is RoleAccess, Blacklistable, Pausable, ERC20Burnable, ERC20Permit {
     using SafeMath for uint256;
 
     // variables
     uint256 internal _cap;
     mapping(address => uint256) internal minterAllowance;
 
-    constructor(string memory name, string memory symbol, uint256 cap_) ERC20(name, symbol){
+    constructor(string memory name, string memory symbol, uint256 cap_)
+      ERC20(name, symbol) ERC20Permit(name) {
          require(cap_ > 0, "ERC20: cap is 0");
         _cap = cap_;
 
