@@ -12,6 +12,17 @@ contract VssBase {
         address Whistleblower;
     }
 
+    // events
+    event ThresholdChanged(
+        address from,
+        int threshold
+    );
+
+    event SlowNodeThresholdChanged(
+        address from,
+        int threshold
+    );
+
     mapping(address => bytes32) private vssPublicKeys;
     mapping(address => int) private vssNodeIndexs;  // value start from 0
     mapping(int => address) private reverseVSSNodeIndexs; // key start from 0, reverse of vssNodeIndexs
@@ -97,25 +108,30 @@ contract VssBase {
         require(newThreshold >= MinThreshold);
         vssThreshold = newThreshold;
         vssConfigVersion++;
+        emit ThresholdChanged(msg.sender, vssThreshold);
     }
 
     function setCaller(address callerAddr) public {
         require(owner == msg.sender);
+        require(callerAddr != address(0));
         caller = callerAddr;
     }
 
     function setOwner(address newOwner) public {
         require(owner == msg.sender);
+        require(newOwner != address(0));
         owner = newOwner;
     }
 
     function setSlowNodeThreshold(int newThreshold) public {
         require(owner == msg.sender);
         slowNodeThreshold = newThreshold;
+        emit SlowNodeThresholdChanged(msg.sender, slowNodeThreshold);
     }
 
     function setXevents(address contractAddr) public {
         require(caller == msg.sender || owner == msg.sender);
+        require(contractAddr != address(0));
         xeventsAddr = contractAddr;
     }
 

@@ -9,8 +9,14 @@ ganache:
 compile:
 	npx truffle compile
 
+func:
+	grep function contracts/vaultX.sol contracts/vaultY.sol contracts/xcoin.sol contracts/xevents.sol contracts/vss.sol | grep "function\|external\|view\|public\|private\|internal"
+
 migrationx:
 	npx truffle migrate --network vaultxdev
+
+slither:
+	slither .
 
 size:
 	npx truffle run contract-size

@@ -32,12 +32,8 @@ contract XEvents is RoleAccess, Pausable {
   mapping(address => mapping(bytes32 => mapping(uint256 => VaultEvent))) public vaultEvents;
   //[vault][tokenMapping] => nonce
   mapping(address => mapping(bytes32 => uint256)) public tokenMappingWatermark;
-  //[vault][tokenMapping] => nonce
-  mapping(address => mapping(bytes32 => uint256)) public vaultEventDone;
   //[vault] => blockNumber
   mapping(address => uint256) public vaultWatermark;
-  //[vault][tokenMapping] => nonce
-  mapping(address =>mapping(bytes32 => uint256)) public mintWatermark;
   bool private initialized;
 
 
@@ -70,9 +66,7 @@ contract XEvents is RoleAccess, Pausable {
       require(tokenMappingWatermark[vault][tokenMapping] == nonce, "nonce too low");
       require(validateSignature(sig), "Invalid vault event signature");
 
-      VaultEvent memory vaultEvent;
-      vaultEvent.sig = sig;
-      vaultEvent.eventData = eventData;
+      VaultEvent memory vaultEvent = VaultEvent(sig, eventData);
 
       // tokenMapping is sha3(source chain id, soure token, mapped chain id, mapped token)
       vaultEvents[vault][tokenMapping][nonce] = vaultEvent;
@@ -88,10 +82,6 @@ contract XEvents is RoleAccess, Pausable {
   // So this function should be called after all vaults events are stored.
   function updateVaultWatermark(address vault, uint256 blockNumber) external {
       vaultWatermark[vault] = blockNumber;
-  }
-
-  function done(address vault, bytes32 tokenMapping, uint256 nonce) external {
-      vaultEventDone[vault][tokenMapping] = nonce;
   }
 
   function rescueVault(address vault, uint256 blockNumber) public {

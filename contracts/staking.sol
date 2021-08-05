@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 contract Staking {
+    using SafeMath for uint256;
+
     enum StakeStatus { ADDED, REMOVED }
 
     // staking struture
@@ -41,7 +45,7 @@ contract Staking {
 
     function _updateEpochSize(uint256 epochSize_) internal {
         _nextEpochSize = epochSize_;
-        _nextEpochPivot = block.number / _currentEpochSize * _currentEpochSize + _currentEpochSize;
+        _nextEpochPivot = block.number * _currentEpochSize / _currentEpochSize + _currentEpochSize;
     }
 
     function _updateOnReadEpochSize() internal {

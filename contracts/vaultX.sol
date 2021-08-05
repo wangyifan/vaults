@@ -5,14 +5,13 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./staking.sol";
 import "./roleAccess.sol";
 import "./tokenPausable.sol";
 import "./tokenFee.sol";
 
 // Deploy VaultX in the origin blockchain and pair it with
 // the VaultY in the mapped blockchain
-contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
+contract VaultX is RoleAccess, TokenPausable, TokenFee {
     using SafeMath for uint256;
     using Address for address;
     using SafeERC20 for IERC20;
@@ -55,25 +54,11 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
     tokenPair[] internal tokenPairs;
     uint256 public CreatedAt;
     uint256 public totalDepositNonce;
-    address NATIVETOKEN;
+    address public NATIVETOKEN;
+    address payable public rescueVault;
 
     // events
     event TokenDeposit(
-        address vault,
-        uint256 sourceChainid,
-        uint256 mappedChainid,
-        address indexed sourceToken,
-        address indexed mappedToken,
-        address from,
-        uint256 amount,
-        uint256 tip,
-        uint256 indexed nonce,
-        uint256 totalNonce,
-        uint256 blockNumber
-    );
-    // this is just placeholder so that the generated go binding will
-    // have the same interface between the two vaults x & y.
-    event TokenBurn(
         address vault,
         uint256 sourceChainid,
         uint256 mappedChainid,
@@ -94,18 +79,21 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 start,
         uint256 step
     );
-    event Refund(
+    event Rescue(
         address token,
         address payable to,
         uint256 amount
     );
 
-    constructor(address nativeToken) Staking(10) {
+    constructor(address nativeToken) {
+        require(nativeToken != address(0));
+
         // setup roles
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(ADMIN_ROLE, _msgSender());
+        _setupRole(MANAGER_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, _msgSender());
-        _setupRole(REFUNDOP_ROLE, _msgSender());
+        _setupRole(RESCUEOP_ROLE, _msgSender());
         _setupRole(NONCEOP_ROLE, _msgSender());
 
         // fee setting
@@ -118,7 +106,8 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         CreatedAt = block.number;
     }
 
-    // fallback function
+    // fallback function, this contract does not
+    // receive any plain ether
     fallback() external {revert();}
     receive() external payable {revert();}
 
@@ -196,6 +185,7 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
         uint256 amount = msg.value;
         address from = _msgSender();
+
         // 1. charge tip
         uint256 tipX = 0;
         if (shouldTip()) {
@@ -237,9 +227,6 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
 
         address from = _msgSender();
 
-        // 0. lock token in this contract
-        IERC20(sourceToken).safeTransferFrom(from, address(this), amount);
-
         // 1. charge tip
         uint256 tipX = 0;
         if (shouldTip()) {
@@ -268,6 +255,26 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         tokenMappingDepositNonce[sourceToken][mappedToken] += 1;
         totalDepositNonce += 1;
 
+        // 4. lock token in this contract
+        IERC20(sourceToken).safeTransferFrom(from, address(this), amount);
+
+        return true;
+    }
+
+    function validateSignature(bytes memory signature) internal pure returns(bool){
+        require(signature.length > 0);
+        return true;
+    }
+
+    // assign minter role to another EOA or smart contract
+    function grantMinter(address minter) public onlyAdmin returns (bool) {
+        grantRole(MINTER_ROLE, minter);
+        return true;
+    }
+
+    // revoke minter role to another EOA or smart contract
+    function revokeMinter(address minter) public onlyAdmin returns (bool) {
+        revokeRole(MINTER_ROLE, minter);
         return true;
     }
 
@@ -290,35 +297,6 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         }
     }
 
-    function validateSignature(bytes memory signature) internal pure returns(bool){
-        require(signature.length > 0);
-        return true;
-    }
-
-    // assign minter role to another EOA or smart contract
-    function grantMinter(address minter) public onlyAdmin returns (bool) {
-        grantRole(MINTER_ROLE, minter);
-        return true;
-    }
-
-    // revoke minter role to another EOA or smart contract
-    function revokeMinter(address minter) public onlyAdmin returns (bool) {
-        revokeRole(MINTER_ROLE, minter);
-        return true;
-    }
-
-    // this is just placeholder so that the generated go binding will
-    // have the same interface between the two vaults x & y.
-    function mint(
-        address sourceToken,
-        address mappedToken,
-        address payable to,
-        uint256 amount,
-        uint256 tipX,
-        uint256 nonce
-    ) public {
-    }
-
     function withdraw(
         address sourceToken,
         address mappedToken,
@@ -330,6 +308,10 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
         require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping reversed not found");
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
+        require(to != address(0), "zero address for to addr");
+
+        // increase watermark
+        tokenMappingWatermark[sourceToken][mappedToken]++;
 
         // process the withdraw event
         if(omitNonces[nonce]==false) {
@@ -349,13 +331,10 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
               IERC20(sourceToken).safeTransfer(to, netAmount);
             }
         }
-
-        // increase watermark
-        tokenMappingWatermark[sourceToken][mappedToken]++;
     }
 
-    // cashout mint the staged asset
-    function tipCashout(address token, address payable to, uint256 amount) external whenNotPaused {
+    // cashout accumulated tip, only tip account can call this
+    function tipCashout(address token, address payable to, uint256 amount) external {
         address owner = _msgSender();
         require(owner == tipAccount, "Not tip account");
         uint256 balance = tipBalances[token];
@@ -397,12 +376,18 @@ contract VaultX is RoleAccess, TokenPausable, Staking, TokenFee {
         tokenMappingWatermark[sourceToken][mappedToken] += skip;
     }
 
-    function refund(address token, address payable to, uint256 amount) external onlyRefundOp {
+    function setRescueVault(address payable _rescueVault) external onlyAdmin {
+        require(address(_rescueVault).isContract(), "rescue vault should be a contract");
+        rescueVault = _rescueVault;
+    }
+
+    function rescue(address token, uint256 amount) external onlyRescueOp {
+        require(rescueVault != address(0), "rescue vault address is zero");
+        emit Rescue(token, rescueVault, amount);
         if (token == NATIVETOKEN) {
-            to.transfer(amount);
+            rescueVault.transfer(amount);
         } else {
-            IERC20(token).safeTransfer(to, amount);
+            IERC20(token).safeTransfer(rescueVault, amount);
         }
-        emit Refund(token, to, amount);
     }
 }

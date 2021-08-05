@@ -1,3 +1,5 @@
+const { ether} = require('@openzeppelin/test-helpers');
+
 var wToken = artifacts.require("WTOKEN");
 var vaultX = artifacts.require("VaultX");
 var vaultX2 = artifacts.require("VaultX");
@@ -31,6 +33,7 @@ module.exports = function (deployer, network, accounts) {
             await deployer.deploy(mappedNativeCoin1,
                                   "xcoin1", "xco1", web3.utils.toWei("100000000", "ether"));
 
+            /*
             const xchainAddressPubkeys = [
                 ["0xc996264b44d35f9ae8291101760fb1ecffb445f5",
                  "0x9045469e9cf0d49c4629df0221939cfd07e1719d969c26672262e5e596139ff0"],
@@ -38,7 +41,17 @@ module.exports = function (deployer, network, accounts) {
                  "0x07637aeee19f6bedb6736a62daff7abc72a8c369500ab3117c65b18a29ece60a"],
                 ["0xf38562a301ddc57e7d2d3d22ab3a18352f60c66c",
                  "0x2ada70e73403f64a6a62569125e3055582ba66a657f18296d514d0de60662661"],
+            ];*/
+
+            const xchainAddressPubkeys = [
+                ["0x40ca9bdd3e744a9d5bc5b78808741926d1864a8a",
+                 "0x95d8f57561d79db0e25712f6ebd06c062ee64ddefd4e6ec29e01375a007d86b0"],
+                ["0x7d3ea2daa415738ea34c32fcdc1eb30bddfa4dcb",
+                 "0x1a89634b17812df55bacc1735f058eda5c653b9a03f176c216bfec908371fdd0"],
+                ["0xde75e1d5b49e08ae5d841a026cfc420b95b89d4b",
+                 "0x37e35dbb6e64cc69afa17f77358b3df6b8501e9b6d1c4b01ddb6f50be28be79b"],
             ];
+
 
             const vssBaseInstance = await vssBase.deployed();
             // register open
@@ -85,7 +98,7 @@ module.exports = function (deployer, network, accounts) {
             // grant xchain nodes on vault X to withdraw
             for(i = 0; i < xchainAddressPubkeys.length; i++) {
                 var addr = xchainAddressPubkeys[i][0];
-                var result = await vaultx1.grantMinter(addr, grantAmount);
+                var result = await vaultx1.grantMinter(addr);
                 console.log(
                     "Grant minter", addr, "result tx:", result["tx"],
                     "status", result["receipt"]["status"]);
@@ -96,7 +109,7 @@ module.exports = function (deployer, network, accounts) {
             // grant xchainAddress on vault Y to mint
             for(i = 0; i < xchainAddressPubkeys.length; i++) {
                 addr = xchainAddressPubkeys[i][0];
-                result = await vaulty1.grantMinter(addr, grantAmount);
+                result = await vaulty1.grantMinter(addr);
                 console.log(
                     "Grant minter", addr, "result tx:", result["tx"],
                     "status", result["receipt"]["status"]);
@@ -148,7 +161,7 @@ module.exports = function (deployer, network, accounts) {
             // grant xchainAddress on vault Y 2 to mint
             for(i = 0; i < xchainAddressPubkeys.length; i++) {
                 addr = xchainAddressPubkeys[i][0];
-                result = await vaulty2.grantMinter(addr, grantAmount);
+                result = await vaulty2.grantMinter(addr);
                 console.log(
                     "Grant minter", addr, "result tx:", result["tx"],
                     "status", result["receipt"]["status"]);

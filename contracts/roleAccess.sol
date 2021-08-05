@@ -6,8 +6,9 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 contract RoleAccess is AccessControlEnumerable {
     // role definition
     bytes32 internal constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 internal constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
     bytes32 internal constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 internal constant REFUNDOP_ROLE = keccak256("REFUNDOP_ROLE");
+    bytes32 internal constant RESCUEOP_ROLE = keccak256("RESCUEOP_ROLE");
     bytes32 internal constant NONCEOP_ROLE = keccak256("NONCEOP_ROLE");
     bytes32 internal constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
     bytes32 internal constant BLACKLISTER_ROLE = keccak256("BLACKLISTER_ROLE");
@@ -24,13 +25,18 @@ contract RoleAccess is AccessControlEnumerable {
         _;
     }
 
+    modifier onlyManager {
+        require(hasRole(MANAGER_ROLE, _msgSender()), "Caller is not a manager");
+        _;
+    }
+
     modifier onlyMinter {
         require(hasRole(MINTER_ROLE, _msgSender()), "Caller is not a minter");
         _;
     }
 
-    modifier onlyRefundOp {
-        require(hasRole(REFUNDOP_ROLE, _msgSender()), "Caller is not a refund op");
+    modifier onlyRescueOp {
+        require(hasRole(RESCUEOP_ROLE, _msgSender()), "Caller is not a rescue op");
         _;
     }
 
@@ -50,13 +56,14 @@ contract RoleAccess is AccessControlEnumerable {
     }
 
     function getRoles() public pure returns(Role[] memory) {
-        Role[] memory result = new Role[](6);
+        Role[] memory result = new Role[](7);
         result[0] = Role(ADMIN_ROLE, "admin");
-        result[1] = Role(MINTER_ROLE, "minter");
-        result[2] = Role(REFUNDOP_ROLE, "refund op");
-        result[3] = Role(NONCEOP_ROLE, "nonce op");
-        result[4] = Role(VALIDATOR_ROLE, "validator");
-        result[5] = Role(BLACKLISTER_ROLE, "blacklister");
+        result[1] = Role(MANAGER_ROLE, "manager");
+        result[2] = Role(MINTER_ROLE, "minter");
+        result[3] = Role(RESCUEOP_ROLE, "rescue op");
+        result[4] = Role(NONCEOP_ROLE, "nonce op");
+        result[5] = Role(VALIDATOR_ROLE, "validator");
+        result[6] = Role(BLACKLISTER_ROLE, "blacklister");
         return result;
     }
 

@@ -5,14 +5,13 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "./xcoin.sol";
-import "./staking.sol";
 import "./roleAccess.sol";
 import "./tokenPausable.sol";
 import "./tokenFee.sol";
 
 // Deploy VaultY in the mapped blockchain and pair it with
 // the VaultX in the origin blockchain
-contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
+contract VaultY is RoleAccess, TokenPausable, TokenFee {
     using SafeMath for uint256;
     using Address for address;
     using SafeERC20 for IERC20;
@@ -50,7 +49,7 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
     mapping(address => address) internal tokenMappingReversed;
     mapping(address => uint256) internal tipBalances;
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
-    mapping(address => mapping(address => uint256 )) internal tokenMappingBurnNonce;
+    mapping(address => mapping(address => uint256 )) public tokenMappingBurnNonce;
     mapping(uint256 => bool) public omitNonces;
     tokenPair[] public tokenPairs;
     uint256 public CreatedAt;
@@ -97,12 +96,12 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         uint256 amount
     );
 
-    constructor() Staking(10) {
+    constructor() {
       // setup roles
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, _msgSender());
-        _setupRole(REFUNDOP_ROLE, _msgSender());
+        _setupRole(RESCUEOP_ROLE, _msgSender());
         _setupRole(NONCEOP_ROLE, _msgSender());
 
         // fee setting for tip
@@ -112,7 +111,8 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         CreatedAt = block.number;
     }
 
-    // fallback function
+    // fallback function, this contract does not
+    // receive any plain ether transfer
     fallback() external {revert();}
     receive() external payable {revert();}
 
@@ -213,18 +213,6 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         return true;
     }
 
-    // this is just a placeholder so that the generated go binding will
-    // have the same interface between the two vaults x & y.
-    function withdraw(
-        address sourceToken,
-        address mappedToken,
-        address payable to,
-        uint256 amount,
-        uint256 tipY,
-        uint256 nonce
-    ) public {
-    }
-
     function mint(
         address sourceToken,
         address mappedToken,
@@ -236,6 +224,9 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
         require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping reversed not found");
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
+
+        // increase watermark
+        tokenMappingWatermark[sourceToken][mappedToken]++;
 
         // process the mint event
         if(omitNonces[nonce]==false) {
@@ -250,9 +241,6 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
             require(netAmount > 0, "mint net amount negative");
             XCoin(mappedToken).mint(to, amount - tipX - tipY);
         }
-
-        // increase watermark
-        tokenMappingWatermark[sourceToken][mappedToken]++;
     }
 
     // anyone can exit the mapped token back to its origin chain
@@ -264,22 +252,11 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         require(tokenMappingPaused[sourceToken][mappedToken] == false, "token mapping paused");
 
         address from = _msgSender();
-        // charge tip if needed
+        // calculate tip if needed
         uint256 tipY = 0;
         if (shouldTip()) {
             tipY = getTip(sourceToken, mappedToken, amount);
-            if (tipY > 0) {
-                // transfer directly instead of staging account since
-                // the asset is not under control of the vault contract
-                IERC20(mappedToken).safeTransferFrom(from, tipAccount, tipY);
-            }
         }
-
-        // burn the remain net amount
-        uint256 netAmount = amount - tipY;
-        require(netAmount > 0, "Negative net amount");
-        // need first approve, otherwise will revert
-        XCoin(mappedToken).burnFrom(from, netAmount);
 
         // emit event
         emit TokenBurn(
@@ -299,10 +276,23 @@ contract VaultY is RoleAccess, TokenPausable, Staking, TokenFee {
         // increase nonce
         tokenMappingBurnNonce[sourceToken][mappedToken] += 1;
         totalBurnNonce += 1;
+
+        // burn the remain net amount
+        uint256 netAmount = amount - tipY;
+        require(netAmount > 0, "Negative net amount");
+        // need first approve, otherwise will revert
+        XCoin(mappedToken).burnFrom(from, netAmount);
+
+        // charge tip
+        if (tipY > 0) {
+          // transfer directly instead of staging account since
+          // the asset is not under control of the vault contract
+          IERC20(mappedToken).safeTransferFrom(from, tipAccount, tipY);
+        }
     }
 
-    // cashout mint the staged asset
-    function tipCashout(address token, address to, uint256 amount) external whenNotPaused {
+    // cashout accumulated tip, only tip account can call this
+    function tipCashout(address token, address to, uint256 amount) external {
         address owner = _msgSender();
         require(owner == tipAccount, "Not tip account");
         uint256 balance = tipBalances[token];

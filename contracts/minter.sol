@@ -8,6 +8,7 @@ contract Minter is Ownable {
     address internal _xcoin;
 
     constructor(address xcoin) {
+        require(xcoin != address(0));
         _xcoin = xcoin;
     }
 

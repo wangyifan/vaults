@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "./IPriceOracle.sol";
 import "./roleAccess.sol";
 
 contract TokenFee is RoleAccess {
     using Address for address;
+    using SafeMath for uint256;
 
     // events
     event TipRateChanged(address indexed sender, address sourceToken, address mappedToken, uint256 newTipRate);
@@ -50,7 +52,6 @@ contract TokenFee is RoleAccess {
     }
 
     function setFiatFeeAmount(uint256 amount) external onlyAdmin {
-        require(amount >=0, "negative fiat fee amount");
         fiatFeeAmount = amount;
         emit FiatFeeAmountChanged(msg.sender, fiatFeeAmount);
     }

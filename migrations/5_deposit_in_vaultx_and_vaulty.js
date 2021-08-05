@@ -48,8 +48,8 @@ module.exports = async function (deployer, network, accounts) {
         const etherValueN = 0.01;
         const etherValue = ether(etherValueN.toString());
 
-        // first sleep 60 seconds
-        await sleep(60000);
+        // first sleep 10 seconds
+        await sleep(10000);
 
         console.log("\n\n");
         // check xcoin
@@ -113,16 +113,22 @@ module.exports = async function (deployer, network, accounts) {
                         );*/
 
             var txs = [tx1, tx2, tx3, tx4, tx5, tx6];
-            for(i=0;i<txs.length;i++) {
-                result = await txs[i];
-                console.log("[deposit result await ", depositCount, "] block =", result['receipt']['blockNumber'], result['tx']);
+            for(var j=0;j<txs.length;j++) {
+                var result = await txs[j];
+                console.log(
+                    "[deposit result await ", depositCount, "] block =",
+                    result['receipt']['blockNumber'],
+                    "index =", result['receipt']['transactionIndex'],
+                    "status =", result['receipt']['status'],
+                    "hash = ", result['tx']
+                );
                 depositCount++;
             }
 
             var rndInt = Math.floor(Math.random() * 10) + 1;
             if (rndInt == 1 || rndInt == 2 ){
-                // 20% chance, sleep 60 seconds, create a gap in events
-                await sleep(30);
+                // 20% chance, sleep 20 miliseconds, create a gap in events
+                await sleep(20);
             } else {
                 await sleep(5);
             }
@@ -201,9 +207,15 @@ module.exports = async function (deployer, network, accounts) {
                         );*/
 
             txs = [tx1, tx2, tx3, tx4];
-            for(i=0;i<txs.length;i++) {
-                result = await txs[i];
-                console.log("[burn result await ", burnCount, "]", result['receipt']['blockNumber'], result['tx']);
+            for(j=0;j<txs.length;j++) {
+                result = await txs[j];
+                console.log(
+                    "[burn result await ", burnCount, "] block =",
+                    result['receipt']['blockNumber'],
+                    "index =", result['receipt']['transactionIndex'],
+                    "status =", result['receipt']['status'],
+                    "hash = ", result['tx']
+                );
                 burnCount++;
             }
 
