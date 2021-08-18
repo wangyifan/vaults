@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 
 contract RoleAccess is AccessControlEnumerable {
     // role definition
-    bytes32 internal constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 internal constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-    bytes32 internal constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 internal constant RESCUEOP_ROLE = keccak256("RESCUEOP_ROLE");
-    bytes32 internal constant NONCEOP_ROLE = keccak256("NONCEOP_ROLE");
-    bytes32 internal constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
-    bytes32 internal constant BLACKLISTER_ROLE = keccak256("BLACKLISTER_ROLE");
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant RESCUEOP_ROLE = keccak256("RESCUEOP_ROLE");
+    bytes32 public constant NONCEOP_ROLE = keccak256("NONCEOP_ROLE");
+    bytes32 public constant VALIDATOR_ROLE = keccak256("VALIDATOR_ROLE");
+    bytes32 public constant BLACKLISTER_ROLE = keccak256("BLACKLISTER_ROLE");
 
     // struct
     struct Role {
@@ -86,5 +86,43 @@ contract RoleAccess is AccessControlEnumerable {
             members_[index] = getRoleMember(role, index);
         }
         return members_;
+    }
+
+    // A few quick helper functions:
+
+    // assign minter role to another EOA or smart contract
+    function grantMinter(address minter) public onlyAdmin returns (bool) {
+        grantRole(MINTER_ROLE, minter);
+        return true;
+    }
+
+    // revoke minter role to another EOA or smart contract
+    function revokeMinter(address minter) public onlyAdmin returns (bool) {
+        revokeRole(MINTER_ROLE, minter);
+        return true;
+    }
+
+    // assign rescuer role to another EOA or smart contract
+    function grantRescuer(address rescuer) public onlyAdmin returns (bool) {
+        grantRole(RESCUEOP_ROLE, rescuer);
+        return true;
+    }
+
+    // revoke rescuer role to another EOA or smart contract
+    function revokeRescuer(address rescuer) public onlyAdmin returns (bool) {
+        revokeRole(RESCUEOP_ROLE, rescuer);
+        return true;
+    }
+
+    // assign nonce op role to another EOA or smart contract
+    function grantNonceOp(address nonceOp) public onlyAdmin returns (bool) {
+        grantRole(NONCEOP_ROLE, nonceOp);
+        return true;
+    }
+
+    // revoke nonce op role to another EOA or smart contract
+    function revokeNonceOp(address nonceOp) public onlyAdmin returns (bool) {
+        revokeRole(NONCEOP_ROLE, nonceOp);
+        return true;
     }
 }

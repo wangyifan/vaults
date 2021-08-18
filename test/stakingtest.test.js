@@ -14,8 +14,7 @@ contract('StakingTest', function ([ owner, staker1, staker2 ]) {
         this.stakingtest = await StakingTest.new(10, {from: owner});
     });
 
-    it('test update epochSize', async function () {
-        /*
+    xit('test update epochSize', async function () {
         var blockNumber = await time.latestBlock();
         var epochSize = await this.stakingtest.getEpochSize();
         console.log("1. block: ", blockNumber.toString(10), "epoch size: ", epochSize.toString(10));
@@ -93,7 +92,6 @@ contract('StakingTest', function ([ owner, staker1, staker2 ]) {
             "epoch size: ", epochSize.toString(10),
             "bb: ", bb.toString(10),
         );
-        */
 
         const startingBlock = await time.latestBlock();
         const endBlock = startingBlock.addn(10);

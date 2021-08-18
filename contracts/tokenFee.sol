@@ -56,9 +56,9 @@ contract TokenFee is RoleAccess {
         emit FiatFeeAmountChanged(msg.sender, fiatFeeAmount);
     }
 
-    function setPriceOracle(address newPriceoracle) external onlyAdmin {
-        require(newPriceoracle.isContract(), "price oracle is not a contract");
-        priceOracle = newPriceoracle;
+    function setPriceOracle(address newPriceOracle) external onlyAdmin {
+        require(newPriceOracle.isContract(), "price oracle is not a contract");
+        priceOracle = newPriceOracle;
         emit PriceOracleChanged(msg.sender, priceOracle);
     }
 

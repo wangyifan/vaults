@@ -201,18 +201,6 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
         return true;
     }
 
-    // admin can assign minter role to another EOA or smart contract
-    function grantMinter(address minter) public onlyAdmin returns (bool) {
-        grantRole(MINTER_ROLE, minter);
-        return true;
-    }
-
-    // revoke minter role to another EOA or smart contract
-    function revokeMinter(address minter) public onlyAdmin returns (bool) {
-        revokeRole(MINTER_ROLE, minter);
-        return true;
-    }
-
     function mint(
         address sourceToken,
         address mappedToken,
@@ -226,12 +214,12 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "mint nonce too low");
 
         // increase watermark
-        tokenMappingWatermark[sourceToken][mappedToken]++;
+        tokenMappingWatermark[sourceToken][mappedToken] += 1;
 
         // process the mint event
         if(omitNonces[nonce]==false) {
             // 1. charge tip
-            uint256 tipY = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+            uint256 tipY = amount / 10000 * tipRatePerMapping[sourceToken][mappedToken];
             if (tipY != 0) {
               tipBalances[mappedToken] += tipY;
             }
@@ -323,7 +311,9 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
     }
 
     function skipMintWatermark(
-        address sourceToken, address mappedToken, uint256 skip
+        address sourceToken,
+        address mappedToken,
+        uint256 skip
     ) external onlyNonceOp {
         emit SkipNonce(tokenMappingWatermark[sourceToken][mappedToken], skip);
         tokenMappingWatermark[sourceToken][mappedToken] += skip;

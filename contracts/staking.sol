@@ -49,12 +49,12 @@ contract Staking {
     }
 
     function _updateOnReadEpochSize() internal {
-      // if next epoch pivot is set and current block number has passed it
-      //if (_nextEpochPivot != 0 && block.number >= _nextEpochPivot ) {
-      _currentEpochSize = _nextEpochSize;
-      _nextEpochSize = 0;
-      _nextEpochPivot = 0;
-      //}
+        // if next epoch pivot is set and current block number has passed it
+        if (_nextEpochPivot != 0 && block.number >= _nextEpochPivot ) {
+            _currentEpochSize = _nextEpochSize;
+            _nextEpochSize = 0;
+            _nextEpochPivot = 0;
+        }
     }
 
     function _addStaking(address from, uint256 amount) internal returns(uint256){

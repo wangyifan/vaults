@@ -263,24 +263,13 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
 
     function validateSignature(bytes memory signature) internal pure returns(bool){
         require(signature.length > 0);
-        return true;
-    }
-
-    // assign minter role to another EOA or smart contract
-    function grantMinter(address minter) public onlyAdmin returns (bool) {
-        grantRole(MINTER_ROLE, minter);
-        return true;
-    }
-
-    // revoke minter role to another EOA or smart contract
-    function revokeMinter(address minter) public onlyAdmin returns (bool) {
-        revokeRole(MINTER_ROLE, minter);
+        // TODO: replace with bls.sol
         return true;
     }
 
     function batchWithdraw(
         bytes calldata signature, tokenWithdraw[] memory tokenWithdraws
-    ) external onlyMinter {
+    ) external onlyMinter returns (bool) {
         require(validateSignature(signature), "Invalid token mint signature");
         for(uint256 index=0;index < tokenWithdraws.length;index++) {
             tokenWithdraw memory tw = tokenWithdraws[index];
@@ -295,6 +284,8 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
                 );
             }
         }
+
+        return true;
     }
 
     function withdraw(
@@ -304,21 +295,21 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
         uint256 amount,
         uint256 tipY,
         uint256 nonce
-    ) public onlyMinter {
+    ) public onlyMinter returns (bool) {
         require(tokenMapping[sourceToken]== mappedToken, "token mapping not found");
         require(tokenMappingReversed[mappedToken]==sourceToken, "token mapping reversed not found");
         require(nonce == tokenMappingWatermark[sourceToken][mappedToken], "withdraw nonce too low");
         require(to != address(0), "zero address for to addr");
 
         // increase watermark
-        tokenMappingWatermark[sourceToken][mappedToken]++;
+        tokenMappingWatermark[sourceToken][mappedToken]+=1;
 
         // process the withdraw event
         if(omitNonces[nonce]==false) {
             // 1. charge tip
             uint256 tipX = 0;
             if (tipAccount != address(0)) {
-                tipX = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+                tipX = amount / 10000 * tipRatePerMapping[sourceToken][mappedToken];
                 tipBalances[sourceToken] += tipX;
             }
 
@@ -331,10 +322,12 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
               IERC20(sourceToken).safeTransfer(to, netAmount);
             }
         }
+
+        return true;
     }
 
     // cashout accumulated tip, only tip account can call this
-    function tipCashout(address token, address payable to, uint256 amount) external {
+    function tipCashout(address token, address payable to, uint256 amount) external returns (bool) {
         address owner = _msgSender();
         require(owner == tipAccount, "Not tip account");
         uint256 balance = tipBalances[token];
@@ -345,49 +338,61 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
 
         // transfer the token
         if (token == NATIVETOKEN) {
-            to.transfer(amount);
+            payable(to).transfer(amount);
         } else {
             IERC20(token).safeTransfer(to, amount);
         }
+
+        return true;
     }
 
     function tipBalance(address token) external view returns(uint256){
         return tipBalances[token];
     }
 
-    function addNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+    function addNoncesToOmit(uint256[] memory nonces) external onlyNonceOp returns (bool) {
         for(uint256 index=0;index<nonces.length;index++) {
             omitNonces[nonces[index]] = true;
         }
         emit IgnoreNonces(_msgSender(), nonces);
+
+        return true;
     }
 
-    function removeNoncesToOmit(uint256[] memory nonces) external onlyNonceOp {
+    function removeNoncesToOmit(uint256[] memory nonces) external onlyNonceOp returns (bool) {
         for(uint256 index=0;index<nonces.length;index++) {
             delete omitNonces[nonces[index]];
         }
+
+        return true;
     }
 
     function skipWithdrawWatermark(
         address sourceToken,
         address mappedToken,
-        uint256 skip) external onlyNonceOp {
+        uint256 skip
+    ) external onlyNonceOp {
         emit SkipNonce(tokenMappingWatermark[sourceToken][mappedToken], skip);
         tokenMappingWatermark[sourceToken][mappedToken] += skip;
     }
 
-    function setRescueVault(address payable _rescueVault) external onlyAdmin {
+    // when in emergency, funds can only exit to rescue vault
+    function setRescueVault(address payable _rescueVault) external onlyAdmin returns (bool) {
         require(address(_rescueVault).isContract(), "rescue vault should be a contract");
         rescueVault = _rescueVault;
+
+        return true;
     }
 
-    function rescue(address token, uint256 amount) external onlyRescueOp {
+    function rescue(address token, uint256 amount) external onlyRescueOp returns (bool) {
         require(rescueVault != address(0), "rescue vault address is zero");
         emit Rescue(token, rescueVault, amount);
         if (token == NATIVETOKEN) {
-            rescueVault.transfer(amount);
+            payable(rescueVault).transfer(amount);
         } else {
             IERC20(token).safeTransfer(rescueVault, amount);
         }
+
+        return true;
     }
 }
