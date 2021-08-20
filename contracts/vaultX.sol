@@ -47,6 +47,7 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
     mapping(address => string) internal mappedTokenSymbols;
     mapping(address => address) internal tokenMapping;
     mapping(address => address) internal tokenMappingReversed;
+    // keep track of nonce which is monotonically increasing for each deposit/withdraw
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256)) public tokenMappingDepositNonce;
     mapping(address => uint256) internal tipBalances;
@@ -273,16 +274,14 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
         require(validateSignature(signature), "Invalid token mint signature");
         for(uint256 index=0;index < tokenWithdraws.length;index++) {
             tokenWithdraw memory tw = tokenWithdraws[index];
-            if(omitNonces[tw.withdrawNonce]==false){
-                withdraw(
-                    tw.sourceToken,
-                    tw.mappedToken,
-                    tw.to,
-                    tw.amount,
-                    tw.tipY,
-                    tw.withdrawNonce
-                );
-            }
+            withdraw(
+                     tw.sourceToken,
+                     tw.mappedToken,
+                     tw.to,
+                     tw.amount,
+                     tw.tipY,
+                     tw.withdrawNonce
+            );
         }
 
         return true;

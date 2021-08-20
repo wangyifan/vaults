@@ -1,31 +1,32 @@
-# XChain 合约
+# XChain Vault Contracts
 
 
-## 安装
+## Installation
 ```bash
 npm install
 ```
 ---
 
-## 合约 contract
-合约代码在contracts目录下, 主要涉及的合约为：
+## Contracts
+Under the 'contracts' directory, mainly：
 
-1. vaultX.sol
-2. vaultY.sol
-3. xcoin.sol
+1. vaultX.sol : vault contract on the 'source' chain
+2. vaultY.sol : vault contract on the 'mapped' chain
+3. xcoin.sol : erc20 for mapped assets
 
 ---
 
-## 编译 compile
+## Compile
+
 ```bash
 make compile
 ```
-编译结果在build/contracts中与合约对应的json文件中
+see result json files in build/contracts
 
 ---
 
-## 测试 test
-测试文件在test目录下
+## Test
+Start the ganache blockchain first before running any tests
 ```bash
 make ganache
 

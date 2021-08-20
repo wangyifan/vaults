@@ -48,6 +48,7 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
     mapping(address => address) internal tokenMapping;
     mapping(address => address) internal tokenMappingReversed;
     mapping(address => uint256) internal tipBalances;
+    // keep track of nonce which is monotonically increasing for each deposit/withdraw
     mapping(address => mapping(address => uint256)) public tokenMappingWatermark;
     mapping(address => mapping(address => uint256 )) public tokenMappingBurnNonce;
     mapping(uint256 => bool) public omitNonces;
@@ -198,6 +199,7 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
 
     function validateSignature(bytes memory signature) internal pure returns(bool){
         require(signature.length > 0);
+        // TODO: replace with bls.sol
         return true;
     }
 
