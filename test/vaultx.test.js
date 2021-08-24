@@ -567,7 +567,7 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
 
         // cashout
         tipX = 4;
-        await this.vaultx.tipCashout(this.sourceToken.address, owner, tipX, {from: owner});
+        await this.vaultx.tipCashout(this.sourceToken.address, owner, tipX);
 
         // check balance
         balance = await this.sourceToken.balanceOf(this.vaultx.address);
@@ -597,11 +597,6 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
             "Caller is not a nonce op"
         );
 
-        result = await expectRevert(
-            this.vaultx.refund(this.mappedToken.address, user, 10000, {from: user}),
-            "Caller is not a refund op"
-        );
-
         result = await this.vaultx.getRoles();
         var roleMap = new Map();
         for(var i=0;i<result.length;i++){
@@ -609,7 +604,6 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
         }
 
         // grant all roles to user
-        result = await this.vaultx.addRoleMember(roleMap["refund op"], user);
         result = await this.vaultx.addRoleMember(roleMap["nonce op"], user);
 
         // check nonces functions
@@ -646,12 +640,6 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
             amount,
             {from: user}
         );
-
-        // tip has not been cashout yet, so the contract has all the token.
-        var balanceBefore = await this.sourceToken.balanceOf(user);
-        this.vaultx.refund(this.sourceToken.address, user, amount, {from: user});
-        var balanceAfter = await this.sourceToken.balanceOf(user);
-        expect(balanceAfter.sub(balanceBefore).toString()).to.equal(amount.toString());
     });
 
     it('check batch withdraw', async function () {
@@ -755,48 +743,5 @@ contract('VaultX', function ([ owner, user, user1, user2, user3, user4, user5]) 
         //tokenWithdraws = web3.eth.abi.encodeParameters(typesArray, parameters);
         receipt = await this.vaultx.batchWithdraw(signature, tokenWithdraws);
         console.log("batchMint() for [5, 6, 7, 8, 9]", calculateCost(receipt));
-    });
-
-    it('check if refund works', async function () {
-        // deposit ether to vaultx
-        var etherValue = ether("1.23");
-        var receipt = await this.vaultx.depositNative(
-            {from: user, value: etherValue}
-        );
-        // check ether balance
-        var balance = await web3.eth.getBalance(this.vaultx.address);
-        expect(balance.toString()).to.equal(etherValue.toString());
-
-        // deposit token to vaultx
-        var tokenAmount = ether("1.24");
-        await this.sourceToken.mint(user, tokenAmount);
-        await this.sourceToken.approve(this.vaultx.address, tokenAmount, {from: user});
-        receipt = await this.vaultx.depositToken(
-            this.sourceToken.address,
-            tokenAmount,
-            {from: user}
-        );
-        // check token balance
-        balance = await this.sourceToken.balanceOf(this.vaultx.address);
-        expect(balance.toString()).to.equal(tokenAmount.toString());
-
-        // refund ether
-        balanceBefore = await web3.eth.getBalance(user2);
-        await this.vaultx.refund(NATIVETOKEN, user2, etherValue);
-        balanceAfter = await web3.eth.getBalance(user2);
-        // vault x should have 0 ether balance
-        balance = await web3.eth.getBalance(this.vaultx.address);
-        expect(balance.toString()).to.equal("0");
-        console.log(balanceBefore, balanceAfter);
-        expect((balanceAfter - balanceBefore).toString()).to.equal(ether("1.23").toString(10));
-
-        // refund token
-        await this.vaultx.refund(this.sourceToken.address, user2, tokenAmount);
-        // vault x should have 0 token balance
-        balance = await this.sourceToken.balanceOf(this.vaultx.address);
-        expect(balance.toString()).to.equal("0");
-        // user2 should have balance
-        balance = await this.sourceToken.balanceOf(user2);
-        expect(balance.toString()).to.equal(tokenAmount.toString(10));
     });
 });

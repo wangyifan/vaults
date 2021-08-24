@@ -41,7 +41,7 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
         this.vaulty.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
 
         // #2 grant mint to vault contract
-        this.mappedToken.grantMinter(this.vaulty.address, ether1b, {from: owner});
+        this.mappedToken.GrantMinter(this.vaulty.address, ether1b, {from: owner});
     });
 
     it('Check if pause and unpause work', async function () {
@@ -342,7 +342,6 @@ contract('VaultY', function ([ owner, user, user1, user2, user3, user4, user5 ])
         }
 
         // grant all roles to user
-        result = await this.vaulty.addRoleMember(roleMap["refund op"], user);
         result = await this.vaulty.addRoleMember(roleMap["nonce op"], user);
 
         // check result

@@ -85,8 +85,8 @@ contract('VaultX & VaultY', function ([ owner, user, user2, user3, vaultxpool ])
         this.vaulty.unpauseTokenMapping(this.sourceToken.address, this.mappedToken.address);
 
         // #5 grant mint to vaulty contract
-        this.mappedTokenNative.grantMinter(this.vaulty.address, ether1b, {from: owner});
-        this.mappedToken.grantMinter(this.vaulty.address, ether1b, {from: owner});
+        this.mappedTokenNative.GrantMinter(this.vaulty.address, ether1b, {from: owner});
+        this.mappedToken.GrantMinter(this.vaulty.address, ether1b, {from: owner});
     });
 
     it('full test native : deposit -> mint -> burn - > withdraw', async function () {

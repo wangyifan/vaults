@@ -309,7 +309,8 @@ contract VaultX is RoleAccess, TokenPausable, TokenFee {
             // 1. charge tip
             uint256 tipX = 0;
             if (tipAccount != address(0)) {
-                tipX = amount / 10000 * tipRatePerMapping[sourceToken][mappedToken];
+                tipX = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+                require(tipX < amount);
                 tipBalances[sourceToken] += tipX;
             }
 

@@ -219,9 +219,11 @@ contract VaultY is RoleAccess, TokenPausable, TokenFee {
         // process the mint event
         if(omitNonces[nonce]==false) {
             // 1. charge tip
-            uint256 tipY = amount / 10000 * tipRatePerMapping[sourceToken][mappedToken];
-            if (tipY != 0) {
-              tipBalances[mappedToken] += tipY;
+            uint256 tipY = 0;
+            if (tipAccount != address(0)) {
+                tipY = amount * tipRatePerMapping[sourceToken][mappedToken] / 10000;
+                require(tipY < amount);
+                tipBalances[mappedToken] += tipY;
             }
 
             // 2. mint the token
