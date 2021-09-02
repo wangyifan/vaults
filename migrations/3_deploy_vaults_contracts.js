@@ -88,7 +88,7 @@ module.exports = function (deployer, network, accounts) {
             const mapped_native_coin_1 = await mappedNativeCoin1.deployed();
 
             // mapped_native_coin_1 grant minter to vault Y
-            await mapped_native_coin_1.grantMinter(vaulty1.address, grantAmount);
+            await mapped_native_coin_1.GrantMinterLimit(vaulty1.address, grantAmount);
 
             console.log("Xcoin:", mapped_native_coin_1.address);
             console.log("vaultY:", vaulty1.address);
@@ -143,7 +143,7 @@ module.exports = function (deployer, network, accounts) {
                 '0xDE33f85C2E655FdF9Ab833DE7779E8eD66224ee2');
 
             // grant xcoin minter to vault Y 2
-            await mapped_native_coin_2.grantMinter(vaulty2.address, grantAmount);
+            await mapped_native_coin_2.GrantMinterLimit(vaulty2.address, grantAmount);
 
             console.log("\n\n");
             console.log("Grant xchain address mint role on vault X 2");
@@ -172,13 +172,13 @@ module.exports = function (deployer, network, accounts) {
             const erc20_mapped_y_coin_1 = await erc20MappedCoin1.at(
                 "0x41c0f3518450b0e546671e5f61Ac50EEe61fa351"
             );
-            await erc20_mapped_y_coin_1.grantMinter(vaulty1.address, grantAmount);
+            await erc20_mapped_y_coin_1.GrantMinterLimit(vaulty1.address, grantAmount);
 
             // grant erc20 2
             const erc20_mapped_y_coin_2 = await erc20MappedCoin1.at(
                 "0x1c436B435cCa513C8133DF5ED6b2CAFb460a6e04"
             );
-            await erc20_mapped_y_coin_2.grantMinter(vaulty2.address, grantAmount);
+            await erc20_mapped_y_coin_2.GrantMinterLimit(vaulty2.address, grantAmount);
         });
     }
 };

@@ -54,7 +54,7 @@ type VaultXtokenWithdraw struct {
 }
 
 // VaultXABI is the input ABI used to generate the binding from.
-const VaultXABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nativeToken\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"FeeAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"FiatCurrencyChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newFiatFeeAmount\",\"type\":\"uint256\"}],\"name\":\"FiatFeeAmountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"IgnoreNonces\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPriceOracle\",\"type\":\"address\"}],\"name\":\"PriceOracleChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Rescue\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"step\",\"type\":\"uint256\"}],\"name\":\"SkipNonce\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"TipAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"TipRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"vault\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceChainid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tip\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalNonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"TokenDeposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"CreatedAt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"NATIVETOKEN\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"addRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoles\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"describe\",\"type\":\"string\"}],\"internalType\":\"structRoleAccess.Role[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"getTip\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"omitNonces\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"pauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"removeRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rescueVault\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"setFeeAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"setFiatCurrency\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"setFiatFeeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPriceoracle\",\"type\":\"address\"}],\"name\":\"setPriceOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"setTipAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"setTipRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingDepositNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingWatermark\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalDepositNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"unpauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"tipRate\",\"type\":\"uint256\"}],\"name\":\"setupTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol_\",\"type\":\"string\"}],\"name\":\"updateTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTokenPairs\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"mappedTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"paused\",\"type\":\"bool\"}],\"internalType\":\"structVaultX.tokenPairInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositNative\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"depositToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipY\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNonce\",\"type\":\"uint256\"}],\"internalType\":\"structVaultX.tokenWithdraw[]\",\"name\":\"tokenWithdraws\",\"type\":\"tuple[]\"}],\"name\":\"batchWithdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipY\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"tipCashout\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"tipBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"addNoncesToOmit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"removeNoncesToOmit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"skip\",\"type\":\"uint256\"}],\"name\":\"skipWithdrawWatermark\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"_rescueVault\",\"type\":\"address\"}],\"name\":\"setRescueVault\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"rescue\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const VaultXABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nativeToken\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"FeeAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"FiatCurrencyChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newFiatFeeAmount\",\"type\":\"uint256\"}],\"name\":\"FiatFeeAmountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"IgnoreNonces\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPriceOracle\",\"type\":\"address\"}],\"name\":\"PriceOracleChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Rescue\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"step\",\"type\":\"uint256\"}],\"name\":\"SkipNonce\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"TipAccountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"TipRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"vault\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sourceChainid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tip\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalNonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"TokenDeposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BLACKLISTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"CreatedAt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MANAGER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"NATIVETOKEN\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"NONCEOP_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"RESCUEOP_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VALIDATOR_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"addRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoles\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"describe\",\"type\":\"string\"}],\"internalType\":\"structRoleAccess.Role[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"getTip\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nonceOp\",\"type\":\"address\"}],\"name\":\"grantNonceOp\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rescuer\",\"type\":\"address\"}],\"name\":\"grantRescuer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"omitNonces\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"pauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"removeRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rescueVault\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nonceOp\",\"type\":\"address\"}],\"name\":\"revokeNonceOp\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rescuer\",\"type\":\"address\"}],\"name\":\"revokeRescuer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newFeeAccount\",\"type\":\"address\"}],\"name\":\"setFeeAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"newFiatCurrency\",\"type\":\"string\"}],\"name\":\"setFiatCurrency\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"setFiatFeeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPriceOracle\",\"type\":\"address\"}],\"name\":\"setPriceOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newTipAccount\",\"type\":\"address\"}],\"name\":\"setTipAccount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"newTipRate\",\"type\":\"uint256\"}],\"name\":\"setTipRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingDepositNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenMappingWatermark\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalDepositNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpauseAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"}],\"name\":\"unpauseTokenMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"tipRate\",\"type\":\"uint256\"}],\"name\":\"setupTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mappedChainid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol_\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol_\",\"type\":\"string\"}],\"name\":\"updateTokenMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTokenPairs\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"sourceTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"mappedTokenChainid\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"mappedTokenSymbol\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"paused\",\"type\":\"bool\"}],\"internalType\":\"structVaultX.tokenPairInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositNative\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"depositToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipY\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNonce\",\"type\":\"uint256\"}],\"internalType\":\"structVaultX.tokenWithdraw[]\",\"name\":\"tokenWithdraws\",\"type\":\"tuple[]\"}],\"name\":\"batchWithdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipY\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"tipCashout\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"tipBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"addNoncesToOmit\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nonces\",\"type\":\"uint256[]\"}],\"name\":\"removeNoncesToOmit\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sourceToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"mappedToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"skip\",\"type\":\"uint256\"}],\"name\":\"skipWithdrawWatermark\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"_rescueVault\",\"type\":\"address\"}],\"name\":\"setRescueVault\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"rescue\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // VaultX is an auto generated Go binding around an Ethereum contract.
 type VaultX struct {
@@ -198,6 +198,68 @@ func (_VaultX *VaultXTransactorRaw) Transact(opts *bind.TransactOpts, method str
 	return _VaultX.Contract.contract.Transact(opts, method, params...)
 }
 
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "ADMIN_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) ADMINROLE() ([32]byte, error) {
+	return _VaultX.Contract.ADMINROLE(&_VaultX.CallOpts)
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) ADMINROLE() ([32]byte, error) {
+	return _VaultX.Contract.ADMINROLE(&_VaultX.CallOpts)
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) BLACKLISTERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "BLACKLISTER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) BLACKLISTERROLE() ([32]byte, error) {
+	return _VaultX.Contract.BLACKLISTERROLE(&_VaultX.CallOpts)
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) BLACKLISTERROLE() ([32]byte, error) {
+	return _VaultX.Contract.BLACKLISTERROLE(&_VaultX.CallOpts)
+}
+
 // CreatedAt is a free data retrieval call binding the contract method 0x748140a3.
 //
 // Solidity: function CreatedAt() view returns(uint256)
@@ -260,6 +322,68 @@ func (_VaultX *VaultXCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
 	return _VaultX.Contract.DEFAULTADMINROLE(&_VaultX.CallOpts)
 }
 
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) MANAGERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "MANAGER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) MANAGERROLE() ([32]byte, error) {
+	return _VaultX.Contract.MANAGERROLE(&_VaultX.CallOpts)
+}
+
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) MANAGERROLE() ([32]byte, error) {
+	return _VaultX.Contract.MANAGERROLE(&_VaultX.CallOpts)
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "MINTER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) MINTERROLE() ([32]byte, error) {
+	return _VaultX.Contract.MINTERROLE(&_VaultX.CallOpts)
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) MINTERROLE() ([32]byte, error) {
+	return _VaultX.Contract.MINTERROLE(&_VaultX.CallOpts)
+}
+
 // NATIVETOKEN is a free data retrieval call binding the contract method 0x5816281c.
 //
 // Solidity: function NATIVETOKEN() view returns(address)
@@ -289,6 +413,99 @@ func (_VaultX *VaultXSession) NATIVETOKEN() (common.Address, error) {
 // Solidity: function NATIVETOKEN() view returns(address)
 func (_VaultX *VaultXCallerSession) NATIVETOKEN() (common.Address, error) {
 	return _VaultX.Contract.NATIVETOKEN(&_VaultX.CallOpts)
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) NONCEOPROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "NONCEOP_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) NONCEOPROLE() ([32]byte, error) {
+	return _VaultX.Contract.NONCEOPROLE(&_VaultX.CallOpts)
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) NONCEOPROLE() ([32]byte, error) {
+	return _VaultX.Contract.NONCEOPROLE(&_VaultX.CallOpts)
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) RESCUEOPROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "RESCUEOP_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) RESCUEOPROLE() ([32]byte, error) {
+	return _VaultX.Contract.RESCUEOPROLE(&_VaultX.CallOpts)
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) RESCUEOPROLE() ([32]byte, error) {
+	return _VaultX.Contract.RESCUEOPROLE(&_VaultX.CallOpts)
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCaller) VALIDATORROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _VaultX.contract.Call(opts, &out, "VALIDATOR_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_VaultX *VaultXSession) VALIDATORROLE() ([32]byte, error) {
+	return _VaultX.Contract.VALIDATORROLE(&_VaultX.CallOpts)
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_VaultX *VaultXCallerSession) VALIDATORROLE() ([32]byte, error) {
+	return _VaultX.Contract.VALIDATORROLE(&_VaultX.CallOpts)
 }
 
 // GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
@@ -789,21 +1006,21 @@ func (_VaultX *VaultXCallerSession) TotalDepositNonce() (*big.Int, error) {
 
 // AddNoncesToOmit is a paid mutator transaction binding the contract method 0x379e271e.
 //
-// Solidity: function addNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function addNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXTransactor) AddNoncesToOmit(opts *bind.TransactOpts, nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "addNoncesToOmit", nonces)
 }
 
 // AddNoncesToOmit is a paid mutator transaction binding the contract method 0x379e271e.
 //
-// Solidity: function addNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function addNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXSession) AddNoncesToOmit(nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.AddNoncesToOmit(&_VaultX.TransactOpts, nonces)
 }
 
 // AddNoncesToOmit is a paid mutator transaction binding the contract method 0x379e271e.
 //
-// Solidity: function addNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function addNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXTransactorSession) AddNoncesToOmit(nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.AddNoncesToOmit(&_VaultX.TransactOpts, nonces)
 }
@@ -831,21 +1048,21 @@ func (_VaultX *VaultXTransactorSession) AddRoleMember(role [32]byte, member comm
 
 // BatchWithdraw is a paid mutator transaction binding the contract method 0xe1bd84f1.
 //
-// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns()
+// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns(bool)
 func (_VaultX *VaultXTransactor) BatchWithdraw(opts *bind.TransactOpts, signature []byte, tokenWithdraws []VaultXtokenWithdraw) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "batchWithdraw", signature, tokenWithdraws)
 }
 
 // BatchWithdraw is a paid mutator transaction binding the contract method 0xe1bd84f1.
 //
-// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns()
+// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns(bool)
 func (_VaultX *VaultXSession) BatchWithdraw(signature []byte, tokenWithdraws []VaultXtokenWithdraw) (*types.Transaction, error) {
 	return _VaultX.Contract.BatchWithdraw(&_VaultX.TransactOpts, signature, tokenWithdraws)
 }
 
 // BatchWithdraw is a paid mutator transaction binding the contract method 0xe1bd84f1.
 //
-// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns()
+// Solidity: function batchWithdraw(bytes signature, (address,address,address,uint256,uint256,uint256)[] tokenWithdraws) returns(bool)
 func (_VaultX *VaultXTransactorSession) BatchWithdraw(signature []byte, tokenWithdraws []VaultXtokenWithdraw) (*types.Transaction, error) {
 	return _VaultX.Contract.BatchWithdraw(&_VaultX.TransactOpts, signature, tokenWithdraws)
 }
@@ -913,6 +1130,48 @@ func (_VaultX *VaultXTransactorSession) GrantMinter(minter common.Address) (*typ
 	return _VaultX.Contract.GrantMinter(&_VaultX.TransactOpts, minter)
 }
 
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXTransactor) GrantNonceOp(opts *bind.TransactOpts, nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.contract.Transact(opts, "grantNonceOp", nonceOp)
+}
+
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXSession) GrantNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.GrantNonceOp(&_VaultX.TransactOpts, nonceOp)
+}
+
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXTransactorSession) GrantNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.GrantNonceOp(&_VaultX.TransactOpts, nonceOp)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXTransactor) GrantRescuer(opts *bind.TransactOpts, rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.contract.Transact(opts, "grantRescuer", rescuer)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXSession) GrantRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.GrantRescuer(&_VaultX.TransactOpts, rescuer)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXTransactorSession) GrantRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.GrantRescuer(&_VaultX.TransactOpts, rescuer)
+}
+
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
 // Solidity: function grantRole(bytes32 role, address account) returns()
@@ -978,21 +1237,21 @@ func (_VaultX *VaultXTransactorSession) PauseTokenMapping(sourceToken common.Add
 
 // RemoveNoncesToOmit is a paid mutator transaction binding the contract method 0xcb79b053.
 //
-// Solidity: function removeNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function removeNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXTransactor) RemoveNoncesToOmit(opts *bind.TransactOpts, nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "removeNoncesToOmit", nonces)
 }
 
 // RemoveNoncesToOmit is a paid mutator transaction binding the contract method 0xcb79b053.
 //
-// Solidity: function removeNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function removeNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXSession) RemoveNoncesToOmit(nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.RemoveNoncesToOmit(&_VaultX.TransactOpts, nonces)
 }
 
 // RemoveNoncesToOmit is a paid mutator transaction binding the contract method 0xcb79b053.
 //
-// Solidity: function removeNoncesToOmit(uint256[] nonces) returns()
+// Solidity: function removeNoncesToOmit(uint256[] nonces) returns(bool)
 func (_VaultX *VaultXTransactorSession) RemoveNoncesToOmit(nonces []*big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.RemoveNoncesToOmit(&_VaultX.TransactOpts, nonces)
 }
@@ -1041,21 +1300,21 @@ func (_VaultX *VaultXTransactorSession) RenounceRole(role [32]byte, account comm
 
 // Rescue is a paid mutator transaction binding the contract method 0x7a4e4ecf.
 //
-// Solidity: function rescue(address token, uint256 amount) returns()
+// Solidity: function rescue(address token, uint256 amount) returns(bool)
 func (_VaultX *VaultXTransactor) Rescue(opts *bind.TransactOpts, token common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "rescue", token, amount)
 }
 
 // Rescue is a paid mutator transaction binding the contract method 0x7a4e4ecf.
 //
-// Solidity: function rescue(address token, uint256 amount) returns()
+// Solidity: function rescue(address token, uint256 amount) returns(bool)
 func (_VaultX *VaultXSession) Rescue(token common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.Rescue(&_VaultX.TransactOpts, token, amount)
 }
 
 // Rescue is a paid mutator transaction binding the contract method 0x7a4e4ecf.
 //
-// Solidity: function rescue(address token, uint256 amount) returns()
+// Solidity: function rescue(address token, uint256 amount) returns(bool)
 func (_VaultX *VaultXTransactorSession) Rescue(token common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.Rescue(&_VaultX.TransactOpts, token, amount)
 }
@@ -1079,6 +1338,48 @@ func (_VaultX *VaultXSession) RevokeMinter(minter common.Address) (*types.Transa
 // Solidity: function revokeMinter(address minter) returns(bool)
 func (_VaultX *VaultXTransactorSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
 	return _VaultX.Contract.RevokeMinter(&_VaultX.TransactOpts, minter)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXTransactor) RevokeNonceOp(opts *bind.TransactOpts, nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.contract.Transact(opts, "revokeNonceOp", nonceOp)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXSession) RevokeNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.RevokeNonceOp(&_VaultX.TransactOpts, nonceOp)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_VaultX *VaultXTransactorSession) RevokeNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.RevokeNonceOp(&_VaultX.TransactOpts, nonceOp)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXTransactor) RevokeRescuer(opts *bind.TransactOpts, rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.contract.Transact(opts, "revokeRescuer", rescuer)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXSession) RevokeRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.RevokeRescuer(&_VaultX.TransactOpts, rescuer)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_VaultX *VaultXTransactorSession) RevokeRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.RevokeRescuer(&_VaultX.TransactOpts, rescuer)
 }
 
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
@@ -1167,42 +1468,42 @@ func (_VaultX *VaultXTransactorSession) SetFiatFeeAmount(amount *big.Int) (*type
 
 // SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setPriceOracle(address newPriceoracle) returns()
-func (_VaultX *VaultXTransactor) SetPriceOracle(opts *bind.TransactOpts, newPriceoracle common.Address) (*types.Transaction, error) {
-	return _VaultX.contract.Transact(opts, "setPriceOracle", newPriceoracle)
+// Solidity: function setPriceOracle(address newPriceOracle) returns()
+func (_VaultX *VaultXTransactor) SetPriceOracle(opts *bind.TransactOpts, newPriceOracle common.Address) (*types.Transaction, error) {
+	return _VaultX.contract.Transact(opts, "setPriceOracle", newPriceOracle)
 }
 
 // SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setPriceOracle(address newPriceoracle) returns()
-func (_VaultX *VaultXSession) SetPriceOracle(newPriceoracle common.Address) (*types.Transaction, error) {
-	return _VaultX.Contract.SetPriceOracle(&_VaultX.TransactOpts, newPriceoracle)
+// Solidity: function setPriceOracle(address newPriceOracle) returns()
+func (_VaultX *VaultXSession) SetPriceOracle(newPriceOracle common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.SetPriceOracle(&_VaultX.TransactOpts, newPriceOracle)
 }
 
 // SetPriceOracle is a paid mutator transaction binding the contract method 0x530e784f.
 //
-// Solidity: function setPriceOracle(address newPriceoracle) returns()
-func (_VaultX *VaultXTransactorSession) SetPriceOracle(newPriceoracle common.Address) (*types.Transaction, error) {
-	return _VaultX.Contract.SetPriceOracle(&_VaultX.TransactOpts, newPriceoracle)
+// Solidity: function setPriceOracle(address newPriceOracle) returns()
+func (_VaultX *VaultXTransactorSession) SetPriceOracle(newPriceOracle common.Address) (*types.Transaction, error) {
+	return _VaultX.Contract.SetPriceOracle(&_VaultX.TransactOpts, newPriceOracle)
 }
 
 // SetRescueVault is a paid mutator transaction binding the contract method 0x3cc1d7bd.
 //
-// Solidity: function setRescueVault(address _rescueVault) returns()
+// Solidity: function setRescueVault(address _rescueVault) returns(bool)
 func (_VaultX *VaultXTransactor) SetRescueVault(opts *bind.TransactOpts, _rescueVault common.Address) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "setRescueVault", _rescueVault)
 }
 
 // SetRescueVault is a paid mutator transaction binding the contract method 0x3cc1d7bd.
 //
-// Solidity: function setRescueVault(address _rescueVault) returns()
+// Solidity: function setRescueVault(address _rescueVault) returns(bool)
 func (_VaultX *VaultXSession) SetRescueVault(_rescueVault common.Address) (*types.Transaction, error) {
 	return _VaultX.Contract.SetRescueVault(&_VaultX.TransactOpts, _rescueVault)
 }
 
 // SetRescueVault is a paid mutator transaction binding the contract method 0x3cc1d7bd.
 //
-// Solidity: function setRescueVault(address _rescueVault) returns()
+// Solidity: function setRescueVault(address _rescueVault) returns(bool)
 func (_VaultX *VaultXTransactorSession) SetRescueVault(_rescueVault common.Address) (*types.Transaction, error) {
 	return _VaultX.Contract.SetRescueVault(&_VaultX.TransactOpts, _rescueVault)
 }
@@ -1293,21 +1594,21 @@ func (_VaultX *VaultXTransactorSession) SkipWithdrawWatermark(sourceToken common
 
 // TipCashout is a paid mutator transaction binding the contract method 0x1a46b010.
 //
-// Solidity: function tipCashout(address token, address to, uint256 amount) returns()
+// Solidity: function tipCashout(address token, address to, uint256 amount) returns(bool)
 func (_VaultX *VaultXTransactor) TipCashout(opts *bind.TransactOpts, token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "tipCashout", token, to, amount)
 }
 
 // TipCashout is a paid mutator transaction binding the contract method 0x1a46b010.
 //
-// Solidity: function tipCashout(address token, address to, uint256 amount) returns()
+// Solidity: function tipCashout(address token, address to, uint256 amount) returns(bool)
 func (_VaultX *VaultXSession) TipCashout(token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.TipCashout(&_VaultX.TransactOpts, token, to, amount)
 }
 
 // TipCashout is a paid mutator transaction binding the contract method 0x1a46b010.
 //
-// Solidity: function tipCashout(address token, address to, uint256 amount) returns()
+// Solidity: function tipCashout(address token, address to, uint256 amount) returns(bool)
 func (_VaultX *VaultXTransactorSession) TipCashout(token common.Address, to common.Address, amount *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.TipCashout(&_VaultX.TransactOpts, token, to, amount)
 }
@@ -1377,21 +1678,21 @@ func (_VaultX *VaultXTransactorSession) UpdateTokenMapping(mappedChainid *big.In
 
 // Withdraw is a paid mutator transaction binding the contract method 0xac6f7e3b.
 //
-// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns()
+// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns(bool)
 func (_VaultX *VaultXTransactor) Withdraw(opts *bind.TransactOpts, sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipY *big.Int, nonce *big.Int) (*types.Transaction, error) {
 	return _VaultX.contract.Transact(opts, "withdraw", sourceToken, mappedToken, to, amount, tipY, nonce)
 }
 
 // Withdraw is a paid mutator transaction binding the contract method 0xac6f7e3b.
 //
-// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns()
+// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns(bool)
 func (_VaultX *VaultXSession) Withdraw(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipY *big.Int, nonce *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.Withdraw(&_VaultX.TransactOpts, sourceToken, mappedToken, to, amount, tipY, nonce)
 }
 
 // Withdraw is a paid mutator transaction binding the contract method 0xac6f7e3b.
 //
-// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns()
+// Solidity: function withdraw(address sourceToken, address mappedToken, address to, uint256 amount, uint256 tipY, uint256 nonce) returns(bool)
 func (_VaultX *VaultXTransactorSession) Withdraw(sourceToken common.Address, mappedToken common.Address, to common.Address, amount *big.Int, tipY *big.Int, nonce *big.Int) (*types.Transaction, error) {
 	return _VaultX.Contract.Withdraw(&_VaultX.TransactOpts, sourceToken, mappedToken, to, amount, tipY, nonce)
 }

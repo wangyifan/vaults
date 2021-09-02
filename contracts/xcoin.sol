@@ -47,13 +47,13 @@ contract XCoin is RoleAccess, Blacklistable, Pausable, ERC20Burnable, ERC20Permi
     }
 
     // admin can assign minter role to another EOA or smart contract
-    function GrantMinter(address minter, uint256 allowance) public onlyAdmin returns (bool) {
+    function GrantMinterLimit(address minter, uint256 allowance) public onlyAdmin returns (bool) {
         grantRole(MINTER_ROLE, minter);
         minterAllowance[minter] = allowance;
         return true;
     }
 
-    function RevokeMinter(address minter) public onlyAdmin returns (bool) {
+    function RevokeMinterLimit(address minter) public onlyAdmin returns (bool) {
         if (hasRole(MINTER_ROLE, minter)) {
             minterAllowance[minter] = 0;
             revokeRole(MINTER_ROLE, minter);

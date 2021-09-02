@@ -33,7 +33,7 @@ type RoleAccessRole struct {
 }
 
 // XConfigABI is the input ABI used to generate the binding from.
-const XConfigABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VaultConfigVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"VaultConfigs\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VssConfigVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"VssConfigs\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"activeVssMemberList\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"addRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoles\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"describe\",\"type\":\"string\"}],\"internalType\":\"structRoleAccess.Role[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"removeRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"updateVssConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"config\",\"type\":\"bytes\"}],\"name\":\"UpdateVaultConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const XConfigABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BLACKLISTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MANAGER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"NONCEOP_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"RESCUEOP_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VALIDATOR_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VaultConfigVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"VaultConfigs\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"VssConfigVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"VssConfigs\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"activeVssMemberList\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"addRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoles\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"describe\",\"type\":\"string\"}],\"internalType\":\"structRoleAccess.Role[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"grantMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nonceOp\",\"type\":\"address\"}],\"name\":\"grantNonceOp\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rescuer\",\"type\":\"address\"}],\"name\":\"grantRescuer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"}],\"name\":\"removeRoleMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"minter\",\"type\":\"address\"}],\"name\":\"revokeMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nonceOp\",\"type\":\"address\"}],\"name\":\"revokeNonceOp\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rescuer\",\"type\":\"address\"}],\"name\":\"revokeRescuer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"updateVssConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"config\",\"type\":\"bytes\"}],\"name\":\"UpdateVaultConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // XConfig is an auto generated Go binding around an Ethereum contract.
 type XConfig struct {
@@ -177,6 +177,68 @@ func (_XConfig *XConfigTransactorRaw) Transact(opts *bind.TransactOpts, method s
 	return _XConfig.Contract.contract.Transact(opts, method, params...)
 }
 
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "ADMIN_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) ADMINROLE() ([32]byte, error) {
+	return _XConfig.Contract.ADMINROLE(&_XConfig.CallOpts)
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) ADMINROLE() ([32]byte, error) {
+	return _XConfig.Contract.ADMINROLE(&_XConfig.CallOpts)
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) BLACKLISTERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "BLACKLISTER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) BLACKLISTERROLE() ([32]byte, error) {
+	return _XConfig.Contract.BLACKLISTERROLE(&_XConfig.CallOpts)
+}
+
+// BLACKLISTERROLE is a free data retrieval call binding the contract method 0xf515e6f2.
+//
+// Solidity: function BLACKLISTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) BLACKLISTERROLE() ([32]byte, error) {
+	return _XConfig.Contract.BLACKLISTERROLE(&_XConfig.CallOpts)
+}
+
 // DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
 //
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
@@ -206,6 +268,161 @@ func (_XConfig *XConfigSession) DEFAULTADMINROLE() ([32]byte, error) {
 // Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
 func (_XConfig *XConfigCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
 	return _XConfig.Contract.DEFAULTADMINROLE(&_XConfig.CallOpts)
+}
+
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) MANAGERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "MANAGER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) MANAGERROLE() ([32]byte, error) {
+	return _XConfig.Contract.MANAGERROLE(&_XConfig.CallOpts)
+}
+
+// MANAGERROLE is a free data retrieval call binding the contract method 0xec87621c.
+//
+// Solidity: function MANAGER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) MANAGERROLE() ([32]byte, error) {
+	return _XConfig.Contract.MANAGERROLE(&_XConfig.CallOpts)
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) MINTERROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "MINTER_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) MINTERROLE() ([32]byte, error) {
+	return _XConfig.Contract.MINTERROLE(&_XConfig.CallOpts)
+}
+
+// MINTERROLE is a free data retrieval call binding the contract method 0xd5391393.
+//
+// Solidity: function MINTER_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) MINTERROLE() ([32]byte, error) {
+	return _XConfig.Contract.MINTERROLE(&_XConfig.CallOpts)
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) NONCEOPROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "NONCEOP_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) NONCEOPROLE() ([32]byte, error) {
+	return _XConfig.Contract.NONCEOPROLE(&_XConfig.CallOpts)
+}
+
+// NONCEOPROLE is a free data retrieval call binding the contract method 0x1b9ade94.
+//
+// Solidity: function NONCEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) NONCEOPROLE() ([32]byte, error) {
+	return _XConfig.Contract.NONCEOPROLE(&_XConfig.CallOpts)
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) RESCUEOPROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "RESCUEOP_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) RESCUEOPROLE() ([32]byte, error) {
+	return _XConfig.Contract.RESCUEOPROLE(&_XConfig.CallOpts)
+}
+
+// RESCUEOPROLE is a free data retrieval call binding the contract method 0xf7bfd01d.
+//
+// Solidity: function RESCUEOP_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) RESCUEOPROLE() ([32]byte, error) {
+	return _XConfig.Contract.RESCUEOPROLE(&_XConfig.CallOpts)
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCaller) VALIDATORROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _XConfig.contract.Call(opts, &out, "VALIDATOR_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_XConfig *XConfigSession) VALIDATORROLE() ([32]byte, error) {
+	return _XConfig.Contract.VALIDATORROLE(&_XConfig.CallOpts)
+}
+
+// VALIDATORROLE is a free data retrieval call binding the contract method 0xc49baebe.
+//
+// Solidity: function VALIDATOR_ROLE() view returns(bytes32)
+func (_XConfig *XConfigCallerSession) VALIDATORROLE() ([32]byte, error) {
+	return _XConfig.Contract.VALIDATORROLE(&_XConfig.CallOpts)
 }
 
 // VaultConfigVersion is a free data retrieval call binding the contract method 0x11321ab8.
@@ -622,6 +839,69 @@ func (_XConfig *XConfigTransactorSession) AddRoleMember(role [32]byte, member co
 	return _XConfig.Contract.AddRoleMember(&_XConfig.TransactOpts, role, member)
 }
 
+// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+//
+// Solidity: function grantMinter(address minter) returns(bool)
+func (_XConfig *XConfigTransactor) GrantMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "grantMinter", minter)
+}
+
+// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+//
+// Solidity: function grantMinter(address minter) returns(bool)
+func (_XConfig *XConfigSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantMinter(&_XConfig.TransactOpts, minter)
+}
+
+// GrantMinter is a paid mutator transaction binding the contract method 0x261707fa.
+//
+// Solidity: function grantMinter(address minter) returns(bool)
+func (_XConfig *XConfigTransactorSession) GrantMinter(minter common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantMinter(&_XConfig.TransactOpts, minter)
+}
+
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigTransactor) GrantNonceOp(opts *bind.TransactOpts, nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "grantNonceOp", nonceOp)
+}
+
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigSession) GrantNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantNonceOp(&_XConfig.TransactOpts, nonceOp)
+}
+
+// GrantNonceOp is a paid mutator transaction binding the contract method 0x1fb55a7c.
+//
+// Solidity: function grantNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigTransactorSession) GrantNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantNonceOp(&_XConfig.TransactOpts, nonceOp)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigTransactor) GrantRescuer(opts *bind.TransactOpts, rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "grantRescuer", rescuer)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigSession) GrantRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantRescuer(&_XConfig.TransactOpts, rescuer)
+}
+
+// GrantRescuer is a paid mutator transaction binding the contract method 0x54375811.
+//
+// Solidity: function grantRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigTransactorSession) GrantRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.GrantRescuer(&_XConfig.TransactOpts, rescuer)
+}
+
 // GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
 // Solidity: function grantRole(bytes32 role, address account) returns()
@@ -704,6 +984,69 @@ func (_XConfig *XConfigSession) RenounceRole(role [32]byte, account common.Addre
 // Solidity: function renounceRole(bytes32 role, address account) returns()
 func (_XConfig *XConfigTransactorSession) RenounceRole(role [32]byte, account common.Address) (*types.Transaction, error) {
 	return _XConfig.Contract.RenounceRole(&_XConfig.TransactOpts, role, account)
+}
+
+// RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
+//
+// Solidity: function revokeMinter(address minter) returns(bool)
+func (_XConfig *XConfigTransactor) RevokeMinter(opts *bind.TransactOpts, minter common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "revokeMinter", minter)
+}
+
+// RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
+//
+// Solidity: function revokeMinter(address minter) returns(bool)
+func (_XConfig *XConfigSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeMinter(&_XConfig.TransactOpts, minter)
+}
+
+// RevokeMinter is a paid mutator transaction binding the contract method 0xcfbd4885.
+//
+// Solidity: function revokeMinter(address minter) returns(bool)
+func (_XConfig *XConfigTransactorSession) RevokeMinter(minter common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeMinter(&_XConfig.TransactOpts, minter)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigTransactor) RevokeNonceOp(opts *bind.TransactOpts, nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "revokeNonceOp", nonceOp)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigSession) RevokeNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeNonceOp(&_XConfig.TransactOpts, nonceOp)
+}
+
+// RevokeNonceOp is a paid mutator transaction binding the contract method 0x3fbab1f5.
+//
+// Solidity: function revokeNonceOp(address nonceOp) returns(bool)
+func (_XConfig *XConfigTransactorSession) RevokeNonceOp(nonceOp common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeNonceOp(&_XConfig.TransactOpts, nonceOp)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigTransactor) RevokeRescuer(opts *bind.TransactOpts, rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.contract.Transact(opts, "revokeRescuer", rescuer)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigSession) RevokeRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeRescuer(&_XConfig.TransactOpts, rescuer)
+}
+
+// RevokeRescuer is a paid mutator transaction binding the contract method 0x6f5b66dc.
+//
+// Solidity: function revokeRescuer(address rescuer) returns(bool)
+func (_XConfig *XConfigTransactorSession) RevokeRescuer(rescuer common.Address) (*types.Transaction, error) {
+	return _XConfig.Contract.RevokeRescuer(&_XConfig.TransactOpts, rescuer)
 }
 
 // RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.

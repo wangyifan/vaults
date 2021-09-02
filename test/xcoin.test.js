@@ -35,7 +35,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(addresses.includes(xOwner)).to.equal(true);
 
         // grant minter
-        result = await this.xcoin.GrantMinter(this.minter.address, ether1b, {from: xOwner});
+        result = await this.xcoin.GrantMinterLimit(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);
@@ -44,11 +44,11 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
 
         // minter and user can not grant
         result = await expectRevert(
-            this.xcoin.GrantMinter(this.minter.address, ether1b, {from: this.minter.address}),
+            this.xcoin.GrantMinterLimit(this.minter.address, ether1b, {from: this.minter.address}),
             "Caller is not a admin"
         );
         result = await expectRevert(
-            this.xcoin.GrantMinter(this.minter.address, ether1b, {from: user}),
+            this.xcoin.GrantMinterLimit(this.minter.address, ether1b, {from: user}),
             "Caller is not a admin"
         );
 
@@ -132,7 +132,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         );
 
         // grant minter
-        result = await this.xcoin.GrantMinter(this.minter.address, ether1b, {from: xOwner});
+        result = await this.xcoin.GrantMinterLimit(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);
@@ -347,7 +347,7 @@ contract('XCoin', function ([ xOwner, minterOwner, user, user2 ]) {
         expect(balance.toString()).to.equal("0");
 
         // grant minter
-        result = await this.xcoin.GrantMinter(this.minter.address, ether1b, {from: xOwner});
+        result = await this.xcoin.GrantMinterLimit(this.minter.address, ether1b, {from: xOwner});
         addresses = await this.xcoin.getMinters();
         expect(addresses.length).to.equal(2);
         expect(addresses.includes(xOwner)).to.equal(true);
